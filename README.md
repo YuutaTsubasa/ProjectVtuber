@@ -1,7 +1,7 @@
 # ProjectVtuber
 
 一年份的 Blender 每日學習計畫。零基礎起步，終點是一隻能在
-[VtuberProject](https://github.com/YuutaTsubasa) (Unity + NiloToon) 裡
+`~/Repos/VtuberProject`（Unity 6 + URP + NiloToon） 裡
 被 iPhone 臉部追蹤驅動的 3D Vtuber 模型。
 
 ## 怎麼用
