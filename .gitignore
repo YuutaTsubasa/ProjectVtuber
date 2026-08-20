@@ -1,0 +1,11 @@
+# Blender automatic backups
+*.blend1
+*.blend2
+*.blend@
+
+# macOS
+.DS_Store
+
+# Render output
+renders/
+*.exr
