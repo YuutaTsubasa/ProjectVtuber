@@ -15,6 +15,12 @@
 - Curriculum 可以依實際表現調整，但重大改動先說明原因。
 - 若教材連結或版本失效，選擇同級替代教材並把理由記入 STATUS，不硬套舊步驟。
 
+## Lecture pages
+
+每一天的流程教學講義由 `daily-lecture` skill 產生，輸出到 `lectures/p<N>/day<NN>.html`。
+
+講義是導航不是代做：主線只寫「要達成什麼」，完整按鍵步驟鎖在摺疊區。詳細規則見 `.claude/skills/daily-lecture/SKILL.md`。
+
 ## Assessment
 
 `tools/inspect_blend.py` 是 observation tool，不是完整自動評分器。
