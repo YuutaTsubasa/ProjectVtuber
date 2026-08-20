@@ -1,0 +1,516 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Day 2 · 用 Primitive 組合造型 · ProjectVtuber</title>
+<style>
+:root{
+  --bg:#f7f5f1; --surface:#fffdfa; --surface-2:#f0ece5; --line:#ddd6ca;
+  --text:#221f1a; --muted:#6b6459; --accent:#d2691e; --accent-soft:#fbe9d7;
+  --ok:#2f7d4f; --ok-soft:#e2f2e8; --warn:#a8621b; --warn-soft:#fbeddc;
+  --key-bg:#efe9df; --key-line:#c9c0b1;
+  --radius:12px; --maxw:56rem;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#17161a; --surface:#201e24; --surface-2:#2a272e; --line:#3a3641;
+    --text:#eae6e0; --muted:#a29b93; --accent:#f0954a; --accent-soft:#3a2a1c;
+    --ok:#79d19b; --ok-soft:#1e3428; --warn:#e8b169; --warn-soft:#3a2e1c;
+    --key-bg:#2f2b34; --key-line:#4a4552;
+  }
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; padding:0 1.1rem 5rem;
+  background:var(--bg); color:var(--text);
+  font-family:"Noto Sans TC","Hiragino Sans","Microsoft JhengHei",system-ui,-apple-system,"Segoe UI",sans-serif;
+  font-size:17px; line-height:1.85; letter-spacing:.01em;
+}
+.wrap{max-width:var(--maxw); margin:0 auto}
+a{color:var(--accent)}
+
+/* ---------- header ---------- */
+header.hero{padding:2.4rem 0 1.4rem; border-bottom:2px solid var(--line)}
+.eyebrow{
+  display:inline-block; font-size:.8rem; letter-spacing:.14em;
+  color:var(--accent); background:var(--accent-soft);
+  padding:.2rem .7rem; border-radius:999px; font-weight:700;
+}
+h1{font-size:clamp(1.6rem,4.4vw,2.3rem); line-height:1.3; margin:.7rem 0 .5rem}
+h1 .day{color:var(--muted); font-weight:600}
+.meta{display:flex; flex-wrap:wrap; gap:.4rem .9rem; color:var(--muted); font-size:.9rem; margin-bottom:1rem}
+.goal{
+  background:var(--surface); border:1px solid var(--line); border-left:4px solid var(--accent);
+  border-radius:var(--radius); padding:.9rem 1.1rem; margin:0;
+}
+.goal strong{color:var(--accent)}
+
+/* ---------- progress ---------- */
+.progress{
+  position:sticky; top:0; z-index:20; background:var(--bg);
+  padding:.7rem 0 .6rem; border-bottom:1px solid var(--line);
+  display:flex; align-items:center; gap:.75rem; flex-wrap:wrap;
+}
+.bar{flex:1 1 8rem; height:8px; background:var(--surface-2); border-radius:999px; overflow:hidden}
+.bar>i{display:block; height:100%; width:0; background:var(--accent); transition:width .25s ease}
+.progress .count{font-size:.85rem; color:var(--muted); font-variant-numeric:tabular-nums}
+.progress button{
+  font:inherit; font-size:.82rem; color:var(--muted); background:var(--surface);
+  border:1px solid var(--line); border-radius:999px; padding:.2rem .7rem; cursor:pointer;
+}
+.progress button:hover{color:var(--accent); border-color:var(--accent)}
+
+/* ---------- sections ---------- */
+section{margin:2.6rem 0}
+h2{
+  font-size:1.22rem; margin:0 0 .9rem; padding-bottom:.4rem;
+  border-bottom:1px solid var(--line); display:flex; align-items:baseline; gap:.55rem;
+}
+h2 .n{color:var(--accent); font-variant-numeric:tabular-nums; font-size:.95rem}
+h3{font-size:1.02rem; margin:1.4rem 0 .4rem}
+p{margin:.6rem 0}
+.lede{color:var(--muted)}
+
+.card{background:var(--surface); border:1px solid var(--line); border-radius:var(--radius); padding:1rem 1.15rem; margin:.8rem 0}
+.card>:first-child{margin-top:0}
+.card>:last-child{margin-bottom:0}
+.card.accent{border-left:4px solid var(--accent)}
+.card.ok{border-left:4px solid var(--ok); background:var(--ok-soft)}
+.card.warn{border-left:4px solid var(--warn); background:var(--warn-soft)}
+.card h3{margin-top:0}
+
+/* ---------- tables ---------- */
+.scroll{overflow-x:auto; -webkit-overflow-scrolling:touch; margin:.8rem 0}
+table{border-collapse:collapse; width:100%; min-width:30rem; font-size:.95rem}
+th,td{text-align:left; padding:.55rem .7rem; border-bottom:1px solid var(--line); vertical-align:top}
+th{font-size:.82rem; letter-spacing:.06em; color:var(--muted); font-weight:700}
+tbody tr:last-child td{border-bottom:none}
+kbd{
+  display:inline-block; font-family:ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace;
+  font-size:.85em; background:var(--key-bg); border:1px solid var(--key-line);
+  border-bottom-width:2px; border-radius:6px; padding:.1rem .42rem; white-space:nowrap;
+}
+.new-tag{font-size:.7rem; color:var(--accent); background:var(--accent-soft); border-radius:4px; padding:.05rem .35rem; margin-left:.35rem; vertical-align:.1em}
+
+/* ---------- guided steps ---------- */
+ol.steps{list-style:none; counter-reset:s; padding:0; margin:0}
+ol.steps>li{
+  counter-increment:s; position:relative; padding:0 0 1.4rem 2.6rem; margin:0 0 0 .85rem;
+  border-left:2px solid var(--line);
+}
+ol.steps>li:last-child{border-left-color:transparent; padding-bottom:.2rem}
+ol.steps>li::before{
+  content:counter(s); position:absolute; left:-.95rem; top:0;
+  width:1.85rem; height:1.85rem; border-radius:50%;
+  background:var(--surface); border:2px solid var(--accent); color:var(--accent);
+  font-size:.85rem; font-weight:700; display:grid; place-items:center;
+}
+ol.steps>li>.what{font-weight:700; display:block; margin-bottom:.15rem}
+ol.steps>li>.hint{color:var(--muted); font-size:.94rem; margin:.15rem 0 .5rem}
+
+/* ---------- collapsibles ---------- */
+details{
+  background:var(--surface); border:1px solid var(--line); border-radius:10px;
+  padding:.1rem .9rem; margin:.5rem 0;
+}
+details[open]{background:var(--surface-2)}
+summary{
+  cursor:pointer; list-style:none; padding:.55rem 0; font-size:.93rem;
+  font-weight:600; color:var(--muted); display:flex; align-items:center; gap:.45rem;
+}
+summary::-webkit-details-marker{display:none}
+summary::before{content:"\25B8"; color:var(--accent); font-size:.9em; transition:transform .15s ease}
+details[open]>summary::before{transform:rotate(90deg)}
+details[open]>summary{color:var(--text)}
+details>:not(summary){font-size:.96rem}
+details>:last-child{margin-bottom:.7rem}
+details.answer>summary::before{content:"\1F512"}
+details.answer[open]>summary::before{content:"\1F513"; transform:none}
+
+/* ---------- checklist ---------- */
+ul.check{list-style:none; padding:0; margin:.5rem 0}
+ul.check li{
+  display:flex; gap:.7rem; align-items:flex-start;
+  background:var(--surface); border:1px solid var(--line); border-radius:10px;
+  padding:.65rem .85rem; margin:.45rem 0; transition:opacity .2s;
+}
+ul.check input[type=checkbox]{
+  appearance:none; -webkit-appearance:none; flex:0 0 auto;
+  width:1.25rem; height:1.25rem; margin:.28rem 0 0; cursor:pointer;
+  border:2px solid var(--key-line); border-radius:6px; background:var(--bg);
+}
+ul.check input[type=checkbox]:checked{background:var(--ok); border-color:var(--ok)}
+ul.check input[type=checkbox]:checked::after{content:"\2713"; color:#fff; display:block; text-align:center; line-height:1.05rem; font-size:.9rem; font-weight:700}
+ul.check input[type=checkbox]:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+ul.check li.done{opacity:.55}
+ul.check li.done label{text-decoration:line-through}
+ul.check label{cursor:pointer}
+
+/* ---------- misc ---------- */
+code.path{font-family:ui-monospace,Menlo,Consolas,monospace; font-size:.88em; background:var(--surface-2); border:1px solid var(--line); border-radius:5px; padding:.08rem .35rem}
+pre{background:var(--surface-2); border:1px solid var(--line); border-radius:10px; padding:.8rem 1rem; overflow-x:auto; font-size:.88rem; line-height:1.6}
+blockquote{margin:.8rem 0; padding:.2rem 0 .2rem 1rem; border-left:3px solid var(--line); color:var(--muted)}
+footer{margin:3.5rem 0 0; padding-top:1.2rem; border-top:1px solid var(--line); color:var(--muted); font-size:.85rem}
+
+@media (max-width:480px){
+  body{font-size:16px; padding:0 .85rem 4rem}
+  ol.steps>li{padding-left:2.1rem}
+}
+@media print{
+  :root{--bg:#fff; --surface:#fff; --surface-2:#f4f4f4; --line:#bbb; --text:#000; --muted:#444}
+  body{font-size:11pt}
+  .progress{display:none}
+  details{break-inside:avoid}
+  section{break-inside:avoid-page}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <span class="eyebrow">P1 · Blender 基礎</span>
+  <h1><span class="day">Day 2 ·</span> 用 Primitive 組合造型</h1>
+  <div class="meta">
+    <span>建議時間 35–55 分鐘</span>
+    <span>存檔 <code class="path">work/p1/day02.blend</code></span>
+    <span>建模 Quest ＋ 遷移挑戰</span>
+  </div>
+  <p class="goal"><strong>今日目標：</strong>只用現成的 primitive，組出一個看得出是機器人或雪人的東西——重複的零件用複製產生，不是重加一次。</p>
+</header>
+
+<div class="progress">
+  <span class="count" id="pcount" role="status" aria-live="polite">0 / 0</span>
+  <span class="bar"><i id="pbar"></i></span>
+  <button type="button" id="toggle-all">全部展開</button>
+  <button type="button" id="reset">重設勾選</button>
+</div>
+
+<!-- ===== 01 為什麼 ===== -->
+<section id="why">
+  <h2><span class="n">01</span>為什麼今天要學這個</h2>
+  <p>Day 1 你已經能把一個物件搬到想要的位置。但真正的作品不會只有一顆球——它是一堆零件被安排在對的地方。零件一多，會冒出三個 Day 1 不存在的問題。</p>
+  <p>第一，<strong>新的零件會出現在哪裡？</strong>你按下新增之後，它不一定落在畫面中央，也不一定在原點。Blender 有一個明確的「放置點」在決定這件事，不知道它在哪，就會一直覺得物件亂跑。</p>
+  <p>第二，<strong>一模一樣的零件要怎麼來？</strong>機器人的兩隻手臂應該等長等粗。重新加一次再手動調到「看起來差不多」，永遠會差一點，而且改設計時要改兩次。</p>
+  <p>第三，<strong>「往上」是誰的上？</strong>當一個零件被你轉了 30 度，你叫它往上，它可能往斜的跑。這不是 Blender 壞了，是它在問你講的是世界的上，還是這個零件自己的上。</p>
+  <div class="card accent">
+    <h3>用一句話記住</h3>
+    <p>今天不學新形狀，學的是「一批現成零件怎麼被安排成一個東西」。</p>
+  </div>
+</section>
+
+<!-- ===== 02 核心概念 ===== -->
+<section id="concepts">
+  <h2><span class="n">02</span>核心概念</h2>
+  <div class="card">
+    <h3>新物件出現在 3D Cursor，不是畫面中央</h3>
+    <p>那個紅白相間的小圈圈就是 3D Cursor，它是 Blender 的「放置點」。你新增的每一個 primitive 都會生在它身上。常見誤解是以為新物件固定出現在世界原點——其實只要你不小心點過一次，它就搬家了，之後加的東西全部跟著歪。</p>
+    <details>
+      <summary>再深入一點（選讀）</summary>
+      <p>3D Cursor 除了決定新物件的位置，也可以當旋轉與縮放的中心點。今天用不到那個用法，只要記得「它在哪，新東西就生在哪」，以及怎麼把它送回原點就夠了。</p>
+    </details>
+  </div>
+  <div class="card">
+    <h3>Duplicate 不只是省時間，是保證一致</h3>
+    <p>需要兩隻一樣的手臂時，正確做法是做好一隻再複製，而不是加兩次再各自調整。複製出來的副本尺寸、比例、旋轉都與原件完全相同，你只要負責把它移到對的位置。</p>
+    <details>
+      <summary>再深入一點（選讀）</summary>
+      <p>Blender 有兩種複製：一種產生獨立的副本，改了不會互相影響；另一種讓副本共用同一份 mesh 資料，改任何一個其他都會跟著變。今天兩種都可以用，但要知道自己用的是哪一種——不然之後改了一邊，另一邊沒動（或全部一起動）都會很困惑。</p>
+    </details>
+  </div>
+  <div class="card">
+    <h3>Global 與 Local：「上」有兩個意思</h3>
+    <p>Global 是世界的座標軸，永遠不動；Local 是物件自己的座標軸，會跟著它一起轉。零件沒轉過的時候兩者重合，所以 Day 1 感覺不到差別。一旦零件斜了，你就必須決定要沿哪一組軸移動。斜著長出來的手臂要往「自己的長度方向」延伸時，用的是 Local。</p>
+    <details>
+      <summary>再深入一點（選讀）</summary>
+      <p>除了這兩種，Blender 還有 Normal、View 等其他 orientation。原理都一樣：先決定「以誰為準」，再談方向。今天只要能分辨世界的軸和物件自己的軸即可。</p>
+    </details>
+  </div>
+  <div class="card">
+    <h3>Object Mode 是在排零件，不是在改形狀</h3>
+    <p>今天全程待在 Object Mode。你在做的事情是「把現成的形狀擺到對的位置、調成對的大小」，不是去動它的點線面。另一個常見誤解是覺得零件要「合併成一個」才算完成——不需要，各自獨立的多個物件同樣是一個完整的模型。</p>
+    <details>
+      <summary>再深入一點（選讀）</summary>
+      <p>進 Edit Mode 改點線面是明天的事。今天刻意把手綁起來，是為了讓你先把「用簡單形狀組合出複雜東西」這件事練起來——這個思路在之後做角色時一樣有用。</p>
+    </details>
+  </div>
+</section>
+
+<!-- ===== 03 快捷鍵 ===== -->
+<section id="keys">
+  <h2><span class="n">03</span>今日快捷鍵</h2>
+  <p class="lede">先看「解決什麼問題」那一欄，不要背按鍵。</p>
+  <div class="scroll">
+    <table>
+      <thead><tr><th>按鍵</th><th>動作</th><th>解決什麼問題</th></tr></thead>
+      <tbody>
+        <tr><td><kbd>Shift</kbd>+<kbd>A</kbd><span class="new-tag">新</span></td><td>叫出 Add 選單</td><td>要把新的 primitive 放進場景時</td></tr>
+        <tr><td><kbd>Shift</kbd>+<kbd>D</kbd><span class="new-tag">新</span></td><td>Duplicate：複製成獨立副本</td><td>同一個零件要出現很多次，且各自可以微調</td></tr>
+        <tr><td><kbd>Alt</kbd>+<kbd>D</kbd><span class="new-tag">新</span></td><td>Duplicate Linked：複製但共用 mesh</td><td>想之後改一個、其他全部跟著改</td></tr>
+        <tr><td><kbd>Shift</kbd>+<kbd>C</kbd><span class="new-tag">新</span></td><td>3D Cursor 歸零並拉遠視角</td><td>新物件開始出現在奇怪的地方時，先把放置點救回原點</td></tr>
+        <tr><td><kbd>Shift</kbd>+<kbd>S</kbd><span class="new-tag">新</span></td><td>叫出 Snap 選單</td><td>只想把 Cursor 歸零、不想連視角一起動時</td></tr>
+        <tr><td><kbd>G</kbd> <kbd>X</kbd> <kbd>X</kbd><span class="new-tag">新</span></td><td>沿物件自己的 X 軸移動（連按兩次軸鍵）</td><td>零件被轉過角度，要沿它自己的方向移動時</td></tr>
+        <tr><td><kbd>G</kbd> / <kbd>R</kbd> / <kbd>S</kbd></td><td>移動 / 旋轉 / 縮放</td><td>Day 1 已學：把零件擺到對的位置與大小</td></tr>
+        <tr><td><kbd>Numpad 1</kbd> / <kbd>3</kbd> / <kbd>7</kbd></td><td>前 / 側 / 上視圖</td><td>Day 1 已學：檢查零件有沒有在別的角度飄空</td></tr>
+        <tr><td><kbd>Ctrl</kbd>+<kbd>Z</kbd></td><td>Undo</td><td>Day 1 已學：擺壞了退回去</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ===== 04 今日 Quest ===== -->
+<section id="quest">
+  <h2><span class="n">04</span>今日 Quest</h2>
+  <div class="card accent">
+    <h3>用 primitive 組一個機器人或雪人</h3>
+    <p>只使用 primitives 做一個簡單機器人或雪人。不要追求漂亮。</p>
+    <p class="lede">「不要追求漂亮」是課程原文，不是客套。今天驗的是你能不能安排零件，不是造型品味。</p>
+  </div>
+  <div class="card warn">
+    <h3>遷移挑戰</h3>
+    <p>最後再加入一個你自己決定的零件，不照任何步驟。</p>
+    <p class="lede">這一段不提供步驟。做不出來就記下卡在哪裡，回報時討論。</p>
+  </div>
+</section>
+
+<!-- ===== 05 操作流程 ===== -->
+<section id="flow">
+  <h2><span class="n">05</span>操作流程</h2>
+  <p class="lede">每一步先看「要達成什麼」，自己試兩分鐘再展開詳解。展開不扣分，直接展開才會少學東西。</p>
+  <ol class="steps">
+    <li>
+      <span class="what">先決定做機器人還是雪人，並數出它由哪幾種形狀組成</span>
+      <p class="hint">不用畫草圖。心裡能數出「幾顆球、幾個方塊、幾根柱子」就可以開始了。</p>
+      <details class="answer">
+        <summary>展開詳細操作</summary>
+        <p>雪人比較快：兩到三顆 UV Sphere 疊起來，加上兩顆小球當眼睛、一個細長的 Cylinder 當手臂。機器人零件多一點：Cube 當身體與頭、Cylinder 當四肢與脖子。</p>
+        <p>建議控制在 5–8 個零件。太少練不到安排，太多會做不完。</p>
+      </details>
+    </li>
+    <li>
+      <span class="what">確認新零件會生在你預期的位置</span>
+      <p class="hint">新增的東西不是憑空出現在畫面中央。場景裡有一個小標記在決定落點，先確定它在原點。</p>
+      <details class="answer">
+        <summary>展開詳細操作</summary>
+        <p>找畫面中那個紅白虛線的小圈圈，就是 3D Cursor。按 <kbd>Shift</kbd>+<kbd>C</kbd> 會把它送回世界原點並把視角拉遠到看得見全部；如果你不想動到視角，改用 <kbd>Shift</kbd>+<kbd>S</kbd> 叫出 Snap 選單，選 <strong>Cursor to World Origin</strong>。</p>
+        <p>順帶記住：在 Viewport 裡按 <kbd>Shift</kbd>+滑鼠右鍵 就會把 Cursor 移到該處——很多「物件為什麼跑到那裡」都是不小心按到這個。</p>
+      </details>
+    </li>
+    <li>
+      <span class="what">放進最大的那一塊當身體</span>
+      <p class="hint">先做最大的零件，後面所有零件的比例才有東西可以參考。</p>
+      <details class="answer">
+        <summary>展開詳細操作</summary>
+        <p><kbd>Shift</kbd>+<kbd>A</kbd> ▸ <strong>Mesh</strong> ▸ 選 UV Sphere 或 Cube。</p>
+        <p>加進來之後，畫面<strong>左下角</strong>會出現一個可以展開的 <strong>Add</strong> 面板，裡面能直接改半徑、大小、Segments。這個面板只在你做下一個動作之前有效，點掉就不能再叫回來了——想改就得重加或改用 <kbd>S</kbd> 縮放。</p>
+      </details>
+    </li>
+    <li>
+      <span class="what">把重複出現的零件複製出來，而不是重新加一次</span>
+      <p class="hint">兩隻手臂應該完全一樣。想想「先做好一隻」跟「加兩次各自調」哪一種能保證一致。</p>
+      <details class="answer">
+        <summary>展開詳細操作</summary>
+        <p>選好做完的那一隻，<kbd>Shift</kbd>+<kbd>D</kbd> 複製，接著<strong>直接打軸向</strong>把副本移開，例如 <kbd>Shift</kbd>+<kbd>D</kbd> <kbd>X</kbd> <kbd>2</kbd> <kbd>Enter</kbd>。複製完 Blender 就在等你移動，這時按左鍵或 <kbd>Esc</kbd> 會讓副本停在原地與原件重疊。</p>
+        <p>要左右對稱的話，複製後打 <kbd>S</kbd> <kbd>X</kbd> <kbd>-1</kbd> <kbd>Enter</kbd> 可以沿 X 軸鏡射。</p>
+        <p>若你想「改一個、全部跟著改」，改用 <kbd>Alt</kbd>+<kbd>D</kbd>。今天兩種都可以，但要清楚自己用了哪一種。</p>
+      </details>
+    </li>
+    <li>
+      <span class="what">處理「轉過角度的零件要怎麼移動」</span>
+      <p class="hint">把一隻手臂轉斜之後，叫它往上，它會往斜的跑。先想想 Blender 這時候在問你什麼。</p>
+      <details class="answer">
+        <summary>展開詳細操作</summary>
+        <p>先用 <kbd>R</kbd> 把手臂轉個角度，再試 <kbd>G</kbd> <kbd>Z</kbd>——它沿的是<strong>世界</strong>的 Z 軸。想沿手臂自己的方向，把軸鍵<strong>連按兩次</strong>：<kbd>G</kbd> <kbd>Z</kbd> <kbd>Z</kbd>。</p>
+        <p>畫面上方中間的 <strong>Transform Orientation</strong> 下拉選單（預設 Global）顯示的就是目前以誰為準。連按兩次軸鍵等於臨時切到 Local，不會改變那個設定。</p>
+      </details>
+    </li>
+    <li>
+      <span class="what">從幾個正交視角檢查比例與接合處</span>
+      <p class="hint">正面看起來貼合的兩個零件，從側面看常常是一個在前、一個在後，中間空的。</p>
+      <details class="answer">
+        <summary>展開詳細操作</summary>
+        <p><kbd>Numpad 1</kbd>（前）、<kbd>Numpad 3</kbd>（側）、<kbd>Numpad 7</kbd>（上）輪流看過一次。手臂有沒有插進身體、頭有沒有浮在脖子上方，只有換角度才看得出來。</p>
+        <p>零件之間<strong>稍微插進去</strong>是好事，不要追求剛好碰到——留縫隙在算圖時會看到破面。</p>
+      </details>
+    </li>
+    <li>
+      <span class="what">遷移挑戰：自己決定並加上一個零件</span>
+      <p class="hint">這一步沒有詳解可以展開。帽子、圍巾、天線、第三隻手都可以，重點是你自己決定要什麼、自己判斷用哪個 primitive 做得出來。</p>
+    </li>
+    <li>
+      <span class="what">存到指定路徑</span>
+      <p class="hint">路徑和檔名都要正確，之後的自檢會照這個路徑找檔案。</p>
+      <details class="answer">
+        <summary>展開詳細操作</summary>
+        <p><kbd>Ctrl</kbd>+<kbd>S</kbd>，存到 <code class="path">work/p1/day02.blend</code>。存好之後視窗標題列會顯示檔名。</p>
+      </details>
+    </li>
+  </ol>
+</section>
+
+<!-- ===== 06 驗收 ===== -->
+<section id="accept">
+  <h2><span class="n">06</span>驗收標準</h2>
+  <p class="lede">全部打勾才算今天通過。勾選狀態存在這台裝置的瀏覽器裡。</p>
+  <ul class="check">
+    <li><input type="checkbox" id="c1"><label for="c1">只使用 primitives 完成一個簡單機器人或雪人（沒有進 Edit Mode 改點線面）。</label></li>
+    <li><input type="checkbox" id="c2"><label for="c2">最後加上的那個零件是你自己決定的，沒有照任何步驟。</label></li>
+    <li><input type="checkbox" id="c3"><label for="c3">存到 <code class="path">work/p1/day02.blend</code>。</label></li>
+  </ul>
+</section>
+
+<!-- ===== 07 卡住了 ===== -->
+<section id="stuck">
+  <h2><span class="n">07</span>卡住了？</h2>
+  <p class="lede">照症狀找，先自我診斷，答案在第二層。</p>
+  <details>
+    <summary>新加的零件不見了，或跑到很遠的地方</summary>
+    <p>新物件的落點取決於場景裡的一個小標記，而那個標記會被某個很容易誤按的操作移動。回想一下你剛剛在 Viewport 裡按了什麼。</p>
+    <details class="answer">
+      <summary>還是不行，看答案</summary>
+      <p>3D Cursor 被移走了——多半是按到 <kbd>Shift</kbd>+滑鼠右鍵。按 <kbd>Shift</kbd>+<kbd>C</kbd> 送回原點（視角會一起拉遠），或 <kbd>Shift</kbd>+<kbd>S</kbd> ▸ <strong>Cursor to World Origin</strong> 只動 Cursor。已經加歪的零件用 <kbd>G</kbd> 搬回來就好，不用刪掉重加。</p>
+    </details>
+  </details>
+  <details>
+    <summary>複製出來的零件跟原件疊在一起，怎麼選都選到同一個</summary>
+    <p>複製完成的瞬間，Blender 其實正在等你做一件事。想想你那時候按了什麼把它中斷掉。</p>
+    <details class="answer">
+      <summary>還是不行，看答案</summary>
+      <p>複製後 Blender 直接進入移動狀態，這時按 <kbd>Esc</kbd> 或右鍵會讓副本留在原地重疊。副本仍然存在且是被選取的，直接按 <kbd>G</kbd> 加軸向就能把它拉開。選不到想要的那一個時，去右上角 <strong>Outliner</strong> 點名稱來選最可靠。</p>
+    </details>
+  </details>
+  <details>
+    <summary>叫零件往上，它卻往斜的方向跑</summary>
+    <p>這個零件是不是被你轉過角度？如果是，「上」這個字對它和對世界來說已經不是同一個方向了。</p>
+    <details class="answer">
+      <summary>還是不行，看答案</summary>
+      <p>你用的是 Global 軸，但想要的是 Local。把軸鍵連按兩次即可：<kbd>G</kbd> <kbd>Z</kbd> <kbd>Z</kbd> 沿零件自己的 Z 軸移動。<kbd>R</kbd> 和 <kbd>S</kbd> 也適用同一個規則。</p>
+    </details>
+  </details>
+  <details>
+    <summary>想選後面那個零件，怎麼點都選到前面的</summary>
+    <p>你不一定要在 3D Viewport 裡點它。畫面上還有另一個地方列出了場景中的所有物件。</p>
+    <details class="answer">
+      <summary>還是不行，看答案</summary>
+      <p>右上角的 <strong>Outliner</strong> 會列出所有物件，點名稱就能選到被擋住的那個。另一個方法是在同一個位置<strong>連續點左鍵</strong>，Blender 會在重疊的物件之間輪流切換。建議順手把零件改成看得懂的名字（在 Outliner 上按兩下名稱），零件一多會差很多。</p>
+    </details>
+  </details>
+</section>
+
+<!-- ===== 08 常見錯誤 ===== -->
+<section id="pitfalls">
+  <h2><span class="n">08</span>常見錯誤</h2>
+  <div class="scroll">
+    <table>
+      <thead><tr><th>常見做法</th><th>為什麼有問題</th><th>改成</th></tr></thead>
+      <tbody>
+        <tr><td>每個重複零件都重新 Add 一次</td><td>兩邊的尺寸與角度很難調到一致，改設計時要改很多次</td><td>做好一個再 Duplicate，副本天生就跟原件一樣</td></tr>
+        <tr><td>形狀不夠好看就想進 Edit Mode 改點</td><td>今天的題目用 primitive 參數加 Transform 就夠了，太早進 Edit Mode 會把簡單的事變複雜</td><td>用 <kbd>S</kbd> 調比例，或重加時在左下角 Add 面板調 Segments</td></tr>
+        <tr><td>覺得零件要合併成一個物件才算完成</td><td>今天不需要合併，多個獨立物件同樣是一個完整模型</td><td>保持各自獨立，在 Object Mode 排好位置就好</td></tr>
+        <tr><td>為了做得好看卡在細節上</td><td>curriculum 明寫「不要追求漂亮」，今天驗的是安排零件的能力</td><td>時間到了就存檔收工，醜沒有關係</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ===== 09 完成後 ===== -->
+<section id="report">
+  <h2><span class="n">09</span>完成後回報</h2>
+  <p>存檔到 <code class="path">work/p1/day02.blend</code>，然後回報下面三題。答得出來比做得漂亮重要。</p>
+  <ol>
+    <li>你的模型由幾個零件組成？其中哪些是複製出來的、哪些是重新加的？</li>
+    <li>你為什麼選這個 primitive 當身體（或當頭），而不是另一種？如果換成別的形狀，你覺得會卡在哪裡？</li>
+    <li>有沒有哪個零件你叫它往某個方向移動、它卻往別的方向跑？當時你怎麼判斷出問題在哪？</li>
+  </ol>
+  <div class="card">
+    <h3>自檢指令（選用）</h3>
+    <pre>blender -b work/p1/day02.blend --python tools/inspect_blend.py</pre>
+    <p class="lede">這只是客觀觀察，不是評分結果。腳本沒報錯不等於通過。</p>
+  </div>
+</section>
+
+<footer>
+  <p>ProjectVtuber · P1 · Blender 基礎 · Day 2　|　Day N = 完成的第 N 個學習任務，不是日期。做不完就停在可恢復的位置，下次接續。</p>
+</footer>
+
+</div>
+
+<script>
+(function () {
+  var KEY = 'pv-lecture-p1-day02';
+  var boxes = Array.prototype.slice.call(document.querySelectorAll('ul.check input[type=checkbox]'));
+  var bar = document.getElementById('pbar');
+  var count = document.getElementById('pcount');
+
+  // 以驗收條目的「文字內容」當 key。
+  //
+  // 不用陣列索引，也不用 id——id 是 c1, c2… 這種位置編號，
+  // 講義重新產生時在前面插入一條，新條目就會拿到 c1、舊 c1 變 c2，
+  // 用 id 當 key 一樣會整排位移。
+  //
+  // 用文字當 key 的話：條目沒動就保留勾選；條目被改寫則視為新要求，
+  // 重新確認一次本來就比較合理。
+  function keyOf(b) {
+    var li = b.closest('li');
+    var label = li ? li.querySelector('label') : null;
+    return ((label && label.textContent) || b.id || '').replace(/\s+/g, ' ').trim();
+  }
+  function save() {
+    try {
+      var state = {};
+      boxes.forEach(function (b) { state[keyOf(b)] = b.checked; });
+      localStorage.setItem(KEY, JSON.stringify(state));
+    } catch (e) {}
+  }
+  function load() {
+    try {
+      var v = JSON.parse(localStorage.getItem(KEY) || '{}');
+      if (!v || typeof v !== 'object' || Array.isArray(v)) return;
+      boxes.forEach(function (b) { b.checked = !!v[keyOf(b)]; });
+    } catch (e) {}
+  }
+  function render() {
+    var done = 0;
+    boxes.forEach(function (b) {
+      if (b.checked) done++;
+      var li = b.closest('li');
+      if (li) li.classList.toggle('done', b.checked);
+    });
+    count.textContent = done + ' / ' + boxes.length;
+    bar.style.width = (boxes.length ? done / boxes.length * 100 : 0) + '%';
+  }
+
+  boxes.forEach(function (b) {
+    b.addEventListener('change', function () { save(); render(); });
+  });
+  document.getElementById('reset').addEventListener('click', function () {
+    boxes.forEach(function (b) { b.checked = false; });
+    save(); render();
+  });
+
+  var toggle = document.getElementById('toggle-all');
+  toggle.addEventListener('click', function () {
+    var all = Array.prototype.slice.call(document.querySelectorAll('details'));
+    var open = all.some(function (d) { return !d.open; });
+    all.forEach(function (d) { d.open = open; });
+    toggle.textContent = open ? '全部收合' : '全部展開';
+  });
+
+  var reopened = [];
+  window.addEventListener('beforeprint', function () {
+    reopened = Array.prototype.slice.call(document.querySelectorAll('details:not([open])'));
+    reopened.forEach(function (d) { d.open = true; });
+  });
+  window.addEventListener('afterprint', function () {
+    reopened.forEach(function (d) { d.open = false; });
+    reopened = [];
+  });
+
+  load();
+  render();
+})();
+</script>
+</body>
+</html>
