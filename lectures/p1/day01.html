@@ -1,0 +1,548 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Day 1 · Viewport 與 Transform · ProjectVtuber</title>
+<style>
+:root{
+  --bg:#f7f5f1; --surface:#fffdfa; --surface-2:#f0ece5; --line:#ddd6ca;
+  --text:#221f1a; --muted:#6b6459; --accent:#d2691e; --accent-soft:#fbe9d7;
+  --ok:#2f7d4f; --ok-soft:#e2f2e8; --warn:#a8621b; --warn-soft:#fbeddc;
+  --key-bg:#efe9df; --key-line:#c9c0b1;
+  --radius:12px; --maxw:56rem;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#17161a; --surface:#201e24; --surface-2:#2a272e; --line:#3a3641;
+    --text:#eae6e0; --muted:#a29b93; --accent:#f0954a; --accent-soft:#3a2a1c;
+    --ok:#79d19b; --ok-soft:#1e3428; --warn:#e8b169; --warn-soft:#3a2e1c;
+    --key-bg:#2f2b34; --key-line:#4a4552;
+  }
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; padding:0 1.1rem 5rem;
+  background:var(--bg); color:var(--text);
+  font-family:"Noto Sans TC","Hiragino Sans","Microsoft JhengHei",system-ui,-apple-system,"Segoe UI",sans-serif;
+  font-size:17px; line-height:1.85; letter-spacing:.01em;
+}
+.wrap{max-width:var(--maxw); margin:0 auto}
+a{color:var(--accent)}
+
+/* ---------- header ---------- */
+header.hero{padding:2.4rem 0 1.4rem; border-bottom:2px solid var(--line)}
+.eyebrow{
+  display:inline-block; font-size:.8rem; letter-spacing:.14em;
+  color:var(--accent); background:var(--accent-soft);
+  padding:.2rem .7rem; border-radius:999px; font-weight:700;
+}
+h1{font-size:clamp(1.6rem,4.4vw,2.3rem); line-height:1.3; margin:.7rem 0 .5rem}
+h1 .day{color:var(--muted); font-weight:600}
+.meta{display:flex; flex-wrap:wrap; gap:.4rem .9rem; color:var(--muted); font-size:.9rem; margin-bottom:1rem}
+.goal{
+  background:var(--surface); border:1px solid var(--line); border-left:4px solid var(--accent);
+  border-radius:var(--radius); padding:.9rem 1.1rem; margin:0;
+}
+.goal strong{color:var(--accent)}
+
+/* ---------- progress ---------- */
+.progress{
+  position:sticky; top:0; z-index:20; background:var(--bg);
+  padding:.7rem 0 .6rem; border-bottom:1px solid var(--line);
+  display:flex; align-items:center; gap:.75rem; flex-wrap:wrap;
+}
+.bar{flex:1 1 8rem; height:8px; background:var(--surface-2); border-radius:999px; overflow:hidden}
+.bar>i{display:block; height:100%; width:0; background:var(--accent); transition:width .25s ease}
+.progress .count{font-size:.85rem; color:var(--muted); font-variant-numeric:tabular-nums}
+.progress button{
+  font:inherit; font-size:.82rem; color:var(--muted); background:var(--surface);
+  border:1px solid var(--line); border-radius:999px; padding:.2rem .7rem; cursor:pointer;
+}
+.progress button:hover{color:var(--accent); border-color:var(--accent)}
+
+/* ---------- sections ---------- */
+section{margin:2.6rem 0}
+h2{
+  font-size:1.22rem; margin:0 0 .9rem; padding-bottom:.4rem;
+  border-bottom:1px solid var(--line); display:flex; align-items:baseline; gap:.55rem;
+}
+h2 .n{color:var(--accent); font-variant-numeric:tabular-nums; font-size:.95rem}
+h3{font-size:1.02rem; margin:1.4rem 0 .4rem}
+p{margin:.6rem 0}
+.lede{color:var(--muted)}
+
+.card{background:var(--surface); border:1px solid var(--line); border-radius:var(--radius); padding:1rem 1.15rem; margin:.8rem 0}
+.card>:first-child{margin-top:0}
+.card>:last-child{margin-bottom:0}
+.card.accent{border-left:4px solid var(--accent)}
+.card.ok{border-left:4px solid var(--ok); background:var(--ok-soft)}
+.card.warn{border-left:4px solid var(--warn); background:var(--warn-soft)}
+.card h3{margin-top:0}
+
+/* ---------- tables ---------- */
+.scroll{overflow-x:auto; -webkit-overflow-scrolling:touch; margin:.8rem 0}
+table{border-collapse:collapse; width:100%; min-width:30rem; font-size:.95rem}
+th,td{text-align:left; padding:.55rem .7rem; border-bottom:1px solid var(--line); vertical-align:top}
+th{font-size:.82rem; letter-spacing:.06em; color:var(--muted); font-weight:700}
+tbody tr:last-child td{border-bottom:none}
+kbd{
+  display:inline-block; font-family:ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace;
+  font-size:.85em; background:var(--key-bg); border:1px solid var(--key-line);
+  border-bottom-width:2px; border-radius:6px; padding:.1rem .42rem; white-space:nowrap;
+}
+.new-tag{font-size:.7rem; color:var(--accent); background:var(--accent-soft); border-radius:4px; padding:.05rem .35rem; margin-left:.35rem; vertical-align:.1em}
+
+/* ---------- guided steps ---------- */
+ol.steps{list-style:none; counter-reset:s; padding:0; margin:0}
+ol.steps>li{
+  counter-increment:s; position:relative; padding:0 0 1.4rem 2.6rem; margin:0 0 0 .85rem;
+  border-left:2px solid var(--line);
+}
+ol.steps>li:last-child{border-left-color:transparent; padding-bottom:.2rem}
+ol.steps>li::before{
+  content:counter(s); position:absolute; left:-.95rem; top:0;
+  width:1.85rem; height:1.85rem; border-radius:50%;
+  background:var(--surface); border:2px solid var(--accent); color:var(--accent);
+  font-size:.85rem; font-weight:700; display:grid; place-items:center;
+}
+ol.steps>li>.what{font-weight:700; display:block; margin-bottom:.15rem}
+ol.steps>li>.hint{color:var(--muted); font-size:.94rem; margin:.15rem 0 .5rem}
+
+/* ---------- collapsibles ---------- */
+details{
+  background:var(--surface); border:1px solid var(--line); border-radius:10px;
+  padding:.1rem .9rem; margin:.5rem 0;
+}
+details[open]{background:var(--surface-2)}
+summary{
+  cursor:pointer; list-style:none; padding:.55rem 0; font-size:.93rem;
+  font-weight:600; color:var(--muted); display:flex; align-items:center; gap:.45rem;
+}
+summary::-webkit-details-marker{display:none}
+summary::before{content:"\25B8"; color:var(--accent); font-size:.9em; transition:transform .15s ease}
+details[open]>summary::before{transform:rotate(90deg)}
+details[open]>summary{color:var(--text)}
+details>:not(summary){font-size:.96rem}
+details>:last-child{margin-bottom:.7rem}
+details.answer>summary::before{content:"\1F512"}
+details.answer[open]>summary::before{content:"\1F513"; transform:none}
+
+/* ---------- checklist ---------- */
+ul.check{list-style:none; padding:0; margin:.5rem 0}
+ul.check li{
+  display:flex; gap:.7rem; align-items:flex-start;
+  background:var(--surface); border:1px solid var(--line); border-radius:10px;
+  padding:.65rem .85rem; margin:.45rem 0; transition:opacity .2s;
+}
+ul.check input[type=checkbox]{
+  appearance:none; -webkit-appearance:none; flex:0 0 auto;
+  width:1.25rem; height:1.25rem; margin:.28rem 0 0; cursor:pointer;
+  border:2px solid var(--key-line); border-radius:6px; background:var(--bg);
+}
+ul.check input[type=checkbox]:checked{background:var(--ok); border-color:var(--ok)}
+ul.check input[type=checkbox]:checked::after{content:"\2713"; color:#fff; display:block; text-align:center; line-height:1.05rem; font-size:.9rem; font-weight:700}
+ul.check input[type=checkbox]:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+ul.check li.done{opacity:.55}
+ul.check li.done label{text-decoration:line-through}
+ul.check label{cursor:pointer}
+
+/* ---------- misc ---------- */
+code.path{font-family:ui-monospace,Menlo,Consolas,monospace; font-size:.88em; background:var(--surface-2); border:1px solid var(--line); border-radius:5px; padding:.08rem .35rem}
+pre{background:var(--surface-2); border:1px solid var(--line); border-radius:10px; padding:.8rem 1rem; overflow-x:auto; font-size:.88rem; line-height:1.6}
+blockquote{margin:.8rem 0; padding:.2rem 0 .2rem 1rem; border-left:3px solid var(--line); color:var(--muted)}
+footer{margin:3.5rem 0 0; padding-top:1.2rem; border-top:1px solid var(--line); color:var(--muted); font-size:.85rem}
+
+@media (max-width:480px){
+  body{font-size:16px; padding:0 .85rem 4rem}
+  ol.steps>li{padding-left:2.1rem}
+}
+@media print{
+  :root{--bg:#fff; --surface:#fff; --surface-2:#f4f4f4; --line:#bbb; --text:#000; --muted:#444}
+  body{font-size:11pt}
+  .progress{display:none}
+  details{break-inside:avoid}
+  section{break-inside:avoid-page}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <span class="eyebrow">P1 · Blender 基礎</span>
+  <h1><span class="day">Day 1 ·</span> Viewport 與 Transform</h1>
+  <div class="meta">
+    <span>建議時間 30–45 分鐘</span>
+    <span>存檔 <code class="path">work/p1/day01.blend</code></span>
+    <span>基礎操作 Quest</span>
+  </div>
+  <p class="goal"><strong>今日目標：</strong>能穩定控制自己在 3D 空間裡「看哪裡」，並用 G / R / S 精確改變物件的位置、角度與大小。</p>
+</header>
+
+<div class="progress" role="status" aria-live="polite">
+  <span class="count" id="pcount">0 / 0</span>
+  <span class="bar"><i id="pbar"></i></span>
+  <button type="button" id="toggle-all">全部展開</button>
+  <button type="button" id="reset">重設勾選</button>
+</div>
+
+<!-- ===== 01 為什麼 ===== -->
+<section id="why">
+  <h2><span class="n">01</span>為什麼今天要學這個</h2>
+  <p>Blender 的畫面，是一個三維空間被壓平投影到二維螢幕上的結果。你看到方塊「往右移動」，它在空間裡可能其實是往前、往後，或斜著跑。眼睛看到的位移，不等於實際發生的位移。</p>
+  <p>這件事在今天只是有點煩，但到了做角色、對稱、對齊零件的時候會變成真正的災難——你會做出一個左右不對稱、但從某個角度看起來剛好正確的東西。所以第一天不建模，先處理更根本的問題：<strong>我怎麼確定自己正在看哪個方向，以及我正在往哪個軸移動。</strong></p>
+  <p>Transform（移動 / 旋轉 / 縮放）則是 Blender 裡使用頻率最高的一組操作。之後每一天、每一個階段，你都會用到它們。今天把手感練起來，後面所有課都便宜。</p>
+  <div class="card accent">
+    <h3>用一句話記住</h3>
+    <p>先能穩定地「看」，才能穩定地「改」。</p>
+  </div>
+</section>
+
+<!-- ===== 02 核心概念 ===== -->
+<section id="concepts">
+  <h2><span class="n">02</span>核心概念</h2>
+
+  <div class="card">
+    <h3>三個軸，以及正交視角</h3>
+    <p>Blender 的世界有三個軸：X（紅）、Y（綠）、Z（藍），而 <strong>Z 是「上」</strong>。畫面左下角永遠有一組小座標軸告訴你目前的朝向。</p>
+    <p>預設的透視（Perspective）視角比較像人眼，好看，但會讓平行線看起來不平行——拿來判斷「有沒有對齊」很不可靠。正交（Orthographic）視角沒有透視變形，是對齊專用的視角。</p>
+    <p><strong>常見誤解：</strong>以為「前視圖」就是「我現在看到的正面」。它其實是一個固定的方向（從 −Y 看向原點），跟你剛才把畫面轉到哪裡無關。</p>
+    <details>
+      <summary>再深入一點（選讀）</summary>
+      <p>Blender 採 Z-up，是沿用工程與 CAD 的慣例；Unity 則是 Y-up。之後匯出模型時會遇到軸向轉換的問題，但那是 P4 的事，今天完全不用管。</p>
+    </details>
+  </div>
+
+  <div class="card">
+    <h3>Transform 三兄弟：G / R / S</h3>
+    <p>移動（Grab）、旋轉（Rotate）、縮放（Scale）。三個的操作語法<strong>完全一樣</strong>：按下按鍵 → 進入該模式 → 移動滑鼠改變數值 → 左鍵確認、右鍵或 <kbd>Esc</kbd> 取消。</p>
+    <p>進入模式之後可以再按 <kbd>X</kbd> / <kbd>Y</kbd> / <kbd>Z</kbd> 把動作鎖在單一軸上，也可以直接打數字輸入精確值。學會這一組語法，等於一次學會三個工具。</p>
+    <p><strong>常見誤解：</strong>以為要先去左邊工具列點選「移動工具」才能移動。那些工具列按鈕是另一種操作方式，不是前提。</p>
+    <details>
+      <summary>再深入一點（選讀）</summary>
+      <p>取消（<kbd>Esc</kbd>）和 Undo（<kbd>Ctrl</kbd>+<kbd>Z</kbd>）不一樣。取消是「這次操作根本沒發生」，Undo 是「已經發生了，我要退回上一步」。操作到一半發現不對，用取消比較乾淨。</p>
+    </details>
+  </div>
+
+  <div class="card">
+    <h3>選取決定了「作用對象」</h3>
+    <p>Blender 幾乎所有操作，作用的都是<strong>目前被選取的東西</strong>，而不是滑鼠底下的東西。按 <kbd>G</kbd> 之前沒有選到任何物件，就什麼事都不會發生。</p>
+    <p>被選取的物件有橘色外框；其中顏色最亮的那一個是 active（作用中）物件，多選時它會是某些操作的參考基準。</p>
+    <p><strong>常見誤解：</strong>把滑鼠移到某個物件上就以為它被選中了。要按左鍵。</p>
+  </div>
+</section>
+
+<!-- ===== 03 快捷鍵 ===== -->
+<section id="keys">
+  <h2><span class="n">03</span>今日快捷鍵</h2>
+  <p class="lede">先看「解決什麼問題」那一欄，不要背按鍵。今天全部都是新的，之後的講義才會標示新舊。</p>
+  <div class="scroll">
+    <table>
+      <thead><tr><th>按鍵</th><th>動作</th><th>解決什麼問題</th></tr></thead>
+      <tbody>
+        <tr><td><kbd>中鍵拖曳</kbd></td><td>Orbit 旋轉視角</td><td>想從別的角度確認形狀對不對</td></tr>
+        <tr><td><kbd>Shift</kbd>+<kbd>中鍵拖曳</kbd></td><td>Pan 平移視角</td><td>要看的東西跑到畫面邊緣</td></tr>
+        <tr><td><kbd>滾輪</kbd></td><td>Zoom 縮放視角</td><td>在「看細節」和「看全貌」之間切換</td></tr>
+        <tr><td><kbd>Numpad 1</kbd> / <kbd>3</kbd> / <kbd>7</kbd></td><td>前 / 右 / 上 正交視角</td><td>需要精準對齊，不能被透視騙</td></tr>
+        <tr><td><kbd>Numpad 5</kbd></td><td>透視 / 正交切換</td><td>懷疑目前看到的比例是假的</td></tr>
+        <tr><td><kbd>Numpad .</kbd></td><td>聚焦到選取物件</td><td>物件不見了，或縮太遠找不到</td></tr>
+        <tr><td><kbd>Home</kbd></td><td>把整個場景收進畫面</td><td>完全迷路，想重新看全貌</td></tr>
+        <tr><td><kbd>左鍵</kbd></td><td>選取</td><td>決定接下來的操作要作用在誰身上</td></tr>
+        <tr><td><kbd>Shift</kbd>+<kbd>A</kbd></td><td>Add 新增物件</td><td>場景裡需要多一個東西</td></tr>
+        <tr><td><kbd>G</kbd></td><td>移動</td><td>物件位置不對</td></tr>
+        <tr><td><kbd>R</kbd></td><td>旋轉</td><td>物件角度不對</td></tr>
+        <tr><td><kbd>S</kbd></td><td>縮放</td><td>物件大小不對</td></tr>
+        <tr><td><kbd>X</kbd> / <kbd>Y</kbd> / <kbd>Z</kbd></td><td>（transform 中）鎖定單一軸</td><td>只想往一個方向動，不要歪掉</td></tr>
+        <tr><td><kbd>Esc</kbd> / <kbd>右鍵</kbd></td><td>取消目前的 transform</td><td>按下去才發現不是想做的事</td></tr>
+        <tr><td><kbd>Ctrl</kbd>+<kbd>Z</kbd></td><td>Undo</td><td>已經做壞了</td></tr>
+        <tr><td><kbd>N</kbd></td><td>開關右側 Item 面板</td><td>想確認目前的實際數值</td></tr>
+        <tr><td><kbd>Ctrl</kbd>+<kbd>S</kbd></td><td>儲存</td><td>不想白做</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <details>
+    <summary>我的鍵盤沒有 Numpad（筆電常見）</summary>
+    <p>Edit ▸ Preferences ▸ Input ▸ 勾選 <strong>Emulate Numpad</strong>，之後主鍵盤上方的數字列就等同 Numpad。代價是那排數字原本的「切換 Collection 顯示」功能會被取代，現階段不影響。</p>
+    <p>另一個方式是直接用畫面右上角那組座標軸小工具（Gizmo），點紅 / 綠 / 藍球也能切到對應的正交視角。</p>
+  </details>
+</section>
+
+<!-- ===== 04 今日 Quest ===== -->
+<section id="quest">
+  <h2><span class="n">04</span>今日 Quest</h2>
+  <div class="card accent">
+    <h3>三個 primitive，三種姿態</h3>
+    <p>加入 Cube、Sphere、Cylinder，將三者移到不同位置、旋轉角度與尺寸。</p>
+    <p class="lede">不需要排得好看，也不需要有主題。今天要驗的是你能不能指哪打哪，不是美感。</p>
+  </div>
+  <div class="card warn">
+    <h3>環境確認（今天一定要做）</h3>
+    <p>確認你現在開的是 Blender 的 <strong>Stable build</strong>（不是 alpha / beta），並把完整版本號抄下來。這個版本號會被記進 <code class="path">progress/STATUS.md</code>，之後整個 P1 的教材選擇都以它為準。</p>
+  </div>
+</section>
+
+<!-- ===== 05 操作流程 ===== -->
+<section id="flow">
+  <h2><span class="n">05</span>操作流程</h2>
+  <p class="lede">每一步先看「要達成什麼」，自己試兩分鐘再展開詳解。展開不扣分，直接展開才會少學東西。</p>
+  <ol class="steps">
+
+    <li>
+      <span class="what">確認並記下你的 Blender 版本</span>
+      <p class="hint">版本資訊不用去網路上找，Blender 自己就會告訴你。</p>
+      <details class="answer">
+        <summary>展開詳細操作</summary>
+        <p>啟動畫面（Splash Screen）右下角會顯示版本；關掉了就從 <strong>Help ▸ About Blender</strong> 看。抄下完整字串，例如 <code class="path">4.5.3 LTS</code>。</p>
+        <p>再到 <a href="https://www.blender.org/download/" rel="noreferrer">blender.org/download</a> 對照目前官方 Stable 是哪一版。如果你裝的是 alpha 或 beta，換成 Stable 再開始——教材與 addon 的相容性都以 Stable 為基準。</p>
+      </details>
+    </li>
+
+    <li>
+      <span class="what">把「轉、移、縮」三種視角操作各做十次</span>
+      <p class="hint">這一步沒有成果物，純粹是讓手記住。三個動作都跟中鍵有關。</p>
+      <details class="answer">
+        <summary>展開詳細操作</summary>
+        <p>中鍵拖曳 = 繞著場景轉；<kbd>Shift</kbd>+中鍵拖曳 = 平移畫面；滾輪 = 拉近拉遠。刻意把畫面轉到很怪的角度，再自己轉回來。</p>
+        <p>沒有中鍵或用觸控板：Edit ▸ Preferences ▸ Input ▸ 勾選 <strong>Emulate 3 Button Mouse</strong>，之後 <kbd>Alt</kbd>+左鍵拖曳就等於中鍵拖曳。</p>
+      </details>
+    </li>
+
+    <li>
+      <span class="what">練習切換三個主要正交視角，並觀察畫面左上角的變化</span>
+      <p class="hint">切換的時候看左上角文字，它會直接告訴你現在站在哪個方向、是不是正交。</p>
+      <details class="answer">
+        <summary>展開詳細操作</summary>
+        <p><kbd>Numpad 1</kbd> 前視（從 −Y 看）、<kbd>Numpad 3</kbd> 右視（從 +X 看）、<kbd>Numpad 7</kbd> 上視（從 +Z 看）。左上角會顯示 <em>Front Orthographic</em> 之類的字樣。</p>
+        <p>接著按幾次 <kbd>Numpad 5</kbd> 在 Perspective / Orthographic 之間切換，注意方塊的邊在兩種模式下的差別——這就是透視會騙人的地方。</p>
+      </details>
+    </li>
+
+    <li>
+      <span class="what">在場景中加入 Cube、Sphere、Cylinder</span>
+      <p class="hint">新物件會出現在一個固定的地方，所以三個會疊在一起。這是正常的，等一下再分開。</p>
+      <details class="answer">
+        <summary>展開詳細操作</summary>
+        <p><kbd>Shift</kbd>+<kbd>A</kbd> ▸ Mesh ▸ Cube / UV Sphere / Cylinder，加三次。</p>
+        <p>新物件出現在 3D Cursor 的位置（預設在原點），所以三個會互相穿插。今天不用處理 3D Cursor，加完直接移開就好。</p>
+      </details>
+    </li>
+
+    <li>
+      <span class="what">讓三個物件各自分開站好</span>
+      <p class="hint">自由拖曳很容易讓物件在你沒注意的軸上偏掉。想辦法讓它只往一個方向動。</p>
+      <details class="answer">
+        <summary>展開詳細操作</summary>
+        <p>左鍵點選一個物件 → <kbd>G</kbd> → 按 <kbd>X</kbd>（或 <kbd>Y</kbd>）鎖軸 → 移動滑鼠 → 左鍵確認。</p>
+        <p>想要精確一點：<kbd>G</kbd> <kbd>X</kbd> <kbd>2</kbd> <kbd>Enter</kbd>，直接沿 X 軸位移 2 公尺。切到 <kbd>Numpad 7</kbd> 上視圖來擺位會更好判斷。</p>
+      </details>
+    </li>
+
+    <li>
+      <span class="what">給每個物件不同的旋轉角度與尺寸</span>
+      <p class="hint">不用學新語法。R 和 S 的用法跟你剛才的 G 一模一樣，包括鎖軸和打數字。</p>
+      <details class="answer">
+        <summary>展開詳細操作</summary>
+        <p><kbd>R</kbd> <kbd>Z</kbd> <kbd>45</kbd> <kbd>Enter</kbd> = 繞 Z 軸轉 45 度。<kbd>S</kbd> <kbd>0.5</kbd> <kbd>Enter</kbd> = 整體縮成一半。<kbd>S</kbd> <kbd>Z</kbd> <kbd>2</kbd> <kbd>Enter</kbd> = 只在 Z 方向拉長兩倍。</p>
+        <p>三個物件要看得出「位置不同、角度不同、大小不同」。做壞了 <kbd>Ctrl</kbd>+<kbd>Z</kbd>，操作到一半後悔就 <kbd>Esc</kbd>。</p>
+      </details>
+    </li>
+
+    <li>
+      <span class="what">存到指定路徑</span>
+      <p class="hint">路徑和檔名都要正確，之後的自檢會照這個路徑找檔案。</p>
+      <details class="answer">
+        <summary>展開詳細操作</summary>
+        <p><kbd>Ctrl</kbd>+<kbd>S</kbd>（第一次會跳出 Save As）→ 存到 <code class="path">work/p1/day01.blend</code>。存好之後視窗標題列會顯示檔名。</p>
+      </details>
+    </li>
+
+  </ol>
+</section>
+
+<!-- ===== 06 驗收 ===== -->
+<section id="accept">
+  <h2><span class="n">06</span>驗收標準</h2>
+  <p class="lede">全部打勾才算今天通過。勾選狀態存在這台裝置的瀏覽器裡。</p>
+  <ul class="check">
+    <li><input type="checkbox" id="c1"><label for="c1">能不看筆記切換主要正交視角。</label></li>
+    <li><input type="checkbox" id="c2"><label for="c2">能選取指定物件並使用 G / R / S。</label></li>
+    <li><input type="checkbox" id="c3"><label for="c3"><code class="path">work/p1/day01.blend</code> 至少有 3 個不同 mesh。</label></li>
+    <li><input type="checkbox" id="c4"><label for="c4">確認目前使用的是 Blender Stable build，將精確版本記入 STATUS。</label></li>
+  </ul>
+</section>
+
+<!-- ===== 07 卡住了 ===== -->
+<section id="stuck">
+  <h2><span class="n">07</span>卡住了？</h2>
+  <p class="lede">照症狀找，先自我診斷，答案在第二層。</p>
+
+  <details>
+    <summary>物件不見了，畫面一片空白</summary>
+    <p>先分辨是哪一種：物件真的被移到很遠的地方，還是只是視角轉開了？右上角的 Outliner 清單裡，物件名稱還在不在？</p>
+    <details class="answer">
+      <summary>還是不行，看答案</summary>
+      <p>名稱還在 Outliner，就代表物件存在，是視角問題。在 Outliner 點一下它的名字選取，然後把滑鼠移回 3D 畫面按 <kbd>Numpad .</kbd>（等同 View ▸ Frame Selected），畫面會直接飛過去。</p>
+      <p>想一次看到全部場景：按 <kbd>Home</kbd>。</p>
+    </details>
+  </details>
+
+  <details>
+    <summary>按了 G 之後物件跟著滑鼠亂飛，停不下來</summary>
+    <p>Transform 是「按下按鍵就進入模式」，在模式裡滑鼠移動本身就是輸入。你有做出「結束這個模式」的動作嗎？</p>
+    <details class="answer">
+      <summary>還是不行，看答案</summary>
+      <p>左鍵或 <kbd>Enter</kbd> = 確認並套用；右鍵或 <kbd>Esc</kbd> = 取消，物件回到原位。取消比事後 Undo 乾淨，因為它根本沒有產生一步歷史紀錄。</p>
+    </details>
+  </details>
+
+  <details>
+    <summary>我的鍵盤沒有 Numpad，切不了正交視角</summary>
+    <p>正交視角一定要透過 Numpad 嗎？想一想 Blender 有沒有提供替代設定，或是畫面上的圖形入口。</p>
+    <details class="answer">
+      <summary>還是不行，看答案</summary>
+      <p>Edit ▸ Preferences ▸ Input ▸ 勾選 <strong>Emulate Numpad</strong>，主鍵盤數字列就能用。或直接點畫面右上角的座標軸 Gizmo：點紅球到右視、綠球到前/後視、藍球到上視。</p>
+    </details>
+  </details>
+
+  <details>
+    <summary>按了 G 但完全沒反應</summary>
+    <p>Blender 的操作作用在「被選取的東西」上。你確定有選到嗎？另外，滑鼠游標當時停在哪個區域？</p>
+    <details class="answer">
+      <summary>還是不行，看答案</summary>
+      <p>兩個常見原因：一是沒有選取任何物件（物件沒有橘色外框）；二是滑鼠游標不在 3D Viewport 裡——Blender 的快捷鍵依游標所在的面板而定，游標停在 Outliner 上按 <kbd>G</kbd> 是不會移動物件的。</p>
+    </details>
+  </details>
+
+  <details>
+    <summary>縮放之後總覺得哪裡怪怪的</summary>
+    <p>你是等比例縮放，還是不小心只縮了單一軸？右側面板有一組數值可以直接告訴你答案。</p>
+    <details class="answer">
+      <summary>還是不行，看答案</summary>
+      <p>按 <kbd>N</kbd> 打開右側邊欄，看 Item ▸ Scale 的三個數字。三個都一樣 = 等比例；不一樣 = 你在某個軸上拉伸了。</p>
+      <p>今天不需要處理非等比縮放的後續影響，知道這組數字存在、之後會回來找它就好。</p>
+    </details>
+  </details>
+</section>
+
+<!-- ===== 08 常見錯誤 ===== -->
+<section id="pitfalls">
+  <h2><span class="n">08</span>常見錯誤</h2>
+  <div class="scroll">
+    <table>
+      <thead><tr><th>常見做法</th><th>為什麼有問題</th><th>改成</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>用滑鼠自由拖著物件亂拉到大概的位置</td>
+          <td>沒有軸的概念，物件會在你沒注意的方向偏移，之後要對齊時很難救</td>
+          <td>養成 <kbd>G</kbd> → 軸鍵 → 數字的習慣，至少先養成鎖軸</td>
+        </tr>
+        <tr>
+          <td>一直待在透視視角判斷位置對不對</td>
+          <td>透視會讓平行線看起來不平行，肉眼判斷會失準</td>
+          <td>要判斷對齊時先切 <kbd>Numpad 1</kbd> / <kbd>3</kbd> / <kbd>7</kbd> 正交視角</td>
+        </tr>
+        <tr>
+          <td>做完才想到要存檔，或整段沒存就關掉</td>
+          <td>今天的驗收需要 <code class="path">work/p1/day01.blend</code> 這個檔案存在</td>
+          <td>加完第一個物件就先 <kbd>Ctrl</kbd>+<kbd>S</kbd> 一次，之後隨手存</td>
+        </tr>
+        <tr>
+          <td>覺得快捷鍵背不起來，所以全部用上方選單操作</td>
+          <td>選單找得到但慢，而且肌肉記憶永遠建立不起來</td>
+          <td>允許隨時查表，但每個操作都親手按一次按鍵</td>
+        </tr>
+        <tr>
+          <td>用 alpha / beta 版 Blender 開始學</td>
+          <td>教材、addon、選單位置都可能對不上，卡關時分不清是自己錯還是版本問題</td>
+          <td>今天就換成官方 Stable build，並把版本記進 STATUS</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ===== 09 完成後 ===== -->
+<section id="report">
+  <h2><span class="n">09</span>完成後回報</h2>
+  <p>存檔到 <code class="path">work/p1/day01.blend</code>，然後回報下面三題。答得出來比做得漂亮重要。</p>
+  <ol>
+    <li>你使用的 Blender 完整版本號是多少？你怎麼確認它是目前的 Stable build？</li>
+    <li>把 Cylinder 移到 Cube 旁邊時，你鎖的是哪一個軸？你當下是怎麼判斷該鎖那個軸，而不是另一個？</li>
+    <li>今天哪一個操作最不順？是「找不到按鍵」，還是「知道按鍵但不確定按下去會發生什麼事」？這兩種卡關的解法不一樣。</li>
+  </ol>
+  <div class="card">
+    <h3>自檢指令（選用）</h3>
+    <pre>blender -b work/p1/day01.blend --python tools/inspect_blend.py</pre>
+    <p class="lede">這只是客觀觀察，不是評分結果。腳本沒報錯不等於通過。</p>
+  </div>
+</section>
+
+<footer>
+  <p>ProjectVtuber · P1 · Blender 基礎 · Day 1　|　Day N = 完成的第 N 個學習任務，不是日期。做不完就停在可恢復的位置，下次接續。</p>
+</footer>
+
+</div>
+
+<script>
+(function () {
+  var KEY = 'pv-lecture-p1-day01';
+  var boxes = Array.prototype.slice.call(document.querySelectorAll('ul.check input[type=checkbox]'));
+  var bar = document.getElementById('pbar');
+  var count = document.getElementById('pcount');
+
+  function save() {
+    try {
+      localStorage.setItem(KEY, JSON.stringify(boxes.map(function (b) { return b.checked; })));
+    } catch (e) {}
+  }
+  function load() {
+    try {
+      var v = JSON.parse(localStorage.getItem(KEY) || '[]');
+      boxes.forEach(function (b, i) { b.checked = !!v[i]; });
+    } catch (e) {}
+  }
+  function render() {
+    var done = 0;
+    boxes.forEach(function (b) {
+      if (b.checked) done++;
+      var li = b.closest('li');
+      if (li) li.classList.toggle('done', b.checked);
+    });
+    count.textContent = done + ' / ' + boxes.length;
+    bar.style.width = (boxes.length ? done / boxes.length * 100 : 0) + '%';
+  }
+
+  boxes.forEach(function (b) {
+    b.addEventListener('change', function () { save(); render(); });
+  });
+  document.getElementById('reset').addEventListener('click', function () {
+    boxes.forEach(function (b) { b.checked = false; });
+    save(); render();
+  });
+
+  var toggle = document.getElementById('toggle-all');
+  toggle.addEventListener('click', function () {
+    var all = Array.prototype.slice.call(document.querySelectorAll('details'));
+    var open = all.some(function (d) { return !d.open; });
+    all.forEach(function (d) { d.open = open; });
+    toggle.textContent = open ? '全部收合' : '全部展開';
+  });
+
+  var reopened = [];
+  window.addEventListener('beforeprint', function () {
+    reopened = Array.prototype.slice.call(document.querySelectorAll('details:not([open])'));
+    reopened.forEach(function (d) { d.open = true; });
+  });
+  window.addEventListener('afterprint', function () {
+    reopened.forEach(function (d) { d.open = false; });
+    reopened = [];
+  });
+
+  load();
+  render();
+})();
+</script>
+</body>
+</html>
