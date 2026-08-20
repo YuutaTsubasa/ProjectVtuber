@@ -31,6 +31,22 @@ const unesc = (s) =>
     .replace(/&#39;/g, "'")
     .replace(/&amp;/g, '&');
 
+// <title>Day 5 · Loop Cut · Inset · Bevel · ProjectVtuber</title>
+//
+// 標題本身可以含 ·（Day 5 就是），所以不能用非貪婪比對切在第一個分隔符——
+// 那樣只會取到 "Loop Cut"。改成抓整段 title，剝掉開頭的 "Day N ·"
+// 與結尾的 "· ProjectVtuber"，中間剩下的整段都算標題。
+// 結尾後綴缺漏（例如 <title>Day 7 · Modifier 入門</title>）也照樣解析得出來。
+function parseTitle(text) {
+  const t = text.match(/<title>([\s\S]*?)<\/title>/i);
+  if (!t) return null;
+  const raw = unesc(t[1]).replace(/\s+/g, ' ').trim();
+  const m = raw.match(/^Day\s*(\d+)\s*·\s*(.+)$/i);
+  if (!m) return null;
+  const title = m[2].replace(/\s*·\s*ProjectVtuber\s*$/i, '').trim();
+  return title ? { day: Number(m[1]), title } : null;
+}
+
 function collect() {
   const groups = new Map();
   const phases = readdirSync(LECTURES, { withFileTypes: true })
@@ -43,13 +59,15 @@ function collect() {
       if (!/^day\d+\.html$/.test(file)) continue;
       const rel = `${phase}/${file}`;
       const text = readFileSync(join(LECTURES, rel), 'utf8');
-      const m = text.match(/<title>\s*Day\s*(\d+)\s*·\s*([\s\S]+?)\s*·/i);
-      if (!m) {
-        console.error(`跳過（<title> 格式不符）：lectures/${rel}`);
+      const info = parseTitle(text);
+      if (!info) {
+        // 靜默跳過會讓該天從目錄消失、指令卻回報成功。標記失敗讓它看得見。
+        console.error(`跳過（<title> 應為「Day N · 標題 · ProjectVtuber」）：lectures/${rel}`);
+        process.exitCode = 1;
         continue;
       }
       if (!groups.has(phase)) groups.set(phase, []);
-      groups.get(phase).push({ day: Number(m[1]), title: unesc(m[2]), rel });
+      groups.get(phase).push({ day: info.day, title: info.title, rel });
     }
     groups.get(phase)?.sort((a, b) => a.day - b.day);
   }

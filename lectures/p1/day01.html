@@ -181,8 +181,8 @@ footer{margin:3.5rem 0 0; padding-top:1.2rem; border-top:1px solid var(--line); 
   <p class="goal"><strong>今日目標：</strong>能穩定控制自己在 3D 空間裡「看哪裡」，並用 G / R / S 精確改變物件的位置、角度與大小。</p>
 </header>
 
-<div class="progress" role="status" aria-live="polite">
-  <span class="count" id="pcount">0 / 0</span>
+<div class="progress">
+  <span class="count" id="pcount" role="status" aria-live="polite">0 / 0</span>
   <span class="bar"><i id="pbar"></i></span>
   <button type="button" id="toggle-all">全部展開</button>
   <button type="button" id="reset">重設勾選</button>
@@ -277,10 +277,6 @@ footer{margin:3.5rem 0 0; padding-top:1.2rem; border-top:1px solid var(--line); 
     <p>加入 Cube、Sphere、Cylinder，將三者移到不同位置、旋轉角度與尺寸。</p>
     <p class="lede">不需要排得好看，也不需要有主題。今天要驗的是你能不能指哪打哪，不是美感。</p>
   </div>
-  <div class="card warn">
-    <h3>環境確認（今天一定要做）</h3>
-    <p>確認你現在開的是 Blender 的 <strong>Stable build</strong>（不是 alpha / beta），並把完整版本號抄下來。這個版本號會被記進 <code class="path">progress/STATUS.md</code>，之後整個 P1 的教材選擇都以它為準。</p>
-  </div>
 </section>
 
 <!-- ===== 05 操作流程 ===== -->
@@ -290,8 +286,8 @@ footer{margin:3.5rem 0 0; padding-top:1.2rem; border-top:1px solid var(--line); 
   <ol class="steps">
 
     <li>
-      <span class="what">確認並記下你的 Blender 版本</span>
-      <p class="hint">版本資訊不用去網路上找，Blender 自己就會告訴你。</p>
+      <span class="what">確認並記下你的 Blender 版本（今天一定要做）</span>
+      <p class="hint">版本資訊不用去網路上找，Blender 自己就會告訴你。抄下來的版本號會記進 <code class="path">progress/STATUS.md</code>，之後整個 P1 的教材選擇都以它為準。</p>
       <details class="answer">
         <summary>展開詳細操作</summary>
         <p>啟動畫面（Splash Screen）右下角會顯示版本；關掉了就從 <strong>Help ▸ About Blender</strong> 看。抄下完整字串，例如 <code class="path">4.5.3 LTS</code>。</p>
@@ -341,7 +337,7 @@ footer{margin:3.5rem 0 0; padding-top:1.2rem; border-top:1px solid var(--line); 
 
     <li>
       <span class="what">給每個物件不同的旋轉角度與尺寸</span>
-      <p class="hint">不用學新語法。R 和 S 的用法跟你剛才的 G 一模一樣，包括鎖軸和打數字。</p>
+      <p class="hint">不用學新語法。旋轉和縮放跟你剛才做的移動是同一套操作語法，鎖軸和打數字都一樣。</p>
       <details class="answer">
         <summary>展開詳細操作</summary>
         <p><kbd>R</kbd> <kbd>Z</kbd> <kbd>45</kbd> <kbd>Enter</kbd> = 繞 Z 軸轉 45 度。<kbd>S</kbd> <kbd>0.5</kbd> <kbd>Enter</kbd> = 整體縮成一半。<kbd>S</kbd> <kbd>Z</kbd> <kbd>2</kbd> <kbd>Enter</kbd> = 只在 Z 方向拉長兩倍。</p>
@@ -492,15 +488,31 @@ footer{margin:3.5rem 0 0; padding-top:1.2rem; border-top:1px solid var(--line); 
   var bar = document.getElementById('pbar');
   var count = document.getElementById('pcount');
 
+  // 以驗收條目的「文字內容」當 key。
+  //
+  // 不用陣列索引，也不用 id——id 是 c1, c2… 這種位置編號，
+  // 講義重新產生時在前面插入一條，新條目就會拿到 c1、舊 c1 變 c2，
+  // 用 id 當 key 一樣會整排位移。
+  //
+  // 用文字當 key 的話：條目沒動就保留勾選；條目被改寫則視為新要求，
+  // 重新確認一次本來就比較合理。
+  function keyOf(b) {
+    var li = b.closest('li');
+    var label = li ? li.querySelector('label') : null;
+    return ((label && label.textContent) || b.id || '').replace(/\s+/g, ' ').trim();
+  }
   function save() {
     try {
-      localStorage.setItem(KEY, JSON.stringify(boxes.map(function (b) { return b.checked; })));
+      var state = {};
+      boxes.forEach(function (b) { state[keyOf(b)] = b.checked; });
+      localStorage.setItem(KEY, JSON.stringify(state));
     } catch (e) {}
   }
   function load() {
     try {
-      var v = JSON.parse(localStorage.getItem(KEY) || '[]');
-      boxes.forEach(function (b, i) { b.checked = !!v[i]; });
+      var v = JSON.parse(localStorage.getItem(KEY) || '{}');
+      if (!v || typeof v !== 'object' || Array.isArray(v)) return;
+      boxes.forEach(function (b) { b.checked = !!v[keyOf(b)]; });
     } catch (e) {}
   }
   function render() {

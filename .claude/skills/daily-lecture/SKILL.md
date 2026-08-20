@@ -87,10 +87,20 @@ description: Use when the learner is about to start a ProjectVtuber learning day
 
 ## Verification
 
-交付前實際檢查，不要憑印象宣告完成：
+交付前實際檢查，不要憑印象宣告完成。把路徑換成這次產生的那一天：
 
 ```bash
-grep -c "{{" lectures/p1/day07.html
+grep -o "{{" lectures/p1/day01.html | wc -l
 ```
 
-回傳 0 才算填完。再用 Browser 開啟一次，確認勾選會累積進度條、`全部展開` 有作用、手機寬度不橫向捲動。
+輸出 0 才算填完。不要改用 `grep -c`——計數為 0 時它的 exit code 是 1，填得完全正確反而會被當成指令失敗。
+
+索引重建必須以 exit 0 結束：
+
+```bash
+node .claude/skills/daily-lecture/assets/build_index.mjs
+```
+
+非零代表有講義的 `<title>` 不符合 `Day N · 標題 · ProjectVtuber`，那一天已經從目錄被跳過，要先修好標題再重跑。
+
+最後用 Browser 開啟一次，確認勾選會累積進度條、`全部展開` 有作用、手機寬度不橫向捲動。

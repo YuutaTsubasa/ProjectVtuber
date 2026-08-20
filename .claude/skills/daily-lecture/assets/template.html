@@ -181,8 +181,8 @@ footer{margin:3.5rem 0 0; padding-top:1.2rem; border-top:1px solid var(--line); 
   <p class="goal"><strong>今日目標：</strong>{{GOAL_ONE_LINER}}</p>
 </header>
 
-<div class="progress" role="status" aria-live="polite">
-  <span class="count" id="pcount">0 / 0</span>
+<div class="progress">
+  <span class="count" id="pcount" role="status" aria-live="polite">0 / 0</span>
   <span class="bar"><i id="pbar"></i></span>
   <button type="button" id="toggle-all">全部展開</button>
   <button type="button" id="reset">重設勾選</button>
@@ -326,15 +326,31 @@ footer{margin:3.5rem 0 0; padding-top:1.2rem; border-top:1px solid var(--line); 
   var bar = document.getElementById('pbar');
   var count = document.getElementById('pcount');
 
+  // 以驗收條目的「文字內容」當 key。
+  //
+  // 不用陣列索引，也不用 id——id 是 c1, c2… 這種位置編號，
+  // 講義重新產生時在前面插入一條，新條目就會拿到 c1、舊 c1 變 c2，
+  // 用 id 當 key 一樣會整排位移。
+  //
+  // 用文字當 key 的話：條目沒動就保留勾選；條目被改寫則視為新要求，
+  // 重新確認一次本來就比較合理。
+  function keyOf(b) {
+    var li = b.closest('li');
+    var label = li ? li.querySelector('label') : null;
+    return ((label && label.textContent) || b.id || '').replace(/\s+/g, ' ').trim();
+  }
   function save() {
     try {
-      localStorage.setItem(KEY, JSON.stringify(boxes.map(function (b) { return b.checked; })));
+      var state = {};
+      boxes.forEach(function (b) { state[keyOf(b)] = b.checked; });
+      localStorage.setItem(KEY, JSON.stringify(state));
     } catch (e) {}
   }
   function load() {
     try {
-      var v = JSON.parse(localStorage.getItem(KEY) || '[]');
-      boxes.forEach(function (b, i) { b.checked = !!v[i]; });
+      var v = JSON.parse(localStorage.getItem(KEY) || '{}');
+      if (!v || typeof v !== 'object' || Array.isArray(v)) return;
+      boxes.forEach(function (b) { b.checked = !!v[keyOf(b)]; });
     } catch (e) {}
   }
   function render() {
