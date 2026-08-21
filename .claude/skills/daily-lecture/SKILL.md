@@ -54,10 +54,10 @@ curriculum 只有少數日子寫了 `Acceptance Criteria`——P1 的 14 天裡�
 2. **沒有原文時，只能從當日的 Quest、遷移挑戰，與「重點／通關條件／回報」句推導。** 不得引入這些句子以外的新要求——包含看起來很合理的補充限制。「只使用 primitives」就寫「只使用 primitives」，不要自行補上「不准進 Edit Mode」。
 3. **存檔路徑固定算一條**，不視為加碼。第 09 節的自檢指令需要它。
 4. **遷移挑戰不得寫成必過條件。** 它本來就允許失敗，失敗是討論材料。真要放進驗收，寫成「你嘗試過，並能說出判斷過程（做出來或卡住都算）」這種不判定成敗的形式。
-5. **推導出來的要標示，而且要講對來源。** 在 `<ul class="check">` 前加一行，把「◯◯」換成當日<strong>實際用到</strong>的來源：
+5. **推導出來的要標示，而且要講對來源。** 在 `<ul class="check">` 前加一行，把 `{{CRITERIA_SOURCE}}` 換成當日<strong>實際用到</strong>的來源：
 
    ```html
-   <p class="lede">本日 curriculum 未列 Acceptance Criteria，以下由當日 ◯◯ 推導。</p>
+   <p class="lede">本日 curriculum 未列 Acceptance Criteria，以下由當日 {{CRITERIA_SOURCE}} 推導。</p>
    ```
 
    例如 Day 2 是「Quest 與遷移挑戰」、Day 3 是「Quest 與重點句」、Day 4 是「Quest 與通關條件」、Day 6 是「Quest 與回報句」。不要固定寫「重點句」——那一天可能根本沒有重點句，講錯來源會讓學習者誤判哪些是課程原文、哪些是講義的推論。
@@ -89,6 +89,7 @@ curriculum 只有少數日子寫了 `Acceptance Criteria`——P1 的 14 天裡�
 | `{{QUEST_KIND}}` | `建模 Quest` / `遷移 Quest` / `Presentation Quest` |
 | `{{LECTURE_ID}}` | `p1-day07`（localStorage key，全站唯一） |
 | `{{INSPECT_CMD}}` | `blender -b work/p1/day07.blend --python tools/inspect_blend.py` |
+| `{{CRITERIA_SOURCE}}` | `Quest 與通關條件`（只在第 06 節的標示行用到，見「驗收標準的來源」規則 5） |
 
 其餘 `{{...}}` 為內容欄位，語意見模板內註解。
 
@@ -98,7 +99,7 @@ curriculum 只有少數日子寫了 `Acceptance Criteria`——P1 的 14 天裡�
 |---|---|---|
 | 步驟主線寫「按 <kbd>E</kbd> 往上拉」 | 學習者照抄不思考 | 主線寫「把杯壁往上延伸」，按鍵放摺疊區 |
 | 快捷鍵表放在第 01 節 | 違反「先問題後按鍵」 | 第 01 節只講問題情境 |
-| 推導時引入 Quest／重點句以外的新要求 | 偷改課程標準 | 只從當日原文推導，要加碼先討論 |
+| 推導時引入當日原文以外的新要求 | 偷改課程標準 | 只從規則 2 列出的來源推導，要加碼先討論 |
 | 從 Quest 推導卻沒標示 | 學習者分不出原文與推論 | 加上「本日 curriculum 未列…」那一行 |
 | 遷移挑戰寫成必過條件 | 卡住就被判定沒過，抵消它允許失敗的用意 | 改成「嘗試過並能說明判斷過程」 |
 | 說 operator 面板點掉就叫不回來 | 學習者白做一輪 Undo 重來 | 補上 <kbd>F9</kbd> 可叫回 Adjust Last Operation |
