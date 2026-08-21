@@ -244,6 +244,7 @@ footer{margin:3.5rem 0 0; padding-top:1.2rem; border-top:1px solid var(--line); 
         <tr><td><kbd>Shift</kbd>+左鍵</kbd><span class="new-tag">新</span></td><td>加選 / 減選</td><td>一次要選好幾個角落的面</td></tr>
         <tr><td><kbd>右鍵 ▸ Subdivide</kbd><span class="new-tag">新</span></td><td>把選中的面均分切細</td><td>底部只有一個大面，沒有東西可以單獨選</td></tr>
         <tr><td><kbd>Ctrl</kbd>+<kbd>Numpad 7</kbd><span class="new-tag">新</span></td><td>底視圖</td><td>桌腳要從下面選才看得到</td></tr>
+        <tr><td><kbd>F9</kbd><span class="new-tag">新</span></td><td>叫回 Adjust Last Operation 面板</td><td>Subdivide 的面板被收起來，但還想改 Number of Cuts</td></tr>
         <tr><td><kbd>G</kbd> / <kbd>S</kbd></td><td>移動 / 縮放</td><td>Day 1 已學：在 Edit Mode 裡它們作用於選中的幾何</td></tr>
         <tr><td><kbd>Ctrl</kbd>+<kbd>Z</kbd></td><td>Undo</td><td>Day 1 已學：切壞了退回去</td></tr>
       </tbody>
@@ -299,7 +300,7 @@ footer{margin:3.5rem 0 0; padding-top:1.2rem; border-top:1px solid var(--line); 
       <details class="answer">
         <summary>展開詳細操作</summary>
         <p>先 <kbd>A</kbd> 全選，然後在 Viewport 裡按<strong>右鍵</strong> ▸ <strong>Subdivide</strong>。</p>
-        <p>預設只切一刀，不夠。切完之後看畫面<strong>左下角</strong>展開的 <strong>Subdivide</strong> 面板，把 <strong>Number of Cuts</strong> 改成 <kbd>2</kbd>——每個面就會變成 3×3。這個面板只在你做下一個動作前有效，點掉就得 Undo 重做。</p>
+        <p>預設只切一刀，不夠。切完之後看畫面<strong>左下角</strong>展開的 <strong>Subdivide</strong> 面板，把 <strong>Number of Cuts</strong> 改成 <kbd>2</kbd>——每個面就會變成 3×3。這個面板只在你做下一個動作前有效。不小心點掉了不用 Undo 重切——按 <kbd>F9</kbd> 會在滑鼠位置彈回同一個面板（<strong>Adjust Last Operation</strong>）。</p>
       </details>
     </li>
     <li>
@@ -345,6 +346,7 @@ footer{margin:3.5rem 0 0; padding-top:1.2rem; border-top:1px solid var(--line); 
 <section id="accept">
   <h2><span class="n">06</span>驗收標準</h2>
   <p class="lede">全部打勾才算今天通過。勾選狀態存在這台裝置的瀏覽器裡。</p>
+  <p class="lede">本日 curriculum 未列 Acceptance Criteria，以下由當日 Quest 與重點句推導。</p>
   <ul class="check">
     <li><input type="checkbox" id="c1"><label for="c1">從一個 Cube 開始，做出一張非常簡單的桌子（桌面加四隻腳看得出來就好）。</label></li>
     <li><input type="checkbox" id="c2"><label for="c2">能說出「改物件」與「改 mesh」是兩件不同的事，以及你剛才哪一步用了哪一種。</label></li>
@@ -399,7 +401,7 @@ footer{margin:3.5rem 0 0; padding-top:1.2rem; border-top:1px solid var(--line); 
       <tbody>
         <tr><td>在 Object Mode 壓扁，以為改到了形狀</td><td>改到的是物件的縮放值，mesh 本身沒變，而且會連桌腳一起壓扁</td><td>要改形狀就 <kbd>Tab</kbd> 進 Edit Mode 動點或面</td></tr>
         <tr><td>把 Edit Mode 的 Subdivide 當成 Subdivision Surface</td><td>名字像，但一個是切細幾何、一個是 Modifier 平滑整體，結果完全不同</td><td>今天只用 Edit Mode 全選後右鍵的 Subdivide</td></tr>
-        <tr><td>切完面才發現刀數不夠，直接再切一次</td><td>在已經切過的面上再切，會得到不均勻的密度，之後更難選</td><td><kbd>Ctrl</kbd>+<kbd>Z</kbd> 退回去重切，或用左下角面板改 Number of Cuts</td></tr>
+        <tr><td>切完面才發現刀數不夠，直接再切一次</td><td>在已經切過的面上再切，會得到不均勻的密度，之後更難選</td><td>先按 <kbd>F9</kbd> 叫回面板改 Number of Cuts；已經做了別的操作才用 <kbd>Ctrl</kbd>+<kbd>Z</kbd> 退回重切</td></tr>
         <tr><td>想把桌子做得好看，開始加倒角和細節</td><td>curriculum 明寫「重點不是桌子」，今天驗的是分不分得清兩個模式</td><td>桌面加四隻腳就收工，時間留給第 09 節的三個問題</td></tr>
       </tbody>
     </table>

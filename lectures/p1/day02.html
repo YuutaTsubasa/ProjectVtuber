@@ -252,6 +252,7 @@ footer{margin:3.5rem 0 0; padding-top:1.2rem; border-top:1px solid var(--line); 
         <tr><td><kbd>Shift</kbd>+<kbd>C</kbd><span class="new-tag">新</span></td><td>3D Cursor 歸零並拉遠視角</td><td>新物件開始出現在奇怪的地方時，先把放置點救回原點</td></tr>
         <tr><td><kbd>Shift</kbd>+<kbd>S</kbd><span class="new-tag">新</span></td><td>叫出 Snap 選單</td><td>只想把 Cursor 歸零、不想連視角一起動時</td></tr>
         <tr><td><kbd>G</kbd> <kbd>X</kbd> <kbd>X</kbd><span class="new-tag">新</span></td><td>沿物件自己的 X 軸移動（連按兩次軸鍵）</td><td>零件被轉過角度，要沿它自己的方向移動時</td></tr>
+        <tr><td><kbd>F9</kbd><span class="new-tag">新</span></td><td>叫回 Adjust Last Operation 面板</td><td>左下角的操作面板被收起來，但還想改剛才那一步的參數</td></tr>
         <tr><td><kbd>G</kbd> / <kbd>R</kbd> / <kbd>S</kbd></td><td>移動 / 旋轉 / 縮放</td><td>Day 1 已學：把零件擺到對的位置與大小</td></tr>
         <tr><td><kbd>Numpad 1</kbd> / <kbd>3</kbd> / <kbd>7</kbd></td><td>前 / 側 / 上視圖</td><td>Day 1 已學：檢查零件有沒有在別的角度飄空</td></tr>
         <tr><td><kbd>Ctrl</kbd>+<kbd>Z</kbd></td><td>Undo</td><td>Day 1 已學：擺壞了退回去</td></tr>
@@ -304,7 +305,7 @@ footer{margin:3.5rem 0 0; padding-top:1.2rem; border-top:1px solid var(--line); 
       <details class="answer">
         <summary>展開詳細操作</summary>
         <p><kbd>Shift</kbd>+<kbd>A</kbd> ▸ <strong>Mesh</strong> ▸ 選 UV Sphere 或 Cube。</p>
-        <p>加進來之後，畫面<strong>左下角</strong>會出現一個可以展開的 <strong>Add</strong> 面板，裡面能直接改半徑、大小、Segments。這個面板只在你做下一個動作之前有效，點掉就不能再叫回來了——想改就得重加或改用 <kbd>S</kbd> 縮放。</p>
+        <p>加進來之後，畫面<strong>左下角</strong>會出現一個可以展開的 <strong>Add</strong> 面板，裡面能直接改半徑、大小、Segments。這個面板只在你做下一個動作之前有效。不小心把它收起來不用重加——按 <kbd>F9</kbd> 會在滑鼠位置彈回同一個面板（<strong>Adjust Last Operation</strong>），照樣可以改。</p>
       </details>
     </li>
     <li>
@@ -354,9 +355,10 @@ footer{margin:3.5rem 0 0; padding-top:1.2rem; border-top:1px solid var(--line); 
 <section id="accept">
   <h2><span class="n">06</span>驗收標準</h2>
   <p class="lede">全部打勾才算今天通過。勾選狀態存在這台裝置的瀏覽器裡。</p>
+  <p class="lede">本日 curriculum 未列 Acceptance Criteria，以下由當日 Quest 與重點句推導。</p>
   <ul class="check">
-    <li><input type="checkbox" id="c1"><label for="c1">只使用 primitives 完成一個簡單機器人或雪人（沒有進 Edit Mode 改點線面）。</label></li>
-    <li><input type="checkbox" id="c2"><label for="c2">最後加上的那個零件是你自己決定的，沒有照任何步驟。</label></li>
+    <li><input type="checkbox" id="c1"><label for="c1">只使用 primitives 完成一個簡單機器人或雪人。</label></li>
+    <li><input type="checkbox" id="c2"><label for="c2">你嘗試過自己決定一個零件，並能說出判斷過程（做出來了或卡在哪都算）。</label></li>
     <li><input type="checkbox" id="c3"><label for="c3">存到 <code class="path">work/p1/day02.blend</code>。</label></li>
   </ul>
 </section>
