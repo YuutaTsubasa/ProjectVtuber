@@ -317,7 +317,7 @@ footer{margin:3.5rem 0 0; padding-top:1.2rem; border-top:1px solid var(--line); 
       <details class="answer">
         <summary>展開詳細操作</summary>
         <p>內圈還選著的狀態下按 <kbd>E</kbd>，接著按 <kbd>Z</kbd> 把方向鎖在世界的垂直軸上，往下拖，左鍵確認。想精確就打負數，例如 <kbd>E</kbd> <kbd>Z</kbd> <kbd>-1.6</kbd> <kbd>Enter</kbd>（數字依你的圓柱高度調整）。</p>
-        <p>注意不要挖穿底部，留下的底部厚度跟杯壁差不多就好。挖太深或太淺都不用重做，按 <kbd>F9</kbd> 叫回面板改距離即可。</p>
+        <p>注意不要挖穿底部。照上面的示範數字算：預設圓柱高 2，杯壁縮到 0.9 等於厚 0.1，往下 1.6 之後底部還留 0.4——比杯壁厚一些是正常的，真實杯子的底部本來就比較厚，不必刻意調成一樣。挖太深或太淺都不用重做，按 <kbd>F9</kbd> 叫回面板改距離即可。</p>
       </details>
     </li>
 
@@ -402,7 +402,7 @@ footer{margin:3.5rem 0 0; padding-top:1.2rem; border-top:1px solid var(--line); 
     <p>你往下移動的距離，跟圓柱本身的高度比起來如何？</p>
     <details class="answer">
       <summary>還是不行，看答案</summary>
-      <p>挖的距離超過了「圓柱高度減去你想留的底部厚度」。不用重做——按 <kbd>F9</kbd> 叫回 Adjust Last Operation 面板，把 Move Z 的數值改小一點。</p>
+      <p>挖的距離超過了「圓柱高度減去你想留的底部厚度」。不用重做——按 <kbd>F9</kbd> 叫回 Adjust Last Operation 面板，把 <strong>Move Z</strong> 往 <strong>0 的方向</strong>調，例如 <kbd>-2.0</kbd> 改成 <kbd>-1.4</kbd>。它是負值，所以「調小」會挖得更深，方向剛好相反。</p>
       <p>中間已經做了別的操作、面板叫不回來，就 <kbd>Ctrl</kbd>+<kbd>Z</kbd> 退回去重挖。</p>
     </details>
   </details>
