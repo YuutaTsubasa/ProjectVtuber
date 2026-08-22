@@ -205,12 +205,12 @@ footer{margin:3.5rem 0 0; padding-top:1.2rem; border-top:1px solid var(--line); 
   <h2><span class="n">02</span>核心概念</h2>
 
   <div class="card">
-    <h3>Extrude ＝ 原地複製一份，再用側面接回去</h3>
-    <p>Extrude 做的事可以拆成兩半：先把你選中的面原地複製一份，用一圈新的側面把新舊兩份縫起來，然後才讓你移動那份新的。理解這個順序很重要，因為它解釋了 Day 3 的「搬面」跟今天的「長面」差在哪——搬面會把旁邊既有的幾何拉變形，長面則是憑空多出一圈側面，原本的邊界原封不動留在原地。</p>
+    <h3>Extrude ＝ 沿邊界長出一圈新幾何，再用側面接回去</h3>
+    <p>Extrude 做的事可以拆成兩半：先沿著你選中那個面的<strong>邊界</strong>複製出一圈新的頂點與邊，用一圈新的側面把新舊邊界縫起來，並把選中的面本身接到新邊界上；然後才讓你移動它。理解這個順序很重要，因為它解釋了 Day 3 的「搬面」跟今天的「長面」差在哪——搬面會把旁邊既有的幾何拉變形，長面則是憑空多出一圈側面，原本的邊界原封不動留在原地。</p>
     <p>常見誤解是把 Extrude 想成「把面往外拖」。如果只是拖，面數不會變；但 Extrude 之後模型確實變重了，因為多了一整圈側面。</p>
     <details>
       <summary>再深入一點（選讀）</summary>
-      <p>正因為「複製」和「移動」是兩個階段，你可以只做前半段——複製了但不移動。這在意外發生時是隱形錯誤（兩份面重疊在一起，肉眼看不出來），但今天做杯口時我們會<strong>故意</strong>用這個行為。同一個機制是坑還是工具，差別只在你知不知道自己在做什麼。</p>
+      <p>正因為「長出來」和「移動」是兩個階段，你可以只做前半段——長出來了但不移動。這在意外發生時是隱形錯誤（面看起來還是一個，但邊界多出一圈重複的頂點和一圈零面積的側面，肉眼看不出來），但今天做杯口時我們會<strong>故意</strong>用這個行為。同一個機制是坑還是工具，差別只在你知不知道自己在做什麼。</p>
     </details>
   </div>
 
@@ -305,7 +305,7 @@ footer{margin:3.5rem 0 0; padding-top:1.2rem; border-top:1px solid var(--line); 
       <p class="hint">你需要在同一個高度上多出一圈邊。想想有沒有辦法讓 Extrude 只做前半段——長出來，但不要移動。</p>
       <details class="answer">
         <summary>展開詳細操作</summary>
-        <p>按 <kbd>E</kbd> 之後<strong>不要動滑鼠，直接按 <kbd>Esc</kbd></strong>（按右鍵也一樣）。新的面已經產生了，只是和原本的面重疊在一起——這正是我們要的。</p>
+        <p>按 <kbd>E</kbd> 之後<strong>不要動滑鼠，直接按 <kbd>Esc</kbd></strong>（按右鍵也一樣）。新的幾何已經產生了：杯口邊界多出一圈新的頂點，和原本的邊界疊在同一個位置——這正是我們要的。</p>
         <p>接著在它還被選中的狀態下按 <kbd>S</kbd> 往內縮，左鍵確認。現在杯口上出現了一圈環狀的邊，中間就是等一下要往下挖的內圈。</p>
         <p>縮多少決定杯壁多厚。想精確一點就直接打數字：<kbd>S</kbd> <kbd>0.9</kbd> <kbd>Enter</kbd>。</p>
       </details>
@@ -355,7 +355,7 @@ footer{margin:3.5rem 0 0; padding-top:1.2rem; border-top:1px solid var(--line); 
   <p class="lede">全部打勾才算今天通過。勾選狀態存在這台裝置的瀏覽器裡。</p>
   <p class="lede">本日 curriculum 未列 Acceptance Criteria，以下由當日 Quest、遷移挑戰與通關條件推導。</p>
   <ul class="check">
-    <li><input type="checkbox" id="c1"><label for="c1">做出一個簡單的杯子／容器，杯壁有厚度、內部是凹下去的。</label></li>
+    <li><input type="checkbox" id="c1"><label for="c1">跟著範例做出一個簡單的杯子／容器。</label></li>
     <li><input type="checkbox" id="c2"><label for="c2">你不看步驟嘗試過用 Extrude 做一把非常簡單的低模劍，並能說出判斷過程（做出來了或卡在哪都算）。</label></li>
     <li><input type="checkbox" id="c3"><label for="c3">遇到「需要從既有幾何延伸形狀」的情況時，你會主動想到 Extrude。</label></li>
     <li><input type="checkbox" id="c4"><label for="c4">存到 <code class="path">work/p1/day04.blend</code>。</label></li>
@@ -372,7 +372,7 @@ footer{margin:3.5rem 0 0; padding-top:1.2rem; border-top:1px solid var(--line); 
     <p>你是不是在動作進行到一半時按了 <kbd>Esc</kbd> 或右鍵？想一下那個取消掉的到底是「長出來」還是「移動」。</p>
     <details class="answer">
       <summary>還是不行，看答案</summary>
-      <p><kbd>Esc</kbd> 取消的只有移動，新的幾何已經產生並且和原本的重疊在一起。如果那不是你要的，<kbd>Ctrl</kbd>+<kbd>Z</kbd> 退一步就乾淨了。</p>
+      <p><kbd>Esc</kbd> 取消的只有移動；新的幾何已經產生了，邊界多出一圈重複的頂點和一圈零面積的側面，和原本的疊在同一個位置。如果那不是你要的，<kbd>Ctrl</kbd>+<kbd>Z</kbd> 退一步就乾淨了。</p>
       <p>已經做了別的操作、退不回去的話，全選之後在 <strong>Mesh</strong> 選單裡找 <strong>Merge ▸ By Distance</strong>，把重疊的點合併掉。</p>
     </details>
   </details>
@@ -446,7 +446,7 @@ footer{margin:3.5rem 0 0; padding-top:1.2rem; border-top:1px solid var(--line); 
   <p>存檔到 <code class="path">work/p1/day04.blend</code>，然後回報下面三題。答得出來比做得漂亮重要。</p>
   <ol>
     <li>你的杯子從哪一個 primitive 開始？為什麼選它，而不是從 Cube 開始？</li>
-    <li>做劍的時候你從哪一個面開始長、總共分成幾段？每一段要停在哪裡是怎麼決定的？</li>
+    <li>做劍的時候你打算從哪一個面開始長、分成幾段？如果沒做出來，卡住的是哪一步——不知道從哪個面起頭，還是知道方向但操作不出來？</li>
     <li>用你自己的話說一次：什麼情況下你會想到「這裡該用 Extrude」？跟 Day 3 你把桌腳的面往下拉，差在哪裡？</li>
   </ol>
   <div class="card">

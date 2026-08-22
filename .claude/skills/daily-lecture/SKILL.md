@@ -60,7 +60,7 @@ curriculum 只有少數日子寫了 `Acceptance Criteria`——P1 的 14 天裡�
    <p class="lede">本日 curriculum 未列 Acceptance Criteria，以下由當日 {{CRITERIA_SOURCE}} 推導。</p>
    ```
 
-   例如 Day 2 是「Quest 與遷移挑戰」、Day 3 是「Quest 與重點句」、Day 4 是「Quest 與通關條件」、Day 6 是「Quest 與回報句」。不要固定寫「重點句」——那一天可能根本沒有重點句，講錯來源會讓學習者誤判哪些是課程原文、哪些是講義的推論。
+   例如 Day 2 是「Quest 與遷移挑戰」、Day 3 是「Quest 與重點句」、Day 4 是「Quest、遷移挑戰與通關條件」（該日 Quest A／Quest B／通關條件各推出一條）、Day 6 是「Quest 與回報句」。來源有幾種就寫幾種，不要照抄別天的組合。不要固定寫「重點句」——那一天可能根本沒有重點句，講錯來源會讓學習者誤判哪些是課程原文、哪些是講義的推論。
 
    反過來說，**當日有原文的話（例如 Day 1）不需要這一行**，把模板裡那兩個註解區塊（說明與範例）整個刪掉。留著會讓交付前的 `grep "{{"` 檢查數不到 0，逼出「為了清掉佔位符而硬填」的錯誤修法——那會讓頁面對一個確實有原文的日子聲稱「本日 curriculum 未列 Acceptance Criteria」。
 
