@@ -251,7 +251,7 @@ footer{margin:3.5rem 0 0; padding-top:1.2rem; border-top:1px solid var(--line); 
         <tr><td><kbd>Tab</kbd></td><td>Object / Edit Mode 切換</td><td>Day 3 已學：Extrude 只在 Edit Mode 有作用</td></tr>
         <tr><td><kbd>1</kbd> / <kbd>2</kbd> / <kbd>3</kbd></td><td>切換 Vertex / Edge / Face 選取模式</td><td>Day 3 已學：今天全程用 Face</td></tr>
         <tr><td><kbd>F9</kbd></td><td>叫回 Adjust Last Operation 面板</td><td>Day 2 已學：Extrude 的距離事後還能改</td></tr>
-        <tr><td><kbd>Numpad 1</kbd> / <kbd>3</kbd></td><td>前 / 側視圖</td><td>Day 1 已學：杯壁厚不厚、劍長不長，只有正交看得準</td></tr>
+        <tr><td><kbd>Numpad 1</kbd> / <kbd>3</kbd></td><td>前 / 側視圖</td><td>Day 1 已學：杯壁厚不厚、劍長不長，只有正交看得準。沒有 Numpad 就點 Gizmo 的 −Y ／ +X 兩顆球</td></tr>
         <tr><td><kbd>Ctrl</kbd>+<kbd>Z</kbd></td><td>Undo</td><td>Day 1 已學：長歪了退回去</td></tr>
       </tbody>
     </table>
@@ -296,7 +296,7 @@ footer{margin:3.5rem 0 0; padding-top:1.2rem; border-top:1px solid var(--line); 
       <details class="answer">
         <summary>展開詳細操作</summary>
         <p><kbd>Tab</kbd> 進 Edit Mode，按 <kbd>3</kbd> 切到 Face 選取模式。先 <kbd>Alt</kbd>+<kbd>A</kbd> 清空選取，再左鍵點圓柱的頂面，只有那一個面該是橘色的。</p>
-        <p>從側視圖（<kbd>Numpad 3</kbd>）確認你選到的是頂面不是底面——從斜上方看很容易誤判。</p>
+        <p>從側視圖（<kbd>Numpad 3</kbd>，或點 Gizmo 的 +X 球）確認你選到的是頂面不是底面——從斜上方看很容易誤判。</p>
       </details>
     </li>
 
@@ -326,7 +326,7 @@ footer{margin:3.5rem 0 0; padding-top:1.2rem; border-top:1px solid var(--line); 
       <p class="hint">透視視角會騙人，而且從外面根本看不到內部，得換個方式檢查。</p>
       <details class="answer">
         <summary>展開詳細操作</summary>
-        <p><kbd>Numpad 1</kbd>（前）與 <kbd>Numpad 3</kbd>（側）各看一次，確認兩件事：杯口那一圈的寬度從各個角度看是否一致，以及你往下挖的距離有沒有超過圓柱的高度。</p>
+        <p><kbd>Numpad 1</kbd>（前）與 <kbd>Numpad 3</kbd>（側）各看一次（沒有 Numpad 就點 Gizmo 的 −Y ／ +X 球），確認兩件事：杯口那一圈的寬度從各個角度看是否一致，以及你往下挖的距離有沒有超過圓柱的高度。</p>
         <p>想直接看穿的話，用 Day 3 那個 X-Ray（<kbd>Alt</kbd>+<kbd>Z</kbd>）從側面看最快，確認底部沒有被挖破。</p>
         <p><strong>看完記得再按一次 <kbd>Alt</kbd>+<kbd>Z</kbd> 關掉它。</strong>X-Ray 開著的時候框選會連背面的幾何一起選到（Day 3 踩過的坑），而下一步要自己選面把劍長出去，帶著它進去會很難查出問題出在哪。</p>
       </details>

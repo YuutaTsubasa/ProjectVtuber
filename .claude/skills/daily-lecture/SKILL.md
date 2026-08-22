@@ -80,6 +80,7 @@ curriculum 只有少數日子寫了 `Acceptance Criteria`——P1 的 14 天裡�
 - **n-gon 不一律當錯。** 若提到拓樸，說明它在什麼情境下才有後果。
 - **教材連結先驗證。** 引用外部教學（Donut 等）前確認連結與版本仍有效；失效就選同級替代並提醒把理由記進 STATUS。
 - **時間誠實。** `{{DURATION}}` 寫實際跟做時間，不是影片長度。零基礎跟做 20 分鐘教材花 60 分鐘是正常的。
+- **Numpad 一定要附替代路。** 使用者的鍵盤沒有 Numpad（見 STATUS 環境欄）。任何 `Numpad` 鍵出現的地方——快捷鍵表、步驟詳解、卡住了——都要同時給出不需要 Numpad 的做法：右上角座標軸 Gizmo（實心球 +X／+Y／+Z、空心球為負方向）、`View ▸ Viewpoint` 選單，或 <kbd>`</kbd> 的視角圓盤選單。<br>**不要建議開 Emulate Numpad。** 它會吃掉主鍵盤的 <kbd>1</kbd> <kbd>2</kbd> <kbd>3</kbd>，而那是 Day 3 起切 Vertex／Edge／Face 選取模式的鍵，衝突天天發生。
 
 ## Placeholders
 

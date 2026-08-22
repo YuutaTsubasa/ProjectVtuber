@@ -19,6 +19,7 @@
 |---|---|
 | Blender | Day 1 確認 Stable build 並記錄精確版本 |
 | 正式版版本號 | 待 Day 1 填入 |
+| 鍵盤 | **沒有 Numpad。** 講義中的 Numpad 操作一律附 Gizmo／`View ▸ Viewpoint`／<code>`</code> 圓盤選單的替代路；不使用 Emulate Numpad，因為它會佔用 Day 3 起要用的 <kbd>1</kbd> <kbd>2</kbd> <kbd>3</kbd> 選取模式鍵 |
 | 最終 Unity 專案 | `~/Repos/VtuberProject`（Unity 6000.3.6f1 + URP + NiloToon） |
 | 臉部追蹤 | iPhone / iFacialMocap |
 | 最終臉部規格 | ARKit 52 shape keys |

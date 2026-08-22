@@ -238,6 +238,7 @@ footer{margin:3.5rem 0 0; padding-top:1.2rem; border-top:1px solid var(--line); 
 <section id="keys">
   <h2><span class="n">03</span>今日快捷鍵</h2>
   <p class="lede">先看「解決什麼問題」那一欄，不要背按鍵。今天全部都是新的，之後的講義才會標示新舊。</p>
+  <p class="lede"><strong>鍵盤沒有 Numpad 的話</strong>，表格下面那一格列了三條替代路，先看那裡再回來。</p>
   <div class="scroll">
     <table>
       <thead><tr><th>按鍵</th><th>動作</th><th>解決什麼問題</th></tr></thead>
@@ -245,9 +246,9 @@ footer{margin:3.5rem 0 0; padding-top:1.2rem; border-top:1px solid var(--line); 
         <tr><td><kbd>中鍵拖曳</kbd></td><td>Orbit 旋轉視角</td><td>想從別的角度確認形狀對不對</td></tr>
         <tr><td><kbd>Shift</kbd>+<kbd>中鍵拖曳</kbd></td><td>Pan 平移視角</td><td>要看的東西跑到畫面邊緣</td></tr>
         <tr><td><kbd>滾輪</kbd></td><td>Zoom 縮放視角</td><td>在「看細節」和「看全貌」之間切換</td></tr>
-        <tr><td><kbd>Numpad 1</kbd> / <kbd>3</kbd> / <kbd>7</kbd></td><td>前 / 右 / 上 正交視角</td><td>需要精準對齊，不能被透視騙</td></tr>
-        <tr><td><kbd>Numpad 5</kbd></td><td>透視 / 正交切換</td><td>懷疑目前看到的比例是假的</td></tr>
-        <tr><td><kbd>Numpad .</kbd></td><td>聚焦到選取物件</td><td>物件不見了，或縮太遠找不到</td></tr>
+        <tr><td><kbd>Numpad 1</kbd> / <kbd>3</kbd> / <kbd>7</kbd></td><td>前 / 右 / 上 正交視角</td><td>需要精準對齊，不能被透視騙。沒有 Numpad 就點右上角 Gizmo 的 −Y ／ +X ／ +Z 球</td></tr>
+        <tr><td><kbd>Numpad 5</kbd></td><td>透視 / 正交切換</td><td>懷疑目前看到的比例是假的。沒有 Numpad 就用 View ▸ Perspective/Orthographic</td></tr>
+        <tr><td><kbd>Numpad .</kbd></td><td>聚焦到選取物件</td><td>物件不見了，或縮太遠找不到。沒有 Numpad 就用 View ▸ Frame Selected</td></tr>
         <tr><td><kbd>Home</kbd></td><td>把整個場景收進畫面</td><td>完全迷路，想重新看全貌</td></tr>
         <tr><td><kbd>左鍵</kbd></td><td>選取</td><td>決定接下來的操作要作用在誰身上</td></tr>
         <tr><td><kbd>Shift</kbd>+<kbd>A</kbd></td><td>Add 新增物件</td><td>場景裡需要多一個東西</td></tr>
@@ -264,8 +265,14 @@ footer{margin:3.5rem 0 0; padding-top:1.2rem; border-top:1px solid var(--line); 
   </div>
   <details>
     <summary>我的鍵盤沒有 Numpad（筆電常見）</summary>
-    <p>Edit ▸ Preferences ▸ Input ▸ 勾選 <strong>Emulate Numpad</strong>，之後主鍵盤上方的數字列就等同 Numpad。代價是那排數字原本的「切換 Collection 顯示」功能會被取代，現階段不影響。</p>
-    <p>另一個方式是直接用畫面右上角那組座標軸小工具（Gizmo），點紅 / 綠 / 藍球也能切到對應的正交視角。</p>
+    <p>不用開 Emulate Numpad——這門課有三條不需要 Numpad 的路，先用它們：</p>
+    <ol>
+      <li><strong>右上角的座標軸 Gizmo</strong>（最快）。三顆實心球是 +X／+Y／+Z、三顆空心球是負方向。點 <strong>+X</strong> 到右視、<strong>−Y</strong> 到前視、<strong>+Z</strong> 到上視、<strong>−Z</strong> 到底視。</li>
+      <li><strong>View ▸ Viewpoint</strong> 選單（最完整）。3D Viewport 左上角的 View 選單裡，六個方向都在，還會標出各自對應的 Numpad 鍵。</li>
+      <li><strong><kbd>`</kbd>（鍵盤左上角那個重音符）</strong>會叫出一圈視角的圓盤選單，放開時選中哪個就切到哪個。習慣之後比 Numpad 還快。</li>
+    </ol>
+    <p>表格裡另外兩個 Numpad 鍵也都在同一個 <strong>View</strong> 選單裡：<kbd>Numpad 5</kbd> 的透視／正交切換是 <strong>View ▸ Perspective/Orthographic</strong>，<kbd>Numpad .</kbd> 的聚焦到選取物件是 <strong>View ▸ Frame Selected</strong>。</p>
+    <p><strong>為什麼不建議 Emulate Numpad：</strong>它會讓主鍵盤上方的數字列整排變成 Numpad，代價是那排數字原本的功能全被吃掉——包括 <kbd>1</kbd> <kbd>2</kbd> <kbd>3</kbd>。Day 3 開始那三個鍵是用來切 Vertex／Edge／Face 選取模式的，是天天都會按的核心操作。用一個三天後會反咬你的設定，去換一個 Gizmo 就能做到的事，不划算。</p>
   </details>
 </section>
 
@@ -311,7 +318,8 @@ footer{margin:3.5rem 0 0; padding-top:1.2rem; border-top:1px solid var(--line); 
       <details class="answer">
         <summary>展開詳細操作</summary>
         <p><kbd>Numpad 1</kbd> 前視（從 −Y 看）、<kbd>Numpad 3</kbd> 右視（從 +X 看）、<kbd>Numpad 7</kbd> 上視（從 +Z 看）。左上角會顯示 <em>Front Orthographic</em> 之類的字樣。</p>
-        <p>接著按幾次 <kbd>Numpad 5</kbd> 在 Perspective / Orthographic 之間切換，注意方塊的邊在兩種模式下的差別——這就是透視會騙人的地方。</p>
+        <p>沒有 Numpad 的話，點右上角 Gizmo 的 <strong>−Y</strong>（前）、<strong>+X</strong>（右）、<strong>+Z</strong>（上）三顆球，效果一樣；<strong>View ▸ Viewpoint</strong> 選單裡也都有。</p>
+        <p>接著按幾次 <kbd>Numpad 5</kbd>（沒有 Numpad 就用 <strong>View ▸ Perspective/Orthographic</strong>）在 Perspective / Orthographic 之間切換，注意方塊的邊在兩種模式下的差別——這就是透視會騙人的地方。</p>
       </details>
     </li>
 
@@ -331,7 +339,7 @@ footer{margin:3.5rem 0 0; padding-top:1.2rem; border-top:1px solid var(--line); 
       <details class="answer">
         <summary>展開詳細操作</summary>
         <p>左鍵點選一個物件 → <kbd>G</kbd> → 按 <kbd>X</kbd>（或 <kbd>Y</kbd>）鎖軸 → 移動滑鼠 → 左鍵確認。</p>
-        <p>想要精確一點：<kbd>G</kbd> <kbd>X</kbd> <kbd>2</kbd> <kbd>Enter</kbd>，直接沿 X 軸位移 2 公尺。切到 <kbd>Numpad 7</kbd> 上視圖來擺位會更好判斷。</p>
+        <p>想要精確一點：<kbd>G</kbd> <kbd>X</kbd> <kbd>2</kbd> <kbd>Enter</kbd>，直接沿 X 軸位移 2 公尺。切到 <kbd>Numpad 7</kbd> 上視圖（或點 Gizmo 的 +Z 球）來擺位會更好判斷。</p>
       </details>
     </li>
 
@@ -398,7 +406,8 @@ footer{margin:3.5rem 0 0; padding-top:1.2rem; border-top:1px solid var(--line); 
     <p>正交視角一定要透過 Numpad 嗎？想一想 Blender 有沒有提供替代設定，或是畫面上的圖形入口。</p>
     <details class="answer">
       <summary>還是不行，看答案</summary>
-      <p>Edit ▸ Preferences ▸ Input ▸ 勾選 <strong>Emulate Numpad</strong>，主鍵盤數字列就能用。或直接點畫面右上角的座標軸 Gizmo：點紅球到右視、綠球到前/後視、藍球到上視。</p>
+      <p>用畫面右上角的座標軸 <strong>Gizmo</strong>：實心球是 +X／+Y／+Z，空心球是負方向。點 <strong>+X</strong> 到右視、<strong>−Y</strong> 到前視、<strong>+Z</strong> 到上視、<strong>−Z</strong> 到底視。或用 <strong>View ▸ Viewpoint</strong> 選單，六個方向都在。鍵盤派可以按 <kbd>`</kbd> 叫出視角圓盤選單。</p>
+      <p>Blender 確實有 Edit ▸ Preferences ▸ Input ▸ <strong>Emulate Numpad</strong> 這個設定，但別開——它會把主鍵盤的 <kbd>1</kbd> <kbd>2</kbd> <kbd>3</kbd> 一起吃掉，而 Day 3 起那三個鍵是切 Vertex／Edge／Face 選取模式用的。上面三條路都沒有這個副作用。</p>
     </details>
   </details>
 
@@ -437,7 +446,7 @@ footer{margin:3.5rem 0 0; padding-top:1.2rem; border-top:1px solid var(--line); 
         <tr>
           <td>一直待在透視視角判斷位置對不對</td>
           <td>透視會讓平行線看起來不平行，肉眼判斷會失準</td>
-          <td>要判斷對齊時先切 <kbd>Numpad 1</kbd> / <kbd>3</kbd> / <kbd>7</kbd> 正交視角</td>
+          <td>要判斷對齊時先切 <kbd>Numpad 1</kbd> / <kbd>3</kbd> / <kbd>7</kbd> 正交視角，或點右上角 Gizmo</td>
         </tr>
         <tr>
           <td>做完才想到要存檔，或整段沒存就關掉</td>

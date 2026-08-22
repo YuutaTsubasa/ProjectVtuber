@@ -243,7 +243,7 @@ footer{margin:3.5rem 0 0; padding-top:1.2rem; border-top:1px solid var(--line); 
         <tr><td><kbd>Alt</kbd>+<kbd>A</kbd><span class="new-tag">新</span></td><td>取消全選</td><td>選錯了要重來，比一個個點掉快</td></tr>
         <tr><td><kbd>Shift</kbd>+<kbd>左鍵</kbd><span class="new-tag">新</span></td><td>加選 / 減選</td><td>一次要選好幾個角落的面</td></tr>
         <tr><td><kbd>右鍵 ▸ Subdivide</kbd><span class="new-tag">新</span></td><td>把選中的面均分切細</td><td>底部只有一個大面，沒有東西可以單獨選</td></tr>
-        <tr><td><kbd>Ctrl</kbd>+<kbd>Numpad 7</kbd><span class="new-tag">新</span></td><td>底視圖</td><td>桌腳要從下面選才看得到</td></tr>
+        <tr><td><kbd>Ctrl</kbd>+<kbd>Numpad 7</kbd><span class="new-tag">新</span></td><td>底視圖</td><td>桌腳要從下面選才看得到。沒有 Numpad 就點 Gizmo 的 −Z 空心球，或 View ▸ Viewpoint ▸ Bottom</td></tr>
         <tr><td><kbd>F9</kbd><span class="new-tag">新</span></td><td>叫回 Adjust Last Operation 面板</td><td>Subdivide 的面板被收起來，但還想改 Number of Cuts</td></tr>
         <tr><td><kbd>G</kbd> / <kbd>S</kbd></td><td>移動 / 縮放</td><td>Day 1 已學：在 Edit Mode 裡它們作用於選中的幾何</td></tr>
         <tr><td><kbd>Ctrl</kbd>+<kbd>Z</kbd></td><td>Undo</td><td>Day 1 已學：切壞了退回去</td></tr>
@@ -308,7 +308,7 @@ footer{margin:3.5rem 0 0; padding-top:1.2rem; border-top:1px solid var(--line); 
       <p class="hint">從正面選很容易連旁邊或背面的面一起抓到。換一個角度看會輕鬆很多。</p>
       <details class="answer">
         <summary>展開詳細操作</summary>
-        <p><kbd>Ctrl</kbd>+<kbd>Numpad 7</kbd> 切到底視圖，<kbd>3</kbd> 切到 Face 模式。先 <kbd>Alt</kbd>+<kbd>A</kbd> 清空選取，再左鍵點第一個角落的面，其餘三個用 <kbd>Shift</kbd>+左鍵加選。</p>
+        <p><kbd>Ctrl</kbd>+<kbd>Numpad 7</kbd> 切到底視圖（沒有 Numpad 就點 Gizmo 的 −Z 空心球，或 View ▸ Viewpoint ▸ Bottom），<kbd>3</kbd> 切到 Face 模式。先 <kbd>Alt</kbd>+<kbd>A</kbd> 清空選取，再左鍵點第一個角落的面，其餘三個用 <kbd>Shift</kbd>+左鍵加選。</p>
         <p>選好之後轉回透視角度確認一下——只有底部四個角該是橘色的。如果連上面也選到了，多半是開了 X-Ray（穿透選取），關掉它就只會選到看得見的面。</p>
       </details>
     </li>
@@ -379,7 +379,7 @@ footer{margin:3.5rem 0 0; padding-top:1.2rem; border-top:1px solid var(--line); 
     <p>兩個方向檢查：你現在的選取粒度對嗎？還有，你的視角能不能真的看見你要選的那四個面？</p>
     <details class="answer">
       <summary>還是不行，看答案</summary>
-      <p>先按 <kbd>3</kbd> 確認在 Face 模式，<kbd>Alt</kbd>+<kbd>A</kbd> 清空重來，並用 <kbd>Ctrl</kbd>+<kbd>Numpad 7</kbd> 轉到底視圖。如果點一個面卻連背面也選到，是 X-Ray（穿透選取）開著——在畫面右上角那排圖示裡把它關掉，或按 <kbd>Alt</kbd>+<kbd>Z</kbd> 切換。</p>
+      <p>先按 <kbd>3</kbd> 確認在 Face 模式，<kbd>Alt</kbd>+<kbd>A</kbd> 清空重來，並用 <kbd>Ctrl</kbd>+<kbd>Numpad 7</kbd>（或 Gizmo 的 −Z 空心球）轉到底視圖。如果點一個面卻連背面也選到，是 X-Ray（穿透選取）開著——在畫面右上角那排圖示裡把它關掉，或按 <kbd>Alt</kbd>+<kbd>Z</kbd> 切換。</p>
     </details>
   </details>
   <details>
