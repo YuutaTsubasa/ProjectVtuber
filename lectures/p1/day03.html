@@ -188,9 +188,21 @@ footer{margin:3.5rem 0 0; padding-top:1.2rem; border-top:1px solid var(--line); 
   <button type="button" id="reset">重設勾選</button>
 </div>
 
-<!-- ===== 01 為什麼 ===== -->
+<!-- ===== 01 今天做什麼 ===== -->
+
+<section id="quest">
+  <h2><span class="n">01</span>今天做什麼</h2>
+  <div class="card accent">
+    <h3>從 Cube 做一張非常簡單的桌子</h3>
+    <p>從 Cube 開始做一張非常簡單的桌子。</p>
+    <p class="lede">重點不是桌子，而是理解「改物件」與「改 mesh」是兩件不同的事。桌子醜沒有關係，分不清楚模式才是今天沒過。</p>
+  </div>
+</section>
+
+<!-- ===== 02 為什麼 ===== -->
+
 <section id="why">
-  <h2><span class="n">01</span>為什麼今天要學這個</h2>
+  <h2><span class="n">02</span>為什麼要學這個</h2>
   <p>Day 2 你把現成的形狀排在一起。但桌子不是任何一個 primitive 的形狀——沒有哪個內建物件長得像「一個板子加四隻腳」。今天第一次要動到形狀<strong>本身</strong>。</p>
   <p>問題是這樣的：一個 Cube 只有 8 個點、6 個面。桌面可以由它壓扁而來，但四隻腳呢？你需要能夠<strong>只抓住這顆 Cube 的一部分</strong>，把那一部分拉到別的地方去，而其餘部分不動。這件事在 Day 2 的 Object Mode 裡做不到——在那裡按 <em>移動</em>，整個物件會一起走。</p>
   <p>所以 Blender 把「改物件」和「改 mesh」分成兩個模式。今天真正要弄懂的是這條界線在哪裡，以及為什麼同一個按鍵在兩邊的意義完全不同。</p>
@@ -200,9 +212,11 @@ footer{margin:3.5rem 0 0; padding-top:1.2rem; border-top:1px solid var(--line); 
   </div>
 </section>
 
-<!-- ===== 02 核心概念 ===== -->
+<!-- ===== 03 動手前要知道的 ===== -->
+
 <section id="concepts">
-  <h2><span class="n">02</span>核心概念</h2>
+  <h2><span class="n">03</span>動手前要知道的</h2>
+  <p class="lede">只有這些是動手前非知道不可的。其餘概念放在會用到它的那一步裡，到時候再讀。</p>
   <div class="card">
     <h3>同一顆 Cube，兩種「改」</h3>
     <p>在 Object Mode 把 Cube 壓扁，你改的是這個<strong>物件</strong>的縮放值——mesh 裡那 8 個點的相對位置其實沒變，只是整個被壓縮著顯示。在 Edit Mode 把上面 4 個點往下拉，你改的是 <strong>mesh 資料</strong>本身，點真的移動了。畫面上看起來可能一樣，但它們是兩件不同的事。</p>
@@ -211,60 +225,12 @@ footer{margin:3.5rem 0 0; padding-top:1.2rem; border-top:1px solid var(--line); 
       <p>這條界線今天只要能分辨就好，但它之後會一直回來找你：物件層級的縮放會影響很多後續運算，而 mesh 層級的修改不會。現在先養成一個習慣——動手之前先問自己「我要改的是這個東西的擺放，還是它的形狀」。</p>
     </details>
   </div>
-  <div class="card">
-    <h3>Vertex / Edge / Face 是三種抓法，不是三種東西</h3>
-    <p>點、邊、面不是各自獨立存在的三種零件，而是同一份幾何的三種<strong>選取粒度</strong>。三個點圍起來就有一條條邊，邊圍起來就有面。切換選取模式不會改變模型，只改變你這一刻能抓住什麼。常見誤解是以為「要先切到面模式，模型才有面」。</p>
-    <details>
-      <summary>再深入一點（選讀）</summary>
-      <p>要挪動一個角落 → 用點最直接。要把一整圈邊往某方向推 → 用邊。要把一整塊區域整片移動 → 用面。選不到想要的東西時，先問「我現在的抓法對嗎」，通常比亂點有效。</p>
-    </details>
-  </div>
-  <div class="card">
-    <h3>想只動一部分，得先讓那一部分存在</h3>
-    <p>Cube 的底部只有<strong>一整個</strong>面。你沒辦法「只選底部的四個角落」，因為那四個角落在幾何上還不是獨立的面——它們就是同一個面。要做出四隻腳，得先把那個大面切成更多小面，才有東西可以單獨選取、單獨拉開。</p>
-    <details>
-      <summary>再深入一點（選讀）</summary>
-      <p>這是建模最基本的循環之一：<em>需要更多控制點 → 先增加幾何 → 再選取 → 再變形</em>。今天用最簡單的切法把面均分。之後會學到更精準的切法，但思路是同一個。</p>
-    </details>
-  </div>
-</section>
+    </section>
 
-<!-- ===== 03 快捷鍵 ===== -->
-<section id="keys">
-  <h2><span class="n">03</span>今日快捷鍵</h2>
-  <p class="lede">先看「解決什麼問題」那一欄，不要背按鍵。</p>
-  <div class="scroll">
-    <table>
-      <thead><tr><th>按鍵</th><th>動作</th><th>解決什麼問題</th></tr></thead>
-      <tbody>
-        <tr><td><kbd>Tab</kbd><span class="new-tag">新</span></td><td>在 Object Mode 與 Edit Mode 之間切換</td><td>要改形狀還是要改擺放，先切到對的模式</td></tr>
-        <tr><td><kbd>1</kbd> / <kbd>2</kbd> / <kbd>3</kbd><span class="new-tag">新</span></td><td>切換 Vertex / Edge / Face 選取模式</td><td>決定這一刻你能抓住點、邊還是面</td></tr>
-        <tr><td><kbd>A</kbd><span class="new-tag">新</span></td><td>全選</td><td>要對整個 mesh 做一次性操作，例如把面切細</td></tr>
-        <tr><td><kbd>Alt</kbd>+<kbd>A</kbd><span class="new-tag">新</span></td><td>取消全選</td><td>選錯了要重來，比一個個點掉快</td></tr>
-        <tr><td><kbd>Shift</kbd>+<kbd>左鍵</kbd><span class="new-tag">新</span></td><td>加選 / 減選</td><td>一次要選好幾個角落的面</td></tr>
-        <tr><td><kbd>右鍵 ▸ Subdivide</kbd><span class="new-tag">新</span></td><td>把選中的面均分切細</td><td>底部只有一個大面，沒有東西可以單獨選</td></tr>
-        <tr><td><kbd>Ctrl</kbd>+<kbd>Numpad 7</kbd><span class="new-tag">新</span></td><td>底視圖</td><td>桌腳要從下面選才看得到。沒有 Numpad 就點 Gizmo 的 −Z 空心球，或 View ▸ Viewpoint ▸ Bottom</td></tr>
-        <tr><td><kbd>F9</kbd><span class="new-tag">新</span></td><td>叫回 Adjust Last Operation 面板</td><td>Subdivide 的面板被收起來，但還想改 Number of Cuts</td></tr>
-        <tr><td><kbd>G</kbd> / <kbd>S</kbd></td><td>移動 / 縮放</td><td>Day 1 已學：在 Edit Mode 裡它們作用於選中的幾何</td></tr>
-        <tr><td><kbd>Ctrl</kbd>+<kbd>Z</kbd></td><td>Undo</td><td>Day 1 已學：切壞了退回去</td></tr>
-      </tbody>
-    </table>
-  </div>
-</section>
+<!-- ===== 04 操作流程 ===== -->
 
-<!-- ===== 04 今日 Quest ===== -->
-<section id="quest">
-  <h2><span class="n">04</span>今日 Quest</h2>
-  <div class="card accent">
-    <h3>從 Cube 做一張非常簡單的桌子</h3>
-    <p>從 Cube 開始做一張非常簡單的桌子。</p>
-    <p class="lede">重點不是桌子，而是理解「改物件」與「改 mesh」是兩件不同的事。桌子醜沒有關係，分不清楚模式才是今天沒過。</p>
-  </div>
-</section>
-
-<!-- ===== 05 操作流程 ===== -->
 <section id="flow">
-  <h2><span class="n">05</span>操作流程</h2>
+  <h2><span class="n">04</span>操作流程</h2>
   <p class="lede">每一步先看「要達成什麼」，自己試兩分鐘再展開詳解。展開不扣分，直接展開才會少學東西。</p>
   <ol class="steps">
     <li>
@@ -288,6 +254,11 @@ footer{margin:3.5rem 0 0; padding-top:1.2rem; border-top:1px solid var(--line); 
     <li>
       <span class="what">把三種選取粒度各按一次，感受差別</span>
       <p class="hint">不要急著做桌子。先各按一次，看看畫面上被高亮的東西有什麼不同。</p>
+      <details>
+        <summary>Vertex / Edge / Face 是三種抓法，不是三種東西（選讀）</summary>
+        <p>點、邊、面不是各自獨立存在的三種零件，而是同一份幾何的三種<strong>選取粒度</strong>。三個點圍起來就有一條條邊，邊圍起來就有面。切換選取模式不會改變模型，只改變你這一刻能抓住什麼。常見誤解是以為「要先切到面模式，模型才有面」。</p>
+        <p>要挪動一個角落 → 用點最直接。要把一整圈邊往某方向推 → 用邊。要把一整塊區域整片移動 → 用面。選不到想要的東西時，先問「我現在的抓法對嗎」，通常比亂點有效。</p>
+      </details>
       <details class="answer">
         <summary>展開詳細操作</summary>
         <p><kbd>1</kbd> = Vertex（點）、<kbd>2</kbd> = Edge（邊）、<kbd>3</kbd> = Face（面）。在每個模式下都點一下 Cube 的同一個角落，觀察選中的範圍。</p>
@@ -297,6 +268,11 @@ footer{margin:3.5rem 0 0; padding-top:1.2rem; border-top:1px solid var(--line); 
     <li>
       <span class="what">把 Cube 的面切細，讓底部出現可以單獨選取的角落</span>
       <p class="hint">目標是讓底部從「一個大面」變成「九個小面」，四個角落才會獨立出來。</p>
+      <details>
+        <summary>想只動一部分，得先讓那一部分存在（選讀）</summary>
+        <p>Cube 的底部只有<strong>一整個</strong>面。你沒辦法「只選底部的四個角落」，因為那四個角落在幾何上還不是獨立的面——它們就是同一個面。要做出四隻腳，得先把那個大面切成更多小面，才有東西可以單獨選取、單獨拉開。</p>
+        <p>這是建模最基本的循環之一：<em>需要更多控制點 → 先增加幾何 → 再選取 → 再變形</em>。今天用最簡單的切法把面均分。之後會學到更精準的切法，但思路是同一個。</p>
+      </details>
       <details class="answer">
         <summary>展開詳細操作</summary>
         <p>先 <kbd>A</kbd> 全選，然後在 Viewport 裡按<strong>右鍵</strong> ▸ <strong>Subdivide</strong>。</p>
@@ -328,7 +304,7 @@ footer{margin:3.5rem 0 0; padding-top:1.2rem; border-top:1px solid var(--line); 
         <summary>展開詳細操作</summary>
         <p><strong>Edit Mode 的做法：</strong>選中桌面上半部的點或面，<kbd>G</kbd> <kbd>Z</kbd> 往下壓。mesh 真的被改變了。</p>
         <p><strong>Object Mode 的做法：</strong><kbd>Tab</kbd> 回去，<kbd>S</kbd> <kbd>Z</kbd> 壓扁。這改的是物件的縮放值，mesh 沒動——而且會連四隻腳一起壓扁。</p>
-        <p>今天兩種都允許，但你要能說出剛才選了哪一種、為什麼。這就是第 09 節會問你的事。</p>
+        <p>今天兩種都允許，但你要能說出剛才選了哪一種、為什麼。這就是第 08 節會問你的事。</p>
       </details>
     </li>
     <li>
@@ -342,21 +318,10 @@ footer{margin:3.5rem 0 0; padding-top:1.2rem; border-top:1px solid var(--line); 
   </ol>
 </section>
 
-<!-- ===== 06 驗收 ===== -->
-<section id="accept">
-  <h2><span class="n">06</span>驗收標準</h2>
-  <p class="lede">全部打勾才算今天通過。勾選狀態存在這台裝置的瀏覽器裡。</p>
-  <p class="lede">本日 curriculum 未列 Acceptance Criteria，以下由當日 Quest 與重點句推導。</p>
-  <ul class="check">
-    <li><input type="checkbox" id="c1"><label for="c1">從一個 Cube 開始，做出一張非常簡單的桌子（桌面加四隻腳看得出來就好）。</label></li>
-    <li><input type="checkbox" id="c2"><label for="c2">能說出「改物件」與「改 mesh」是兩件不同的事，以及你剛才哪一步用了哪一種。</label></li>
-    <li><input type="checkbox" id="c3"><label for="c3">存到 <code class="path">work/p1/day03.blend</code>。</label></li>
-  </ul>
-</section>
+<!-- ===== 05 卡住了 ===== -->
 
-<!-- ===== 07 卡住了 ===== -->
 <section id="stuck">
-  <h2><span class="n">07</span>卡住了？</h2>
+  <h2><span class="n">05</span>卡住了？</h2>
   <p class="lede">照症狀找，先自我診斷，答案在第二層。</p>
   <details>
     <summary>按了鍵沒反應，或同一個鍵好像變了意思</summary>
@@ -392,9 +357,10 @@ footer{margin:3.5rem 0 0; padding-top:1.2rem; border-top:1px solid var(--line); 
   </details>
 </section>
 
-<!-- ===== 08 常見錯誤 ===== -->
+<!-- ===== 06 常見錯誤 ===== -->
+
 <section id="pitfalls">
-  <h2><span class="n">08</span>常見錯誤</h2>
+  <h2><span class="n">06</span>常見錯誤</h2>
   <div class="scroll">
     <table>
       <thead><tr><th>常見做法</th><th>為什麼有問題</th><th>改成</th></tr></thead>
@@ -402,15 +368,29 @@ footer{margin:3.5rem 0 0; padding-top:1.2rem; border-top:1px solid var(--line); 
         <tr><td>在 Object Mode 壓扁，以為改到了形狀</td><td>改到的是物件的縮放值，mesh 本身沒變，而且會連桌腳一起壓扁</td><td>要改形狀就 <kbd>Tab</kbd> 進 Edit Mode 動點或面</td></tr>
         <tr><td>把 Edit Mode 的 Subdivide 當成 Subdivision Surface</td><td>名字像，但一個是切細幾何、一個是 Modifier 平滑整體，結果完全不同</td><td>今天只用 Edit Mode 全選後右鍵的 Subdivide</td></tr>
         <tr><td>切完面才發現刀數不夠，直接再切一次</td><td>在已經切過的面上再切，會得到不均勻的密度，之後更難選</td><td>先按 <kbd>F9</kbd> 叫回面板改 Number of Cuts；已經做了別的操作才用 <kbd>Ctrl</kbd>+<kbd>Z</kbd> 退回重切</td></tr>
-        <tr><td>想把桌子做得好看，開始加倒角和細節</td><td>curriculum 明寫「重點不是桌子」，今天驗的是分不分得清兩個模式</td><td>桌面加四隻腳就收工，時間留給第 09 節的三個問題</td></tr>
+        <tr><td>想把桌子做得好看，開始加倒角和細節</td><td>curriculum 明寫「重點不是桌子」，今天驗的是分不分得清兩個模式</td><td>桌面加四隻腳就收工，時間留給第 08 節的三個問題</td></tr>
       </tbody>
     </table>
   </div>
 </section>
 
-<!-- ===== 09 完成後 ===== -->
+<!-- ===== 07 驗收 ===== -->
+
+<section id="accept">
+  <h2><span class="n">07</span>驗收標準</h2>
+  <p class="lede">全部打勾才算今天通過。勾選狀態存在這台裝置的瀏覽器裡。</p>
+  <p class="lede">本日 curriculum 未列 Acceptance Criteria，以下由當日 Quest 與重點句推導。</p>
+  <ul class="check">
+    <li><input type="checkbox" id="c1"><label for="c1">從一個 Cube 開始，做出一張非常簡單的桌子（桌面加四隻腳看得出來就好）。</label></li>
+    <li><input type="checkbox" id="c2"><label for="c2">能說出「改物件」與「改 mesh」是兩件不同的事，以及你剛才哪一步用了哪一種。</label></li>
+    <li><input type="checkbox" id="c3"><label for="c3">存到 <code class="path">work/p1/day03.blend</code>。</label></li>
+  </ul>
+</section>
+
+<!-- ===== 08 完成後 ===== -->
+
 <section id="report">
-  <h2><span class="n">09</span>完成後回報</h2>
+  <h2><span class="n">08</span>完成後回報</h2>
   <p>存檔到 <code class="path">work/p1/day03.blend</code>，然後回報下面三題。答得出來比做得漂亮重要。</p>
   <ol>
     <li>你的四隻桌腳是怎麼「長出來」的？過程中你有沒有新增任何新的物件？</li>
@@ -421,6 +401,30 @@ footer{margin:3.5rem 0 0; padding-top:1.2rem; border-top:1px solid var(--line); 
     <h3>自檢指令（選用）</h3>
     <pre>blender -b work/p1/day03.blend --python tools/inspect_blend.py</pre>
     <p class="lede">這只是客觀觀察，不是評分結果。腳本沒報錯不等於通過。</p>
+  </div>
+</section>
+
+<!-- ===== 09 快捷鍵速查 ===== -->
+
+<section id="keys">
+  <h2><span class="n">09</span>快捷鍵速查</h2>
+  <p class="lede">先看「解決什麼問題」那一欄，不要背按鍵。</p>
+  <div class="scroll">
+    <table>
+      <thead><tr><th>按鍵</th><th>動作</th><th>解決什麼問題</th></tr></thead>
+      <tbody>
+        <tr><td><kbd>Tab</kbd><span class="new-tag">新</span></td><td>在 Object Mode 與 Edit Mode 之間切換</td><td>要改形狀還是要改擺放，先切到對的模式</td></tr>
+        <tr><td><kbd>1</kbd> / <kbd>2</kbd> / <kbd>3</kbd><span class="new-tag">新</span></td><td>切換 Vertex / Edge / Face 選取模式</td><td>決定這一刻你能抓住點、邊還是面</td></tr>
+        <tr><td><kbd>A</kbd><span class="new-tag">新</span></td><td>全選</td><td>要對整個 mesh 做一次性操作，例如把面切細</td></tr>
+        <tr><td><kbd>Alt</kbd>+<kbd>A</kbd><span class="new-tag">新</span></td><td>取消全選</td><td>選錯了要重來，比一個個點掉快</td></tr>
+        <tr><td><kbd>Shift</kbd>+<kbd>左鍵</kbd><span class="new-tag">新</span></td><td>加選 / 減選</td><td>一次要選好幾個角落的面</td></tr>
+        <tr><td><kbd>右鍵 ▸ Subdivide</kbd><span class="new-tag">新</span></td><td>把選中的面均分切細</td><td>底部只有一個大面，沒有東西可以單獨選</td></tr>
+        <tr><td><kbd>Ctrl</kbd>+<kbd>Numpad 7</kbd><span class="new-tag">新</span></td><td>底視圖</td><td>桌腳要從下面選才看得到。沒有 Numpad 就點 Gizmo 的 −Z 空心球，或 View ▸ Viewpoint ▸ Bottom</td></tr>
+        <tr><td><kbd>F9</kbd><span class="new-tag">新</span></td><td>叫回 Adjust Last Operation 面板</td><td>Subdivide 的面板被收起來，但還想改 Number of Cuts</td></tr>
+        <tr><td><kbd>G</kbd> / <kbd>S</kbd></td><td>移動 / 縮放</td><td>Day 1 已學：在 Edit Mode 裡它們作用於選中的幾何</td></tr>
+        <tr><td><kbd>Ctrl</kbd>+<kbd>Z</kbd></td><td>Undo</td><td>Day 1 已學：切壞了退回去</td></tr>
+      </tbody>
+    </table>
   </div>
 </section>
 

@@ -188,82 +188,10 @@ footer{margin:3.5rem 0 0; padding-top:1.2rem; border-top:1px solid var(--line); 
   <button type="button" id="reset">重設勾選</button>
 </div>
 
-<!-- ===== 01 為什麼 ===== -->
-<section id="why">
-  <h2><span class="n">01</span>為什麼今天要學這個</h2>
-  <p>Day 1 你已經能把一個物件搬到想要的位置。但真正的作品不會只有一顆球——它是一堆零件被安排在對的地方。零件一多，會冒出三個 Day 1 不存在的問題。</p>
-  <p>第一，<strong>新的零件會出現在哪裡？</strong>你按下新增之後，它不一定落在畫面中央，也不一定在原點。Blender 有一個明確的「放置點」在決定這件事，不知道它在哪，就會一直覺得物件亂跑。</p>
-  <p>第二，<strong>一模一樣的零件要怎麼來？</strong>機器人的兩隻手臂應該等長等粗。重新加一次再手動調到「看起來差不多」，永遠會差一點，而且改設計時要改兩次。</p>
-  <p>第三，<strong>「往上」是誰的上？</strong>當一個零件被你轉了 30 度，你叫它往上，它可能往斜的跑。這不是 Blender 壞了，是它在問你講的是世界的上，還是這個零件自己的上。</p>
-  <div class="card accent">
-    <h3>用一句話記住</h3>
-    <p>今天不學新形狀，學的是「一批現成零件怎麼被安排成一個東西」。</p>
-  </div>
-</section>
+<!-- ===== 01 今天做什麼 ===== -->
 
-<!-- ===== 02 核心概念 ===== -->
-<section id="concepts">
-  <h2><span class="n">02</span>核心概念</h2>
-  <div class="card">
-    <h3>新物件出現在 3D Cursor，不是畫面中央</h3>
-    <p>那個紅白相間的小圈圈就是 3D Cursor，它是 Blender 的「放置點」。你新增的每一個 primitive 都會生在它身上。常見誤解是以為新物件固定出現在世界原點——其實只要你不小心點過一次，它就搬家了，之後加的東西全部跟著歪。</p>
-    <details>
-      <summary>再深入一點（選讀）</summary>
-      <p>3D Cursor 除了決定新物件的位置，也可以當旋轉與縮放的中心點。今天用不到那個用法，只要記得「它在哪，新東西就生在哪」，以及怎麼把它送回原點就夠了。</p>
-    </details>
-  </div>
-  <div class="card">
-    <h3>Duplicate 不只是省時間，是保證一致</h3>
-    <p>需要兩隻一樣的手臂時，正確做法是做好一隻再複製，而不是加兩次再各自調整。複製出來的副本尺寸、比例、旋轉都與原件完全相同，你只要負責把它移到對的位置。</p>
-    <details>
-      <summary>再深入一點（選讀）</summary>
-      <p>Blender 有兩種複製：一種產生獨立的副本，改了不會互相影響；另一種讓副本共用同一份 mesh 資料，改任何一個其他都會跟著變。今天兩種都可以用，但要知道自己用的是哪一種——不然之後改了一邊，另一邊沒動（或全部一起動）都會很困惑。</p>
-    </details>
-  </div>
-  <div class="card">
-    <h3>Global 與 Local：「上」有兩個意思</h3>
-    <p>Global 是世界的座標軸，永遠不動；Local 是物件自己的座標軸，會跟著它一起轉。零件沒轉過的時候兩者重合，所以 Day 1 感覺不到差別。一旦零件斜了，你就必須決定要沿哪一組軸移動。斜著長出來的手臂要往「自己的長度方向」延伸時，用的是 Local。</p>
-    <details>
-      <summary>再深入一點（選讀）</summary>
-      <p>除了這兩種，Blender 還有 Normal、View 等其他 orientation。原理都一樣：先決定「以誰為準」，再談方向。今天只要能分辨世界的軸和物件自己的軸即可。</p>
-    </details>
-  </div>
-  <div class="card">
-    <h3>Object Mode 是在排零件，不是在改形狀</h3>
-    <p>今天全程待在 Object Mode。你在做的事情是「把現成的形狀擺到對的位置、調成對的大小」，不是去動它的點線面。另一個常見誤解是覺得零件要「合併成一個」才算完成——不需要，各自獨立的多個物件同樣是一個完整的模型。</p>
-    <details>
-      <summary>再深入一點（選讀）</summary>
-      <p>進 Edit Mode 改點線面是明天的事。今天刻意把手綁起來，是為了讓你先把「用簡單形狀組合出複雜東西」這件事練起來——這個思路在之後做角色時一樣有用。</p>
-    </details>
-  </div>
-</section>
-
-<!-- ===== 03 快捷鍵 ===== -->
-<section id="keys">
-  <h2><span class="n">03</span>今日快捷鍵</h2>
-  <p class="lede">先看「解決什麼問題」那一欄，不要背按鍵。</p>
-  <div class="scroll">
-    <table>
-      <thead><tr><th>按鍵</th><th>動作</th><th>解決什麼問題</th></tr></thead>
-      <tbody>
-        <tr><td><kbd>Shift</kbd>+<kbd>A</kbd><span class="new-tag">新</span></td><td>叫出 Add 選單</td><td>要把新的 primitive 放進場景時</td></tr>
-        <tr><td><kbd>Shift</kbd>+<kbd>D</kbd><span class="new-tag">新</span></td><td>Duplicate：複製成獨立副本</td><td>同一個零件要出現很多次，且各自可以微調</td></tr>
-        <tr><td><kbd>Alt</kbd>+<kbd>D</kbd><span class="new-tag">新</span></td><td>Duplicate Linked：複製但共用 mesh</td><td>想之後改一個、其他全部跟著改</td></tr>
-        <tr><td><kbd>Shift</kbd>+<kbd>C</kbd><span class="new-tag">新</span></td><td>3D Cursor 歸零並拉遠視角</td><td>新物件開始出現在奇怪的地方時，先把放置點救回原點</td></tr>
-        <tr><td><kbd>Shift</kbd>+<kbd>S</kbd><span class="new-tag">新</span></td><td>叫出 Snap 選單</td><td>只想把 Cursor 歸零、不想連視角一起動時</td></tr>
-        <tr><td><kbd>G</kbd> <kbd>X</kbd> <kbd>X</kbd><span class="new-tag">新</span></td><td>沿物件自己的 X 軸移動（連按兩次軸鍵）</td><td>零件被轉過角度，要沿它自己的方向移動時</td></tr>
-        <tr><td><kbd>F9</kbd><span class="new-tag">新</span></td><td>叫回 Adjust Last Operation 面板</td><td>左下角的操作面板被收起來，但還想改剛才那一步的參數</td></tr>
-        <tr><td><kbd>G</kbd> / <kbd>R</kbd> / <kbd>S</kbd></td><td>移動 / 旋轉 / 縮放</td><td>Day 1 已學：把零件擺到對的位置與大小</td></tr>
-        <tr><td><kbd>Numpad 1</kbd> / <kbd>3</kbd> / <kbd>7</kbd></td><td>前 / 側 / 上視圖</td><td>Day 1 已學：檢查零件有沒有在別的角度飄空。沒有 Numpad 就點右上角 Gizmo，或用 View ▸ Viewpoint</td></tr>
-        <tr><td><kbd>Ctrl</kbd>+<kbd>Z</kbd></td><td>Undo</td><td>Day 1 已學：擺壞了退回去</td></tr>
-      </tbody>
-    </table>
-  </div>
-</section>
-
-<!-- ===== 04 今日 Quest ===== -->
 <section id="quest">
-  <h2><span class="n">04</span>今日 Quest</h2>
+  <h2><span class="n">01</span>今天做什麼</h2>
   <div class="card accent">
     <h3>用 primitive 組一個機器人或雪人</h3>
     <p>只使用 primitives 做一個簡單機器人或雪人。不要追求漂亮。</p>
@@ -276,9 +204,39 @@ footer{margin:3.5rem 0 0; padding-top:1.2rem; border-top:1px solid var(--line); 
   </div>
 </section>
 
-<!-- ===== 05 操作流程 ===== -->
+<!-- ===== 02 為什麼 ===== -->
+
+<section id="why">
+  <h2><span class="n">02</span>為什麼要學這個</h2>
+  <p>Day 1 你已經能把一個物件搬到想要的位置。但真正的作品不會只有一顆球——它是一堆零件被安排在對的地方。零件一多，會冒出三個 Day 1 不存在的問題。</p>
+  <p>第一，<strong>新的零件會出現在哪裡？</strong>你按下新增之後，它不一定落在畫面中央，也不一定在原點。Blender 有一個明確的「放置點」在決定這件事，不知道它在哪，就會一直覺得物件亂跑。</p>
+  <p>第二，<strong>一模一樣的零件要怎麼來？</strong>機器人的兩隻手臂應該等長等粗。重新加一次再手動調到「看起來差不多」，永遠會差一點，而且改設計時要改兩次。</p>
+  <p>第三，<strong>「往上」是誰的上？</strong>當一個零件被你轉了 30 度，你叫它往上，它可能往斜的跑。這不是 Blender 壞了，是它在問你講的是世界的上，還是這個零件自己的上。</p>
+  <div class="card accent">
+    <h3>用一句話記住</h3>
+    <p>今天不學新形狀，學的是「一批現成零件怎麼被安排成一個東西」。</p>
+  </div>
+</section>
+
+<!-- ===== 03 動手前要知道的 ===== -->
+
+<section id="concepts">
+  <h2><span class="n">03</span>動手前要知道的</h2>
+  <p class="lede">只有這些是動手前非知道不可的。其餘概念放在會用到它的那一步裡，到時候再讀。</p>
+        <div class="card">
+    <h3>Object Mode 是在排零件，不是在改形狀</h3>
+    <p>今天全程待在 Object Mode。你在做的事情是「把現成的形狀擺到對的位置、調成對的大小」，不是去動它的點線面。另一個常見誤解是覺得零件要「合併成一個」才算完成——不需要，各自獨立的多個物件同樣是一個完整的模型。</p>
+    <details>
+      <summary>再深入一點（選讀）</summary>
+      <p>進 Edit Mode 改點線面是明天的事。今天刻意把手綁起來，是為了讓你先把「用簡單形狀組合出複雜東西」這件事練起來——這個思路在之後做角色時一樣有用。</p>
+    </details>
+  </div>
+</section>
+
+<!-- ===== 04 操作流程 ===== -->
+
 <section id="flow">
-  <h2><span class="n">05</span>操作流程</h2>
+  <h2><span class="n">04</span>操作流程</h2>
   <p class="lede">每一步先看「要達成什麼」，自己試兩分鐘再展開詳解。展開不扣分，直接展開才會少學東西。</p>
   <ol class="steps">
     <li>
@@ -293,6 +251,11 @@ footer{margin:3.5rem 0 0; padding-top:1.2rem; border-top:1px solid var(--line); 
     <li>
       <span class="what">確認新零件會生在你預期的位置</span>
       <p class="hint">新增的東西不是憑空出現在畫面中央。場景裡有一個小標記在決定落點，先確定它在原點。</p>
+      <details>
+        <summary>新物件出現在 3D Cursor，不是畫面中央（選讀）</summary>
+        <p>那個紅白相間的小圈圈就是 3D Cursor，它是 Blender 的「放置點」。你新增的每一個 primitive 都會生在它身上。常見誤解是以為新物件固定出現在世界原點——其實只要你不小心點過一次，它就搬家了，之後加的東西全部跟著歪。</p>
+        <p>3D Cursor 除了決定新物件的位置，也可以當旋轉與縮放的中心點。今天用不到那個用法，只要記得「它在哪，新東西就生在哪」，以及怎麼把它送回原點就夠了。</p>
+      </details>
       <details class="answer">
         <summary>展開詳細操作</summary>
         <p>找畫面中那個紅白虛線的小圈圈，就是 3D Cursor。按 <kbd>Shift</kbd>+<kbd>C</kbd> 會把它送回世界原點並把視角拉遠到看得見全部；如果你不想動到視角，改用 <kbd>Shift</kbd>+<kbd>S</kbd> 叫出 Snap 選單，選 <strong>Cursor to World Origin</strong>。</p>
@@ -311,6 +274,11 @@ footer{margin:3.5rem 0 0; padding-top:1.2rem; border-top:1px solid var(--line); 
     <li>
       <span class="what">把重複出現的零件複製出來，而不是重新加一次</span>
       <p class="hint">兩隻手臂應該完全一樣。想想「先做好一隻」跟「加兩次各自調」哪一種能保證一致。</p>
+      <details>
+        <summary>Duplicate 不只是省時間，是保證一致（選讀）</summary>
+        <p>需要兩隻一樣的手臂時，正確做法是做好一隻再複製，而不是加兩次再各自調整。複製出來的副本尺寸、比例、旋轉都與原件完全相同，你只要負責把它移到對的位置。</p>
+        <p>Blender 有兩種複製：一種產生獨立的副本，改了不會互相影響；另一種讓副本共用同一份 mesh 資料，改任何一個其他都會跟著變。今天兩種都可以用，但要知道自己用的是哪一種——不然之後改了一邊，另一邊沒動（或全部一起動）都會很困惑。</p>
+      </details>
       <details class="answer">
         <summary>展開詳細操作</summary>
         <p>選好做完的那一隻，<kbd>Shift</kbd>+<kbd>D</kbd> 複製，接著<strong>直接打軸向</strong>把副本移開，例如 <kbd>Shift</kbd>+<kbd>D</kbd> <kbd>X</kbd> <kbd>2</kbd> <kbd>Enter</kbd>。複製完 Blender 就在等你移動，這時按左鍵或 <kbd>Esc</kbd> 會讓副本停在原地與原件重疊。</p>
@@ -321,6 +289,11 @@ footer{margin:3.5rem 0 0; padding-top:1.2rem; border-top:1px solid var(--line); 
     <li>
       <span class="what">處理「轉過角度的零件要怎麼移動」</span>
       <p class="hint">把一隻手臂轉斜之後，叫它往上，它會往斜的跑。先想想 Blender 這時候在問你什麼。</p>
+      <details>
+        <summary>Global 與 Local：「上」有兩個意思（選讀）</summary>
+        <p>Global 是世界的座標軸，永遠不動；Local 是物件自己的座標軸，會跟著它一起轉。零件沒轉過的時候兩者重合，所以 Day 1 感覺不到差別。一旦零件斜了，你就必須決定要沿哪一組軸移動。斜著長出來的手臂要往「自己的長度方向」延伸時，用的是 Local。</p>
+        <p>除了這兩種，Blender 還有 Normal、View 等其他 orientation。原理都一樣：先決定「以誰為準」，再談方向。今天只要能分辨世界的軸和物件自己的軸即可。</p>
+      </details>
       <details class="answer">
         <summary>展開詳細操作</summary>
         <p>先用 <kbd>R</kbd> 把手臂轉個角度，再試 <kbd>G</kbd> <kbd>Z</kbd>——它沿的是<strong>世界</strong>的 Z 軸。想沿手臂自己的方向，把軸鍵<strong>連按兩次</strong>：<kbd>G</kbd> <kbd>Z</kbd> <kbd>Z</kbd>。</p>
@@ -351,21 +324,10 @@ footer{margin:3.5rem 0 0; padding-top:1.2rem; border-top:1px solid var(--line); 
   </ol>
 </section>
 
-<!-- ===== 06 驗收 ===== -->
-<section id="accept">
-  <h2><span class="n">06</span>驗收標準</h2>
-  <p class="lede">全部打勾才算今天通過。勾選狀態存在這台裝置的瀏覽器裡。</p>
-  <p class="lede">本日 curriculum 未列 Acceptance Criteria，以下由當日 Quest 與遷移挑戰推導。</p>
-  <ul class="check">
-    <li><input type="checkbox" id="c1"><label for="c1">只使用 primitives 完成一個簡單機器人或雪人。</label></li>
-    <li><input type="checkbox" id="c2"><label for="c2">你嘗試過自己決定一個零件，並能說出判斷過程（做出來了或卡在哪都算）。</label></li>
-    <li><input type="checkbox" id="c3"><label for="c3">存到 <code class="path">work/p1/day02.blend</code>。</label></li>
-  </ul>
-</section>
+<!-- ===== 05 卡住了 ===== -->
 
-<!-- ===== 07 卡住了 ===== -->
 <section id="stuck">
-  <h2><span class="n">07</span>卡住了？</h2>
+  <h2><span class="n">05</span>卡住了？</h2>
   <p class="lede">照症狀找，先自我診斷，答案在第二層。</p>
   <details>
     <summary>新加的零件不見了，或跑到很遠的地方</summary>
@@ -401,9 +363,10 @@ footer{margin:3.5rem 0 0; padding-top:1.2rem; border-top:1px solid var(--line); 
   </details>
 </section>
 
-<!-- ===== 08 常見錯誤 ===== -->
+<!-- ===== 06 常見錯誤 ===== -->
+
 <section id="pitfalls">
-  <h2><span class="n">08</span>常見錯誤</h2>
+  <h2><span class="n">06</span>常見錯誤</h2>
   <div class="scroll">
     <table>
       <thead><tr><th>常見做法</th><th>為什麼有問題</th><th>改成</th></tr></thead>
@@ -417,9 +380,23 @@ footer{margin:3.5rem 0 0; padding-top:1.2rem; border-top:1px solid var(--line); 
   </div>
 </section>
 
-<!-- ===== 09 完成後 ===== -->
+<!-- ===== 07 驗收 ===== -->
+
+<section id="accept">
+  <h2><span class="n">07</span>驗收標準</h2>
+  <p class="lede">全部打勾才算今天通過。勾選狀態存在這台裝置的瀏覽器裡。</p>
+  <p class="lede">本日 curriculum 未列 Acceptance Criteria，以下由當日 Quest 與遷移挑戰推導。</p>
+  <ul class="check">
+    <li><input type="checkbox" id="c1"><label for="c1">只使用 primitives 完成一個簡單機器人或雪人。</label></li>
+    <li><input type="checkbox" id="c2"><label for="c2">你嘗試過自己決定一個零件，並能說出判斷過程（做出來了或卡在哪都算）。</label></li>
+    <li><input type="checkbox" id="c3"><label for="c3">存到 <code class="path">work/p1/day02.blend</code>。</label></li>
+  </ul>
+</section>
+
+<!-- ===== 08 完成後 ===== -->
+
 <section id="report">
-  <h2><span class="n">09</span>完成後回報</h2>
+  <h2><span class="n">08</span>完成後回報</h2>
   <p>存檔到 <code class="path">work/p1/day02.blend</code>，然後回報下面三題。答得出來比做得漂亮重要。</p>
   <ol>
     <li>你的模型由幾個零件組成？其中哪些是複製出來的、哪些是重新加的？</li>
@@ -430,6 +407,30 @@ footer{margin:3.5rem 0 0; padding-top:1.2rem; border-top:1px solid var(--line); 
     <h3>自檢指令（選用）</h3>
     <pre>blender -b work/p1/day02.blend --python tools/inspect_blend.py</pre>
     <p class="lede">這只是客觀觀察，不是評分結果。腳本沒報錯不等於通過。</p>
+  </div>
+</section>
+
+<!-- ===== 09 快捷鍵速查 ===== -->
+
+<section id="keys">
+  <h2><span class="n">09</span>快捷鍵速查</h2>
+  <p class="lede">先看「解決什麼問題」那一欄，不要背按鍵。</p>
+  <div class="scroll">
+    <table>
+      <thead><tr><th>按鍵</th><th>動作</th><th>解決什麼問題</th></tr></thead>
+      <tbody>
+        <tr><td><kbd>Shift</kbd>+<kbd>A</kbd><span class="new-tag">新</span></td><td>叫出 Add 選單</td><td>要把新的 primitive 放進場景時</td></tr>
+        <tr><td><kbd>Shift</kbd>+<kbd>D</kbd><span class="new-tag">新</span></td><td>Duplicate：複製成獨立副本</td><td>同一個零件要出現很多次，且各自可以微調</td></tr>
+        <tr><td><kbd>Alt</kbd>+<kbd>D</kbd><span class="new-tag">新</span></td><td>Duplicate Linked：複製但共用 mesh</td><td>想之後改一個、其他全部跟著改</td></tr>
+        <tr><td><kbd>Shift</kbd>+<kbd>C</kbd><span class="new-tag">新</span></td><td>3D Cursor 歸零並拉遠視角</td><td>新物件開始出現在奇怪的地方時，先把放置點救回原點</td></tr>
+        <tr><td><kbd>Shift</kbd>+<kbd>S</kbd><span class="new-tag">新</span></td><td>叫出 Snap 選單</td><td>只想把 Cursor 歸零、不想連視角一起動時</td></tr>
+        <tr><td><kbd>G</kbd> <kbd>X</kbd> <kbd>X</kbd><span class="new-tag">新</span></td><td>沿物件自己的 X 軸移動（連按兩次軸鍵）</td><td>零件被轉過角度，要沿它自己的方向移動時</td></tr>
+        <tr><td><kbd>F9</kbd><span class="new-tag">新</span></td><td>叫回 Adjust Last Operation 面板</td><td>左下角的操作面板被收起來，但還想改剛才那一步的參數</td></tr>
+        <tr><td><kbd>G</kbd> / <kbd>R</kbd> / <kbd>S</kbd></td><td>移動 / 旋轉 / 縮放</td><td>Day 1 已學：把零件擺到對的位置與大小</td></tr>
+        <tr><td><kbd>Numpad 1</kbd> / <kbd>3</kbd> / <kbd>7</kbd></td><td>前 / 側 / 上視圖</td><td>Day 1 已學：檢查零件有沒有在別的角度飄空。沒有 Numpad 就點右上角 Gizmo，或用 View ▸ Viewpoint</td></tr>
+        <tr><td><kbd>Ctrl</kbd>+<kbd>Z</kbd></td><td>Undo</td><td>Day 1 已學：擺壞了退回去</td></tr>
+      </tbody>
+    </table>
   </div>
 </section>
 

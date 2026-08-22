@@ -188,9 +188,21 @@ footer{margin:3.5rem 0 0; padding-top:1.2rem; border-top:1px solid var(--line); 
   <button type="button" id="reset">重設勾選</button>
 </div>
 
-<!-- ===== 01 為什麼 ===== -->
+<!-- ===== 01 今天做什麼 ===== -->
+
+<section id="quest">
+  <h2><span class="n">01</span>今天做什麼</h2>
+  <div class="card accent">
+    <h3>三個 primitive，三種姿態</h3>
+    <p>加入 Cube、Sphere、Cylinder，將三者移到不同位置、旋轉角度與尺寸。</p>
+    <p class="lede">不需要排得好看，也不需要有主題。今天要驗的是你能不能指哪打哪，不是美感。</p>
+  </div>
+</section>
+
+<!-- ===== 02 為什麼 ===== -->
+
 <section id="why">
-  <h2><span class="n">01</span>為什麼今天要學這個</h2>
+  <h2><span class="n">02</span>為什麼要學這個</h2>
   <p>Blender 的畫面，是一個三維空間被壓平投影到二維螢幕上的結果。你看到方塊「往右移動」，它在空間裡可能其實是往前、往後，或斜著跑。眼睛看到的位移，不等於實際發生的位移。</p>
   <p>這件事在今天只是有點煩，但到了做角色、對稱、對齊零件的時候會變成真正的災難——你會做出一個左右不對稱、但從某個角度看起來剛好正確的東西。所以第一天不建模，先處理更根本的問題：<strong>我怎麼確定自己正在看哪個方向，以及我正在往哪個軸移動。</strong></p>
   <p>Transform（移動 / 旋轉 / 縮放）則是 Blender 裡使用頻率最高的一組操作。之後每一天、每一個階段，你都會用到它們。今天把手感練起來，後面所有課都便宜。</p>
@@ -200,32 +212,14 @@ footer{margin:3.5rem 0 0; padding-top:1.2rem; border-top:1px solid var(--line); 
   </div>
 </section>
 
-<!-- ===== 02 核心概念 ===== -->
+<!-- ===== 03 動手前要知道的 ===== -->
+
 <section id="concepts">
-  <h2><span class="n">02</span>核心概念</h2>
+  <h2><span class="n">03</span>動手前要知道的</h2>
+  <p class="lede">只有這些是動手前非知道不可的。其餘概念放在會用到它的那一步裡，到時候再讀。</p>
 
-  <div class="card">
-    <h3>三個軸，以及正交視角</h3>
-    <p>Blender 的世界有三個軸：X（紅）、Y（綠）、Z（藍），而 <strong>Z 是「上」</strong>。畫面左下角永遠有一組小座標軸告訴你目前的朝向。</p>
-    <p>預設的透視（Perspective）視角比較像人眼，好看，但會讓平行線看起來不平行——拿來判斷「有沒有對齊」很不可靠。正交（Orthographic）視角沒有透視變形，是對齊專用的視角。</p>
-    <p><strong>常見誤解：</strong>以為「前視圖」就是「我現在看到的正面」。它其實是一個固定的方向（從 −Y 看向原點），跟你剛才把畫面轉到哪裡無關。</p>
-    <details>
-      <summary>再深入一點（選讀）</summary>
-      <p>Blender 採 Z-up，是沿用工程與 CAD 的慣例；Unity 則是 Y-up。之後匯出模型時會遇到軸向轉換的問題，但那是 P4 的事，今天完全不用管。</p>
-    </details>
-  </div>
-
-  <div class="card">
-    <h3>Transform 三兄弟：G / R / S</h3>
-    <p>移動（Grab）、旋轉（Rotate）、縮放（Scale）。三個的操作語法<strong>完全一樣</strong>：按下按鍵 → 進入該模式 → 移動滑鼠改變數值 → 左鍵確認、右鍵或 <kbd>Esc</kbd> 取消。</p>
-    <p>進入模式之後可以再按 <kbd>X</kbd> / <kbd>Y</kbd> / <kbd>Z</kbd> 把動作鎖在單一軸上，也可以直接打數字輸入精確值。學會這一組語法，等於一次學會三個工具。</p>
-    <p><strong>常見誤解：</strong>以為要先去左邊工具列點選「移動工具」才能移動。那些工具列按鈕是另一種操作方式，不是前提。</p>
-    <details>
-      <summary>再深入一點（選讀）</summary>
-      <p>取消（<kbd>Esc</kbd>）和 Undo（<kbd>Ctrl</kbd>+<kbd>Z</kbd>）不一樣。取消是「這次操作根本沒發生」，Undo 是「已經發生了，我要退回上一步」。操作到一半發現不對，用取消比較乾淨。</p>
-    </details>
-  </div>
-
+  
+  
   <div class="card">
     <h3>選取決定了「作用對象」</h3>
     <p>Blender 幾乎所有操作，作用的都是<strong>目前被選取的東西</strong>，而不是滑鼠底下的東西。按 <kbd>G</kbd> 之前沒有選到任何物件，就什麼事都不會發生。</p>
@@ -234,61 +228,10 @@ footer{margin:3.5rem 0 0; padding-top:1.2rem; border-top:1px solid var(--line); 
   </div>
 </section>
 
-<!-- ===== 03 快捷鍵 ===== -->
-<section id="keys">
-  <h2><span class="n">03</span>今日快捷鍵</h2>
-  <p class="lede">先看「解決什麼問題」那一欄，不要背按鍵。今天全部都是新的，之後的講義才會標示新舊。</p>
-  <p class="lede"><strong>鍵盤沒有 Numpad 的話</strong>，表格下面那一格列了三條替代路，先看那裡再回來。</p>
-  <div class="scroll">
-    <table>
-      <thead><tr><th>按鍵</th><th>動作</th><th>解決什麼問題</th></tr></thead>
-      <tbody>
-        <tr><td><kbd>中鍵拖曳</kbd></td><td>Orbit 旋轉視角</td><td>想從別的角度確認形狀對不對</td></tr>
-        <tr><td><kbd>Shift</kbd>+<kbd>中鍵拖曳</kbd></td><td>Pan 平移視角</td><td>要看的東西跑到畫面邊緣</td></tr>
-        <tr><td><kbd>滾輪</kbd></td><td>Zoom 縮放視角</td><td>在「看細節」和「看全貌」之間切換</td></tr>
-        <tr><td><kbd>Numpad 1</kbd> / <kbd>3</kbd> / <kbd>7</kbd></td><td>前 / 右 / 上 正交視角</td><td>需要精準對齊，不能被透視騙。沒有 Numpad 就點右上角 Gizmo 的 −Y ／ +X ／ +Z 球</td></tr>
-        <tr><td><kbd>Numpad 5</kbd></td><td>透視 / 正交切換</td><td>懷疑目前看到的比例是假的。沒有 Numpad 就用 View ▸ Perspective/Orthographic</td></tr>
-        <tr><td><kbd>Numpad .</kbd></td><td>聚焦到選取物件</td><td>物件不見了，或縮太遠找不到。沒有 Numpad 就用 View ▸ Frame Selected</td></tr>
-        <tr><td><kbd>Home</kbd></td><td>把整個場景收進畫面</td><td>完全迷路，想重新看全貌</td></tr>
-        <tr><td><kbd>左鍵</kbd></td><td>選取</td><td>決定接下來的操作要作用在誰身上</td></tr>
-        <tr><td><kbd>Shift</kbd>+<kbd>A</kbd></td><td>Add 新增物件</td><td>場景裡需要多一個東西</td></tr>
-        <tr><td><kbd>G</kbd></td><td>移動</td><td>物件位置不對</td></tr>
-        <tr><td><kbd>R</kbd></td><td>旋轉</td><td>物件角度不對</td></tr>
-        <tr><td><kbd>S</kbd></td><td>縮放</td><td>物件大小不對</td></tr>
-        <tr><td><kbd>X</kbd> / <kbd>Y</kbd> / <kbd>Z</kbd></td><td>（transform 中）鎖定單一軸</td><td>只想往一個方向動，不要歪掉</td></tr>
-        <tr><td><kbd>Esc</kbd> / <kbd>右鍵</kbd></td><td>取消目前的 transform</td><td>按下去才發現不是想做的事</td></tr>
-        <tr><td><kbd>Ctrl</kbd>+<kbd>Z</kbd></td><td>Undo</td><td>已經做壞了</td></tr>
-        <tr><td><kbd>N</kbd></td><td>開關右側 Item 面板</td><td>想確認目前的實際數值</td></tr>
-        <tr><td><kbd>Ctrl</kbd>+<kbd>S</kbd></td><td>儲存</td><td>不想白做</td></tr>
-      </tbody>
-    </table>
-  </div>
-  <details>
-    <summary>我的鍵盤沒有 Numpad（筆電常見）</summary>
-    <p>不用開 Emulate Numpad——這門課有三條不需要 Numpad 的路，先用它們：</p>
-    <ol>
-      <li><strong>右上角的座標軸 Gizmo</strong>（最快）。三顆實心球是 +X／+Y／+Z、三顆空心球是負方向。點 <strong>+X</strong> 到右視、<strong>−Y</strong> 到前視、<strong>+Z</strong> 到上視、<strong>−Z</strong> 到底視。</li>
-      <li><strong>View ▸ Viewpoint</strong> 選單（最完整）。3D Viewport 左上角的 View 選單裡，六個方向都在，還會標出各自對應的 Numpad 鍵。</li>
-      <li><strong><kbd>`</kbd>（鍵盤左上角那個重音符）</strong>會叫出一圈視角的圓盤選單，放開時選中哪個就切到哪個。習慣之後比 Numpad 還快。</li>
-    </ol>
-    <p>表格裡另外兩個 Numpad 鍵也都在同一個 <strong>View</strong> 選單裡：<kbd>Numpad 5</kbd> 的透視／正交切換是 <strong>View ▸ Perspective/Orthographic</strong>，<kbd>Numpad .</kbd> 的聚焦到選取物件是 <strong>View ▸ Frame Selected</strong>。</p>
-    <p><strong>為什麼不建議 Emulate Numpad：</strong>它會讓主鍵盤上方的數字列整排變成 Numpad，代價是那排數字原本的功能全被吃掉——包括 <kbd>1</kbd> <kbd>2</kbd> <kbd>3</kbd>。Day 3 開始那三個鍵是用來切 Vertex／Edge／Face 選取模式的，是天天都會按的核心操作。用一個三天後會反咬你的設定，去換一個 Gizmo 就能做到的事，不划算。</p>
-  </details>
-</section>
+<!-- ===== 04 操作流程 ===== -->
 
-<!-- ===== 04 今日 Quest ===== -->
-<section id="quest">
-  <h2><span class="n">04</span>今日 Quest</h2>
-  <div class="card accent">
-    <h3>三個 primitive，三種姿態</h3>
-    <p>加入 Cube、Sphere、Cylinder，將三者移到不同位置、旋轉角度與尺寸。</p>
-    <p class="lede">不需要排得好看，也不需要有主題。今天要驗的是你能不能指哪打哪，不是美感。</p>
-  </div>
-</section>
-
-<!-- ===== 05 操作流程 ===== -->
 <section id="flow">
-  <h2><span class="n">05</span>操作流程</h2>
+  <h2><span class="n">04</span>操作流程</h2>
   <p class="lede">每一步先看「要達成什麼」，自己試兩分鐘再展開詳解。展開不扣分，直接展開才會少學東西。</p>
   <ol class="steps">
 
@@ -315,6 +258,13 @@ footer{margin:3.5rem 0 0; padding-top:1.2rem; border-top:1px solid var(--line); 
     <li>
       <span class="what">練習切換三個主要正交視角，並觀察畫面左上角的變化</span>
       <p class="hint">切換的時候看左上角文字，它會直接告訴你現在站在哪個方向、是不是正交。</p>
+      <details>
+        <summary>三個軸，以及正交視角（選讀）</summary>
+        <p>Blender 的世界有三個軸：X（紅）、Y（綠）、Z（藍），而 <strong>Z 是「上」</strong>。畫面左下角永遠有一組小座標軸告訴你目前的朝向。</p>
+        <p>預設的透視（Perspective）視角比較像人眼，好看，但會讓平行線看起來不平行——拿來判斷「有沒有對齊」很不可靠。正交（Orthographic）視角沒有透視變形，是對齊專用的視角。</p>
+        <p><strong>常見誤解：</strong>以為「前視圖」就是「我現在看到的正面」。它其實是一個固定的方向（從 −Y 看向原點），跟你剛才把畫面轉到哪裡無關。</p>
+        <p>Blender 採 Z-up，是沿用工程與 CAD 的慣例；Unity 則是 Y-up。之後匯出模型時會遇到軸向轉換的問題，但那是 P4 的事，今天完全不用管。</p>
+      </details>
       <details class="answer">
         <summary>展開詳細操作</summary>
         <p><kbd>Numpad 1</kbd> 前視（從 −Y 看）、<kbd>Numpad 3</kbd> 右視（從 +X 看）、<kbd>Numpad 7</kbd> 上視（從 +Z 看）。左上角會顯示 <em>Front Orthographic</em> 之類的字樣。</p>
@@ -336,6 +286,13 @@ footer{margin:3.5rem 0 0; padding-top:1.2rem; border-top:1px solid var(--line); 
     <li>
       <span class="what">讓三個物件各自分開站好</span>
       <p class="hint">自由拖曳很容易讓物件在你沒注意的軸上偏掉。想辦法讓它只往一個方向動。</p>
+      <details>
+        <summary>Transform 三兄弟：G / R / S（選讀）</summary>
+        <p>移動（Grab）、旋轉（Rotate）、縮放（Scale）。三個的操作語法<strong>完全一樣</strong>：按下按鍵 → 進入該模式 → 移動滑鼠改變數值 → 左鍵確認、右鍵或 <kbd>Esc</kbd> 取消。</p>
+        <p>進入模式之後可以再按 <kbd>X</kbd> / <kbd>Y</kbd> / <kbd>Z</kbd> 把動作鎖在單一軸上，也可以直接打數字輸入精確值。學會這一組語法，等於一次學會三個工具。</p>
+        <p><strong>常見誤解：</strong>以為要先去左邊工具列點選「移動工具」才能移動。那些工具列按鈕是另一種操作方式，不是前提。</p>
+        <p>取消（<kbd>Esc</kbd>）和 Undo（<kbd>Ctrl</kbd>+<kbd>Z</kbd>）不一樣。取消是「這次操作根本沒發生」，Undo 是「已經發生了，我要退回上一步」。操作到一半發現不對，用取消比較乾淨。</p>
+      </details>
       <details class="answer">
         <summary>展開詳細操作</summary>
         <p>左鍵點選一個物件 → <kbd>G</kbd> → 按 <kbd>X</kbd>（或 <kbd>Y</kbd>）鎖軸 → 移動滑鼠 → 左鍵確認。</p>
@@ -365,21 +322,10 @@ footer{margin:3.5rem 0 0; padding-top:1.2rem; border-top:1px solid var(--line); 
   </ol>
 </section>
 
-<!-- ===== 06 驗收 ===== -->
-<section id="accept">
-  <h2><span class="n">06</span>驗收標準</h2>
-  <p class="lede">全部打勾才算今天通過。勾選狀態存在這台裝置的瀏覽器裡。</p>
-  <ul class="check">
-    <li><input type="checkbox" id="c1"><label for="c1">能不看筆記切換主要正交視角。</label></li>
-    <li><input type="checkbox" id="c2"><label for="c2">能選取指定物件並使用 G / R / S。</label></li>
-    <li><input type="checkbox" id="c3"><label for="c3"><code class="path">work/p1/day01.blend</code> 至少有 3 個不同 mesh。</label></li>
-    <li><input type="checkbox" id="c4"><label for="c4">確認目前使用的是 Blender Stable build，將精確版本記入 STATUS。</label></li>
-  </ul>
-</section>
+<!-- ===== 05 卡住了 ===== -->
 
-<!-- ===== 07 卡住了 ===== -->
 <section id="stuck">
-  <h2><span class="n">07</span>卡住了？</h2>
+  <h2><span class="n">05</span>卡住了？</h2>
   <p class="lede">照症狀找，先自我診斷，答案在第二層。</p>
 
   <details>
@@ -431,9 +377,10 @@ footer{margin:3.5rem 0 0; padding-top:1.2rem; border-top:1px solid var(--line); 
   </details>
 </section>
 
-<!-- ===== 08 常見錯誤 ===== -->
+<!-- ===== 06 常見錯誤 ===== -->
+
 <section id="pitfalls">
-  <h2><span class="n">08</span>常見錯誤</h2>
+  <h2><span class="n">06</span>常見錯誤</h2>
   <div class="scroll">
     <table>
       <thead><tr><th>常見做法</th><th>為什麼有問題</th><th>改成</th></tr></thead>
@@ -468,9 +415,23 @@ footer{margin:3.5rem 0 0; padding-top:1.2rem; border-top:1px solid var(--line); 
   </div>
 </section>
 
-<!-- ===== 09 完成後 ===== -->
+<!-- ===== 07 驗收 ===== -->
+
+<section id="accept">
+  <h2><span class="n">07</span>驗收標準</h2>
+  <p class="lede">全部打勾才算今天通過。勾選狀態存在這台裝置的瀏覽器裡。</p>
+  <ul class="check">
+    <li><input type="checkbox" id="c1"><label for="c1">能不看筆記切換主要正交視角。</label></li>
+    <li><input type="checkbox" id="c2"><label for="c2">能選取指定物件並使用 G / R / S。</label></li>
+    <li><input type="checkbox" id="c3"><label for="c3"><code class="path">work/p1/day01.blend</code> 至少有 3 個不同 mesh。</label></li>
+    <li><input type="checkbox" id="c4"><label for="c4">確認目前使用的是 Blender Stable build，將精確版本記入 STATUS。</label></li>
+  </ul>
+</section>
+
+<!-- ===== 08 完成後 ===== -->
+
 <section id="report">
-  <h2><span class="n">09</span>完成後回報</h2>
+  <h2><span class="n">08</span>完成後回報</h2>
   <p>存檔到 <code class="path">work/p1/day01.blend</code>，然後回報下面三題。答得出來比做得漂亮重要。</p>
   <ol>
     <li>你使用的 Blender 完整版本號是多少？你怎麼確認它是目前的 Stable build？</li>
@@ -482,6 +443,49 @@ footer{margin:3.5rem 0 0; padding-top:1.2rem; border-top:1px solid var(--line); 
     <pre>blender -b work/p1/day01.blend --python tools/inspect_blend.py</pre>
     <p class="lede">這只是客觀觀察，不是評分結果。腳本沒報錯不等於通過。</p>
   </div>
+</section>
+
+<!-- ===== 09 快捷鍵速查 ===== -->
+
+<section id="keys">
+  <h2><span class="n">09</span>快捷鍵速查</h2>
+  <p class="lede">先看「解決什麼問題」那一欄，不要背按鍵。今天全部都是新的，之後的講義才會標示新舊。</p>
+  <p class="lede"><strong>鍵盤沒有 Numpad 的話</strong>，表格下面那一格列了三條替代路，先看那裡再回來。</p>
+  <div class="scroll">
+    <table>
+      <thead><tr><th>按鍵</th><th>動作</th><th>解決什麼問題</th></tr></thead>
+      <tbody>
+        <tr><td><kbd>中鍵拖曳</kbd></td><td>Orbit 旋轉視角</td><td>想從別的角度確認形狀對不對</td></tr>
+        <tr><td><kbd>Shift</kbd>+<kbd>中鍵拖曳</kbd></td><td>Pan 平移視角</td><td>要看的東西跑到畫面邊緣</td></tr>
+        <tr><td><kbd>滾輪</kbd></td><td>Zoom 縮放視角</td><td>在「看細節」和「看全貌」之間切換</td></tr>
+        <tr><td><kbd>Numpad 1</kbd> / <kbd>3</kbd> / <kbd>7</kbd></td><td>前 / 右 / 上 正交視角</td><td>需要精準對齊，不能被透視騙。沒有 Numpad 就點右上角 Gizmo 的 −Y ／ +X ／ +Z 球</td></tr>
+        <tr><td><kbd>Numpad 5</kbd></td><td>透視 / 正交切換</td><td>懷疑目前看到的比例是假的。沒有 Numpad 就用 View ▸ Perspective/Orthographic</td></tr>
+        <tr><td><kbd>Numpad .</kbd></td><td>聚焦到選取物件</td><td>物件不見了，或縮太遠找不到。沒有 Numpad 就用 View ▸ Frame Selected</td></tr>
+        <tr><td><kbd>Home</kbd></td><td>把整個場景收進畫面</td><td>完全迷路，想重新看全貌</td></tr>
+        <tr><td><kbd>左鍵</kbd></td><td>選取</td><td>決定接下來的操作要作用在誰身上</td></tr>
+        <tr><td><kbd>Shift</kbd>+<kbd>A</kbd></td><td>Add 新增物件</td><td>場景裡需要多一個東西</td></tr>
+        <tr><td><kbd>G</kbd></td><td>移動</td><td>物件位置不對</td></tr>
+        <tr><td><kbd>R</kbd></td><td>旋轉</td><td>物件角度不對</td></tr>
+        <tr><td><kbd>S</kbd></td><td>縮放</td><td>物件大小不對</td></tr>
+        <tr><td><kbd>X</kbd> / <kbd>Y</kbd> / <kbd>Z</kbd></td><td>（transform 中）鎖定單一軸</td><td>只想往一個方向動，不要歪掉</td></tr>
+        <tr><td><kbd>Esc</kbd> / <kbd>右鍵</kbd></td><td>取消目前的 transform</td><td>按下去才發現不是想做的事</td></tr>
+        <tr><td><kbd>Ctrl</kbd>+<kbd>Z</kbd></td><td>Undo</td><td>已經做壞了</td></tr>
+        <tr><td><kbd>N</kbd></td><td>開關右側 Item 面板</td><td>想確認目前的實際數值</td></tr>
+        <tr><td><kbd>Ctrl</kbd>+<kbd>S</kbd></td><td>儲存</td><td>不想白做</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <details>
+    <summary>我的鍵盤沒有 Numpad（筆電常見）</summary>
+    <p>不用開 Emulate Numpad——這門課有三條不需要 Numpad 的路，先用它們：</p>
+    <ol>
+      <li><strong>右上角的座標軸 Gizmo</strong>（最快）。三顆實心球是 +X／+Y／+Z、三顆空心球是負方向。點 <strong>+X</strong> 到右視、<strong>−Y</strong> 到前視、<strong>+Z</strong> 到上視、<strong>−Z</strong> 到底視。</li>
+      <li><strong>View ▸ Viewpoint</strong> 選單（最完整）。3D Viewport 左上角的 View 選單裡，六個方向都在，還會標出各自對應的 Numpad 鍵。</li>
+      <li><strong><kbd>`</kbd>（鍵盤左上角那個重音符）</strong>會叫出一圈視角的圓盤選單，放開時選中哪個就切到哪個。習慣之後比 Numpad 還快。</li>
+    </ol>
+    <p>表格裡另外兩個 Numpad 鍵也都在同一個 <strong>View</strong> 選單裡：<kbd>Numpad 5</kbd> 的透視／正交切換是 <strong>View ▸ Perspective/Orthographic</strong>，<kbd>Numpad .</kbd> 的聚焦到選取物件是 <strong>View ▸ Frame Selected</strong>。</p>
+    <p><strong>為什麼不建議 Emulate Numpad：</strong>它會讓主鍵盤上方的數字列整排變成 Numpad，代價是那排數字原本的功能全被吃掉——包括 <kbd>1</kbd> <kbd>2</kbd> <kbd>3</kbd>。Day 3 開始那三個鍵是用來切 Vertex／Edge／Face 選取模式的，是天天都會按的核心操作。用一個三天後會反咬你的設定，去換一個 Gizmo 就能做到的事，不划算。</p>
+  </details>
 </section>
 
 <footer>

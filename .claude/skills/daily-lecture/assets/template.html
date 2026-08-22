@@ -188,49 +188,10 @@ footer{margin:3.5rem 0 0; padding-top:1.2rem; border-top:1px solid var(--line); 
   <button type="button" id="reset">重設勾選</button>
 </div>
 
-<!-- ===== 01 為什麼 ===== -->
-<section id="why">
-  <h2><span class="n">01</span>為什麼今天要學這個</h2>
-  <!-- 先講「這個工具解決什麼問題」，再講怎麼按。2-4 段。這一節不准出現快捷鍵表。 -->
-  <p>{{WHY_PROBLEM}}</p>
-  <div class="card accent">
-    <h3>用一句話記住</h3>
-    <p>{{WHY_ONELINER}}</p>
-  </div>
-</section>
+<!-- ===== 01 今天做什麼 ===== -->
 
-<!-- ===== 02 核心概念 ===== -->
-<section id="concepts">
-  <h2><span class="n">02</span>核心概念</h2>
-  <!-- 重複 .card，2-4 個。每個概念：是什麼 -> 什麼時候用 -> 常見誤解 -->
-  <div class="card">
-    <h3>{{CONCEPT_TITLE}}</h3>
-    <p>{{CONCEPT_BODY}}</p>
-    <details>
-      <summary>再深入一點（選讀）</summary>
-      <p>{{CONCEPT_DEEPER}}</p>
-    </details>
-  </div>
-</section>
-
-<!-- ===== 03 快捷鍵 ===== -->
-<section id="keys">
-  <h2><span class="n">03</span>今日快捷鍵</h2>
-  <p class="lede">先看「解決什麼問題」那一欄，不要背按鍵。</p>
-  <div class="scroll">
-    <table>
-      <thead><tr><th>按鍵</th><th>動作</th><th>解決什麼問題</th></tr></thead>
-      <tbody>
-        <!-- 重複 <tr>。今日新學的加 <span class="new-tag">新</span>，其餘視為複習。 -->
-        <tr><td><kbd>{{KEY}}</kbd><span class="new-tag">新</span></td><td>{{KEY_ACTION}}</td><td>{{KEY_WHY}}</td></tr>
-      </tbody>
-    </table>
-  </div>
-</section>
-
-<!-- ===== 04 今日 Quest ===== -->
 <section id="quest">
-  <h2><span class="n">04</span>今日 Quest</h2>
+  <h2><span class="n">01</span>今天做什麼</h2>
   <div class="card accent">
     <h3>{{QUEST_TITLE}}</h3>
     <p>{{QUEST_BODY}}</p>
@@ -243,9 +204,41 @@ footer{margin:3.5rem 0 0; padding-top:1.2rem; border-top:1px solid var(--line); 
   </div>
 </section>
 
-<!-- ===== 05 操作流程 ===== -->
+<!-- ===== 02 為什麼 ===== -->
+
+<section id="why">
+  <h2><span class="n">02</span>為什麼要學這個</h2>
+  <!-- 先講「這個工具解決什麼問題」，再講怎麼按。2-4 段。這一節不准出現快捷鍵表。 -->
+  <p>{{WHY_PROBLEM}}</p>
+  <div class="card accent">
+    <h3>用一句話記住</h3>
+    <p>{{WHY_ONELINER}}</p>
+  </div>
+</section>
+
+<!-- ===== 03 動手前要知道的 ===== -->
+
+<section id="concepts">
+  <h2><span class="n">03</span>動手前要知道的</h2>
+  <p class="lede">只有這些是動手前非知道不可的。其餘概念放在會用到它的那一步裡，到時候再讀。</p>
+  <!-- 這裡只留 1-2 張：貫穿全天、動手前非知道不可的概念。每張：是什麼 -> 什麼時候用 -> 常見誤解。
+       只在某一步才會用到的概念，不要放這裡——搬進第 04 節那一步，放在 .hint 之後、
+       details.answer 之前，寫成 <details><summary>{概念標題}（選讀）</summary>。
+       判準見 SKILL.md「概念卡放哪裡」。 -->
+  <div class="card">
+    <h3>{{CONCEPT_TITLE}}</h3>
+    <p>{{CONCEPT_BODY}}</p>
+    <details>
+      <summary>再深入一點（選讀）</summary>
+      <p>{{CONCEPT_DEEPER}}</p>
+    </details>
+  </div>
+</section>
+
+<!-- ===== 04 操作流程 ===== -->
+
 <section id="flow">
-  <h2><span class="n">05</span>操作流程</h2>
+  <h2><span class="n">04</span>操作流程</h2>
   <p class="lede">每一步先看「要達成什麼」，自己試兩分鐘再展開詳解。展開不扣分，直接展開才會少學東西。</p>
   <ol class="steps">
     <!-- 重複 <li>，5-9 步。what = 要達成什麼（不含按鍵）；hint = 一句方向提示；details = 完整按鍵步驟 -->
@@ -260,9 +253,40 @@ footer{margin:3.5rem 0 0; padding-top:1.2rem; border-top:1px solid var(--line); 
   </ol>
 </section>
 
-<!-- ===== 06 驗收 ===== -->
+<!-- ===== 05 卡住了 ===== -->
+
+<section id="stuck">
+  <h2><span class="n">05</span>卡住了？</h2>
+  <p class="lede">照症狀找，先自我診斷，答案在第二層。</p>
+  <!-- 重複 details，3-5 個常見症狀 -->
+  <details>
+    <summary>{{SYMPTOM}}</summary>
+    <p>{{SELF_CHECK}}</p>
+    <details class="answer">
+      <summary>還是不行，看答案</summary>
+      <p>{{FIX}}</p>
+    </details>
+  </details>
+</section>
+
+<!-- ===== 06 常見錯誤 ===== -->
+
+<section id="pitfalls">
+  <h2><span class="n">06</span>常見錯誤</h2>
+  <div class="scroll">
+    <table>
+      <thead><tr><th>常見做法</th><th>為什麼有問題</th><th>改成</th></tr></thead>
+      <tbody>
+        <tr><td>{{PITFALL}}</td><td>{{PITFALL_WHY}}</td><td>{{PITFALL_FIX}}</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ===== 07 驗收 ===== -->
+
 <section id="accept">
-  <h2><span class="n">06</span>驗收標準</h2>
+  <h2><span class="n">07</span>驗收標準</h2>
   <p class="lede">全部打勾才算今天通過。勾選狀態存在這台裝置的瀏覽器裡。</p>
   <!-- 這段說明是給產生講義的人看的，兩條路徑都一樣要在交付前刪掉自己，不要留進成品。
        curriculum 當日沒有 Acceptance Criteria 時（P1 十四天裡有十三天如此），把下面那個
@@ -278,37 +302,10 @@ footer{margin:3.5rem 0 0; padding-top:1.2rem; border-top:1px solid var(--line); 
   </ul>
 </section>
 
-<!-- ===== 07 卡住了 ===== -->
-<section id="stuck">
-  <h2><span class="n">07</span>卡住了？</h2>
-  <p class="lede">照症狀找，先自我診斷，答案在第二層。</p>
-  <!-- 重複 details，3-5 個常見症狀 -->
-  <details>
-    <summary>{{SYMPTOM}}</summary>
-    <p>{{SELF_CHECK}}</p>
-    <details class="answer">
-      <summary>還是不行，看答案</summary>
-      <p>{{FIX}}</p>
-    </details>
-  </details>
-</section>
+<!-- ===== 08 完成後 ===== -->
 
-<!-- ===== 08 常見錯誤 ===== -->
-<section id="pitfalls">
-  <h2><span class="n">08</span>常見錯誤</h2>
-  <div class="scroll">
-    <table>
-      <thead><tr><th>常見做法</th><th>為什麼有問題</th><th>改成</th></tr></thead>
-      <tbody>
-        <tr><td>{{PITFALL}}</td><td>{{PITFALL_WHY}}</td><td>{{PITFALL_FIX}}</td></tr>
-      </tbody>
-    </table>
-  </div>
-</section>
-
-<!-- ===== 09 完成後 ===== -->
 <section id="report">
-  <h2><span class="n">09</span>完成後回報</h2>
+  <h2><span class="n">08</span>完成後回報</h2>
   <p>存檔到 <code class="path">{{BLEND_PATH}}</code>，然後回報下面三題。答得出來比做得漂亮重要。</p>
   <ol>
     <!-- 重複 <li>，3 題。至少一題問「為什麼這樣選」而不是「你做了什麼」。 -->
@@ -318,6 +315,22 @@ footer{margin:3.5rem 0 0; padding-top:1.2rem; border-top:1px solid var(--line); 
     <h3>自檢指令（選用）</h3>
     <pre>{{INSPECT_CMD}}</pre>
     <p class="lede">這只是客觀觀察，不是評分結果。腳本沒報錯不等於通過。</p>
+  </div>
+</section>
+
+<!-- ===== 09 快捷鍵速查 ===== -->
+
+<section id="keys">
+  <h2><span class="n">09</span>快捷鍵速查</h2>
+  <p class="lede">先看「解決什麼問題」那一欄，不要背按鍵。</p>
+  <div class="scroll">
+    <table>
+      <thead><tr><th>按鍵</th><th>動作</th><th>解決什麼問題</th></tr></thead>
+      <tbody>
+        <!-- 重複 <tr>。今日新學的加 <span class="new-tag">新</span>，其餘視為複習。 -->
+        <tr><td><kbd>{{KEY}}</kbd><span class="new-tag">新</span></td><td>{{KEY_ACTION}}</td><td>{{KEY_WHY}}</td></tr>
+      </tbody>
+    </table>
   </div>
 </section>
 

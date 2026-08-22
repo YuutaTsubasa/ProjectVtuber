@@ -187,80 +187,10 @@ footer{margin:3.5rem 0 0; padding-top:1.2rem; border-top:1px solid var(--line); 
   <button type="button" id="reset">重設勾選</button>
 </div>
 
-<!-- ===== 01 為什麼 ===== -->
-<section id="why">
-  <h2><span class="n">01</span>為什麼今天要學這個</h2>
-  <p>Day 3 你把 Cube 底部的四個角落往下拉，長出了桌腳。但仔細想一下那件事的本質：你沒有做出任何新的面，只是把原本就存在的面搬到別的位置，旁邊的側面被動地被拉長了。</p>
-  <p>今天的杯子用那一招做不出來。杯子需要杯壁——一圈原本不存在的幾何。你沒辦法靠搬移既有的面變出它，因為圓柱的頂面就只有那一個面，把它往下壓只會得到一個矮圓柱，不會得到一個有內部空間的容器。</p>
-  <p>你需要的是一個能「從這個面再生一份出來，並且用側面把新舊兩份接起來」的操作。這就是 Extrude 在解決的問題：<strong>需要更多幾何的時候，從既有的地方長出來，而不是另外加一個物件塞進去。</strong></p>
-  <p>還有一件事跟著來：長出來之後要往哪個方向走，是你要決定的。Day 1 你在移動物件時學過把動作鎖在單一軸上——同一套想法今天會再用一次，只是這次被鎖住的是「新長出來的那一份往哪裡去」。</p>
-  <div class="card accent">
-    <h3>用一句話記住</h3>
-    <p>需要從既有幾何延伸出形狀時，該想到的是 Extrude，不是「再加一個物件」。</p>
-  </div>
-</section>
+<!-- ===== 01 今天做什麼 ===== -->
 
-<!-- ===== 02 核心概念 ===== -->
-<section id="concepts">
-  <h2><span class="n">02</span>核心概念</h2>
-
-  <div class="card">
-    <h3>Extrude ＝ 沿邊界長出一圈新幾何，再用側面接回去</h3>
-    <p>Extrude 做的事可以拆成兩半：先沿著你選中那個面的<strong>邊界</strong>複製出一圈新的頂點與邊，用一圈新的側面把新舊邊界縫起來，並把選中的面本身接到新邊界上；然後才讓你移動它。理解這個順序很重要，因為它解釋了 Day 3 的「搬面」跟今天的「長面」差在哪——搬面會把旁邊既有的幾何拉變形，長面則是憑空多出一圈側面，原本的邊界原封不動留在原地。</p>
-    <p>常見誤解是把 Extrude 想成「把面往外拖」。如果只是拖，面數不會變；但 Extrude 之後模型確實變重了，因為多了一整圈側面。</p>
-    <details>
-      <summary>再深入一點（選讀）</summary>
-      <p>正因為「長出來」和「移動」是兩個階段，你可以只做前半段——長出來了但不移動。這在意外發生時是隱形錯誤（面看起來還是一個，但邊界多出一圈重複的頂點和一圈零面積的側面，肉眼看不出來），但今天做杯口時我們會<strong>故意</strong>用這個行為。同一個機制是坑還是工具，差別只在你知不知道自己在做什麼。</p>
-    </details>
-  </div>
-
-  <div class="card">
-    <h3>預設方向是「面自己朝的方向」，不是世界的上</h3>
-    <p>啟動 Extrude 之後，新長出來的部分預設沿著這個面自己面向的方向走，而不是世界的垂直軸。頂面朝上時兩者剛好重合，所以你不會察覺；但一旦你對著一個斜面或側面 Extrude，它就會往斜的跑，那通常不是你要的。</p>
-    <p>要換方向，在 Extrude 進行中直接指定軸就好，這會蓋掉預設值。做杯子時你大部分時候會想明確鎖住垂直方向，而不是賭預設剛好對。</p>
-    <details>
-      <summary>再深入一點（選讀）</summary>
-      <p>選中多個面一起 Extrude 時，Blender 預設把它們當成一整塊區域往同一個方向長。另外有一種模式是讓每個面各自沿自己的方向長，出來的形狀完全不同。今天的杯子只會用到前者，知道有這回事就夠了。</p>
-    </details>
-  </div>
-
-  <div class="card">
-    <h3>杯壁的厚度，是兩次 Extrude 換來的</h3>
-    <p>一個有厚度的杯子，在幾何上是「一個外殼 ＋ 一個從杯口往下凹的內部」，兩者之間夾著一圈環狀的杯口。很多人第一次做會卡在「內部要從哪裡來」，然後退回去加第二個小圓柱塞進去——那會得到兩個互不相關的物件，不是一個容器。</p>
-    <p>正確的思路是：先在杯口那個面上做出一圈邊，把它分成外圈與內圈，再把內圈往下推。這兩件事今天都只用 Extrude 加上你已經會的縮放就能完成。</p>
-    <details>
-      <summary>再深入一點（選讀）</summary>
-      <p>之後你會學到專門用來「向內縮一圈」的工具，一步就能取代今天的兩個動作。今天刻意用比較土的做法，是因為它會逼你看清楚面是怎麼被分出來的——先看懂機制，之後用快捷工具才不會變成背步驟。</p>
-    </details>
-  </div>
-</section>
-
-<!-- ===== 03 快捷鍵 ===== -->
-<section id="keys">
-  <h2><span class="n">03</span>今日快捷鍵</h2>
-  <p class="lede">先看「解決什麼問題」那一欄，不要背按鍵。</p>
-  <div class="scroll">
-    <table>
-      <thead><tr><th>按鍵</th><th>動作</th><th>解決什麼問題</th></tr></thead>
-      <tbody>
-        <tr><td><kbd>E</kbd><span class="new-tag">新</span></td><td>Extrude Region：從選中的面長出新幾何</td><td>需要「原本沒有的面」時，從既有的地方長出來</td></tr>
-        <tr><td><kbd>E</kbd> ▸ <kbd>Esc</kbd><span class="new-tag">新</span></td><td>只長出幾何、不移動它</td><td>想在同一個位置把一個面分成外圈與內圈</td></tr>
-        <tr><td><kbd>E</kbd> ▸ <kbd>Z</kbd> / <kbd>X</kbd> / <kbd>Y</kbd><span class="new-tag">新</span></td><td>把 Extrude 鎖在指定的世界軸上</td><td>面朝著斜的方向，但你要它垂直長</td></tr>
-        <tr><td><kbd>Alt</kbd>+<kbd>E</kbd><span class="new-tag">新</span></td><td>Extrude 選單（含「每個面各自長」的模式）</td><td>一次選很多面、又不想它們黏成一整塊</td></tr>
-        <tr><td><kbd>S</kbd></td><td>縮放</td><td>Day 1 已學：今天用來把長出來的杯口面縮成內圈</td></tr>
-        <tr><td><kbd>Tab</kbd></td><td>Object / Edit Mode 切換</td><td>Day 3 已學：Extrude 只在 Edit Mode 有作用</td></tr>
-        <tr><td><kbd>1</kbd> / <kbd>2</kbd> / <kbd>3</kbd></td><td>切換 Vertex / Edge / Face 選取模式</td><td>Day 3 已學：今天全程用 Face</td></tr>
-        <tr><td><kbd>F9</kbd></td><td>叫回 Adjust Last Operation 面板</td><td>Day 2 已學：Extrude 的距離事後還能改</td></tr>
-        <tr><td><kbd>Numpad 1</kbd> / <kbd>3</kbd></td><td>前 / 側視圖</td><td>Day 1 已學：杯壁厚不厚、劍長不長，只有正交看得準。沒有 Numpad 就點 Gizmo 的 −Y ／ +X 兩顆球</td></tr>
-        <tr><td><kbd>Ctrl</kbd>+<kbd>Z</kbd></td><td>Undo</td><td>Day 1 已學：長歪了退回去</td></tr>
-      </tbody>
-    </table>
-  </div>
-</section>
-
-<!-- ===== 04 今日 Quest ===== -->
 <section id="quest">
-  <h2><span class="n">04</span>今日 Quest</h2>
+  <h2><span class="n">01</span>今天做什麼</h2>
   <div class="card accent">
     <h3>Quest A：簡單杯子／容器</h3>
     <p>跟著範例做一個簡單杯子/容器。</p>
@@ -273,9 +203,43 @@ footer{margin:3.5rem 0 0; padding-top:1.2rem; border-top:1px solid var(--line); 
   </div>
 </section>
 
-<!-- ===== 05 操作流程 ===== -->
+<!-- ===== 02 為什麼 ===== -->
+
+<section id="why">
+  <h2><span class="n">02</span>為什麼要學這個</h2>
+  <p>Day 3 你把 Cube 底部的四個角落往下拉，長出了桌腳。但仔細想一下那件事的本質：你沒有做出任何新的面，只是把原本就存在的面搬到別的位置，旁邊的側面被動地被拉長了。</p>
+  <p>今天的杯子用那一招做不出來。杯子需要杯壁——一圈原本不存在的幾何。你沒辦法靠搬移既有的面變出它，因為圓柱的頂面就只有那一個面，把它往下壓只會得到一個矮圓柱，不會得到一個有內部空間的容器。</p>
+  <p>你需要的是一個能「從這個面再生一份出來，並且用側面把新舊兩份接起來」的操作。這就是 Extrude 在解決的問題：<strong>需要更多幾何的時候，從既有的地方長出來，而不是另外加一個物件塞進去。</strong></p>
+  <p>還有一件事跟著來：長出來之後要往哪個方向走，是你要決定的。Day 1 你在移動物件時學過把動作鎖在單一軸上——同一套想法今天會再用一次，只是這次被鎖住的是「新長出來的那一份往哪裡去」。</p>
+  <div class="card accent">
+    <h3>用一句話記住</h3>
+    <p>需要從既有幾何延伸出形狀時，該想到的是 Extrude，不是「再加一個物件」。</p>
+  </div>
+</section>
+
+<!-- ===== 03 動手前要知道的 ===== -->
+
+<section id="concepts">
+  <h2><span class="n">03</span>動手前要知道的</h2>
+  <p class="lede">只有這些是動手前非知道不可的。其餘概念放在會用到它的那一步裡，到時候再讀。</p>
+
+  <div class="card">
+    <h3>Extrude ＝ 沿邊界長出一圈新幾何，再用側面接回去</h3>
+    <p>Extrude 做的事可以拆成兩半：先沿著你選中那個面的<strong>邊界</strong>複製出一圈新的頂點與邊，用一圈新的側面把新舊邊界縫起來，並把選中的面本身接到新邊界上；然後才讓你移動它。理解這個順序很重要，因為它解釋了 Day 3 的「搬面」跟今天的「長面」差在哪——搬面會把旁邊既有的幾何拉變形，長面則是憑空多出一圈側面，原本的邊界原封不動留在原地。</p>
+    <p>常見誤解是把 Extrude 想成「把面往外拖」。如果只是拖，面數不會變；但 Extrude 之後模型確實變重了，因為多了一整圈側面。</p>
+    <details>
+      <summary>再深入一點（選讀）</summary>
+      <p>正因為「長出來」和「移動」是兩個階段，你可以只做前半段——長出來了但不移動。這在意外發生時是隱形錯誤（面看起來還是一個，但邊界多出一圈重複的頂點和一圈零面積的側面，肉眼看不出來），但今天做杯口時我們會<strong>故意</strong>用這個行為。同一個機制是坑還是工具，差別只在你知不知道自己在做什麼。</p>
+    </details>
+  </div>
+
+  
+  </section>
+
+<!-- ===== 04 操作流程 ===== -->
+
 <section id="flow">
-  <h2><span class="n">05</span>操作流程</h2>
+  <h2><span class="n">04</span>操作流程</h2>
   <p class="lede">每一步先看「要達成什麼」，自己試兩分鐘再展開詳解。展開不扣分，直接展開才會少學東西。</p>
   <ol class="steps">
 
@@ -303,6 +267,12 @@ footer{margin:3.5rem 0 0; padding-top:1.2rem; border-top:1px solid var(--line); 
     <li>
       <span class="what">讓杯口從「一整個面」變成「外圈 ＋ 內圈」</span>
       <p class="hint">你需要在同一個高度上多出一圈邊。想想有沒有辦法讓 Extrude 只做前半段——長出來，但不要移動。</p>
+      <details>
+        <summary>杯壁的厚度，是兩次 Extrude 換來的（選讀）</summary>
+        <p>一個有厚度的杯子，在幾何上是「一個外殼 ＋ 一個從杯口往下凹的內部」，兩者之間夾著一圈環狀的杯口。很多人第一次做會卡在「內部要從哪裡來」，然後退回去加第二個小圓柱塞進去——那會得到兩個互不相關的物件，不是一個容器。</p>
+        <p>正確的思路是：先在杯口那個面上做出一圈邊，把它分成外圈與內圈，再把內圈往下推。這兩件事今天都只用 Extrude 加上你已經會的縮放就能完成。</p>
+        <p>之後你會學到專門用來「向內縮一圈」的工具，一步就能取代今天的兩個動作。今天刻意用比較土的做法，是因為它會逼你看清楚面是怎麼被分出來的——先看懂機制，之後用快捷工具才不會變成背步驟。</p>
+      </details>
       <details class="answer">
         <summary>展開詳細操作</summary>
         <p>按 <kbd>E</kbd> 之後<strong>不要動滑鼠，直接按 <kbd>Esc</kbd></strong>（按右鍵也一樣）。新的幾何已經產生了：杯口邊界多出一圈新的頂點，和原本的邊界疊在同一個位置——這正是我們要的。</p>
@@ -314,6 +284,12 @@ footer{margin:3.5rem 0 0; padding-top:1.2rem; border-top:1px solid var(--line); 
     <li>
       <span class="what">把內圈往下推，做出杯子的內部空間</span>
       <p class="hint">這一步要明確指定方向，不要相信預設值。面朝上時看起來一樣，但養成習慣比較安全。</p>
+      <details>
+        <summary>預設方向是「面自己朝的方向」，不是世界的上（選讀）</summary>
+        <p>啟動 Extrude 之後，新長出來的部分預設沿著這個面自己面向的方向走，而不是世界的垂直軸。頂面朝上時兩者剛好重合，所以你不會察覺；但一旦你對著一個斜面或側面 Extrude，它就會往斜的跑，那通常不是你要的。</p>
+        <p>要換方向，在 Extrude 進行中直接指定軸就好，這會蓋掉預設值。做杯子時你大部分時候會想明確鎖住垂直方向，而不是賭預設剛好對。</p>
+        <p>選中多個面一起 Extrude 時，Blender 預設把它們當成一整塊區域往同一個方向長。另外有一種模式是讓每個面各自沿自己的方向長，出來的形狀完全不同。今天的杯子只會用到前者，知道有這回事就夠了。</p>
+      </details>
       <details class="answer">
         <summary>展開詳細操作</summary>
         <p>內圈還選著的狀態下按 <kbd>E</kbd>，接著按 <kbd>Z</kbd> 把方向鎖在世界的垂直軸上，往下拖，左鍵確認。想精確就打負數，例如 <kbd>E</kbd> <kbd>Z</kbd> <kbd>-1.6</kbd> <kbd>Enter</kbd>（數字依你的圓柱高度調整）。</p>
@@ -350,22 +326,10 @@ footer{margin:3.5rem 0 0; padding-top:1.2rem; border-top:1px solid var(--line); 
   </ol>
 </section>
 
-<!-- ===== 06 驗收 ===== -->
-<section id="accept">
-  <h2><span class="n">06</span>驗收標準</h2>
-  <p class="lede">全部打勾才算今天通過。勾選狀態存在這台裝置的瀏覽器裡。</p>
-  <p class="lede">本日 curriculum 未列 Acceptance Criteria，以下由當日 Quest、遷移挑戰與通關條件推導。</p>
-  <ul class="check">
-    <li><input type="checkbox" id="c1"><label for="c1">跟著範例做出一個簡單的杯子／容器。</label></li>
-    <li><input type="checkbox" id="c2"><label for="c2">你不看步驟嘗試過用 Extrude 做一把非常簡單的低模劍，並能說出判斷過程（做出來了或卡在哪都算）。</label></li>
-    <li><input type="checkbox" id="c3"><label for="c3">遇到「需要從既有幾何延伸形狀」的情況時，你會主動想到 Extrude。</label></li>
-    <li><input type="checkbox" id="c4"><label for="c4">存到 <code class="path">work/p1/day04.blend</code>。</label></li>
-  </ul>
-</section>
+<!-- ===== 05 卡住了 ===== -->
 
-<!-- ===== 07 卡住了 ===== -->
 <section id="stuck">
-  <h2><span class="n">07</span>卡住了？</h2>
+  <h2><span class="n">05</span>卡住了？</h2>
   <p class="lede">照症狀找，先自我診斷，答案在第二層。</p>
 
   <details>
@@ -409,9 +373,10 @@ footer{margin:3.5rem 0 0; padding-top:1.2rem; border-top:1px solid var(--line); 
   </details>
 </section>
 
-<!-- ===== 08 常見錯誤 ===== -->
+<!-- ===== 06 常見錯誤 ===== -->
+
 <section id="pitfalls">
-  <h2><span class="n">08</span>常見錯誤</h2>
+  <h2><span class="n">06</span>常見錯誤</h2>
   <div class="scroll">
     <table>
       <thead><tr><th>常見做法</th><th>為什麼有問題</th><th>改成</th></tr></thead>
@@ -441,9 +406,24 @@ footer{margin:3.5rem 0 0; padding-top:1.2rem; border-top:1px solid var(--line); 
   </div>
 </section>
 
-<!-- ===== 09 完成後 ===== -->
+<!-- ===== 07 驗收 ===== -->
+
+<section id="accept">
+  <h2><span class="n">07</span>驗收標準</h2>
+  <p class="lede">全部打勾才算今天通過。勾選狀態存在這台裝置的瀏覽器裡。</p>
+  <p class="lede">本日 curriculum 未列 Acceptance Criteria，以下由當日 Quest、遷移挑戰與通關條件推導。</p>
+  <ul class="check">
+    <li><input type="checkbox" id="c1"><label for="c1">跟著範例做出一個簡單的杯子／容器。</label></li>
+    <li><input type="checkbox" id="c2"><label for="c2">你不看步驟嘗試過用 Extrude 做一把非常簡單的低模劍，並能說出判斷過程（做出來了或卡在哪都算）。</label></li>
+    <li><input type="checkbox" id="c3"><label for="c3">遇到「需要從既有幾何延伸形狀」的情況時，你會主動想到 Extrude。</label></li>
+    <li><input type="checkbox" id="c4"><label for="c4">存到 <code class="path">work/p1/day04.blend</code>。</label></li>
+  </ul>
+</section>
+
+<!-- ===== 08 完成後 ===== -->
+
 <section id="report">
-  <h2><span class="n">09</span>完成後回報</h2>
+  <h2><span class="n">08</span>完成後回報</h2>
   <p>存檔到 <code class="path">work/p1/day04.blend</code>，然後回報下面三題。答得出來比做得漂亮重要。</p>
   <ol>
     <li>你的杯子從哪一個 primitive 開始？為什麼選它，而不是從 Cube 開始？</li>
@@ -454,6 +434,30 @@ footer{margin:3.5rem 0 0; padding-top:1.2rem; border-top:1px solid var(--line); 
     <h3>自檢指令（選用）</h3>
     <pre>blender -b work/p1/day04.blend --python tools/inspect_blend.py</pre>
     <p class="lede">這只是客觀觀察，不是評分結果。腳本沒報錯不等於通過。</p>
+  </div>
+</section>
+
+<!-- ===== 09 快捷鍵速查 ===== -->
+
+<section id="keys">
+  <h2><span class="n">09</span>快捷鍵速查</h2>
+  <p class="lede">先看「解決什麼問題」那一欄，不要背按鍵。</p>
+  <div class="scroll">
+    <table>
+      <thead><tr><th>按鍵</th><th>動作</th><th>解決什麼問題</th></tr></thead>
+      <tbody>
+        <tr><td><kbd>E</kbd><span class="new-tag">新</span></td><td>Extrude Region：從選中的面長出新幾何</td><td>需要「原本沒有的面」時，從既有的地方長出來</td></tr>
+        <tr><td><kbd>E</kbd> ▸ <kbd>Esc</kbd><span class="new-tag">新</span></td><td>只長出幾何、不移動它</td><td>想在同一個位置把一個面分成外圈與內圈</td></tr>
+        <tr><td><kbd>E</kbd> ▸ <kbd>Z</kbd> / <kbd>X</kbd> / <kbd>Y</kbd><span class="new-tag">新</span></td><td>把 Extrude 鎖在指定的世界軸上</td><td>面朝著斜的方向，但你要它垂直長</td></tr>
+        <tr><td><kbd>Alt</kbd>+<kbd>E</kbd><span class="new-tag">新</span></td><td>Extrude 選單（含「每個面各自長」的模式）</td><td>一次選很多面、又不想它們黏成一整塊</td></tr>
+        <tr><td><kbd>S</kbd></td><td>縮放</td><td>Day 1 已學：今天用來把長出來的杯口面縮成內圈</td></tr>
+        <tr><td><kbd>Tab</kbd></td><td>Object / Edit Mode 切換</td><td>Day 3 已學：Extrude 只在 Edit Mode 有作用</td></tr>
+        <tr><td><kbd>1</kbd> / <kbd>2</kbd> / <kbd>3</kbd></td><td>切換 Vertex / Edge / Face 選取模式</td><td>Day 3 已學：今天全程用 Face</td></tr>
+        <tr><td><kbd>F9</kbd></td><td>叫回 Adjust Last Operation 面板</td><td>Day 2 已學：Extrude 的距離事後還能改</td></tr>
+        <tr><td><kbd>Numpad 1</kbd> / <kbd>3</kbd></td><td>前 / 側視圖</td><td>Day 1 已學：杯壁厚不厚、劍長不長，只有正交看得準。沒有 Numpad 就點 Gizmo 的 −Y ／ +X 兩顆球</td></tr>
+        <tr><td><kbd>Ctrl</kbd>+<kbd>Z</kbd></td><td>Undo</td><td>Day 1 已學：長歪了退回去</td></tr>
+      </tbody>
+    </table>
   </div>
 </section>
 
